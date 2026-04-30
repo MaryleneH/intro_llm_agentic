@@ -49,7 +49,8 @@ $presentation-h3-font-size: 1.1em;
   text-align: left;
 }
 
-.reveal .slides section {
+/* Only apply flex to the ACTIVE slide — Reveal.js uses display:none to hide others */
+.reveal .slides section.present {
   height: 100%;
   display: flex;
   flex-direction: column;
