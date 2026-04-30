@@ -3,7 +3,8 @@ project:
   output-dir: docs
 
 website:
-  title: "LLMs & IA Agentique pour PMs"
+  title: "LLMs & Agentic AI for PMs"
+  navbar: false
 
 format:
   revealjs:
@@ -25,9 +26,7 @@ format:
     height: 1080
     margin: 0.08
     logo: assets/logo.svg
-    footer: "LLMs & IA Agentique pour PMs — Des Prompts aux Produits"
-    include-in-header: assets/i18n-init.html
-    include-after-body: assets/i18n-switcher.html
+    footer: "LLMs & Agentic AI for PMs — From Prompts to Products"
     menu:
       side: left
       width: wide

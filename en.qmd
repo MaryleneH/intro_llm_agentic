@@ -1,0 +1,1315 @@
+---
+title: "From Prompts to Products"
+subtitle: "LLMs & Agentic AI for Product Managers"
+lang: en
+format: revealjs
+---
+
+## {background-image="assets/act1-bg.svg" data-act="1"}
+
+::: {.title-slide-hero}
+<div class="act-title">LLMs & Agentic AI for PMs</div>
+
+# From Prompts to Products
+
+<div class="subtitle">Understanding LLMs and AI agents — and what they change for you</div>
+<div class="audience-tag">For Product Managers & Product Owners</div>
+:::
+
+::: {.notes}
+🇫🇷 Bienvenue. Cette présentation est conçue pour vous donner une compréhension concrète et actionnable des LLMs et de l'IA agentique — sans jargon inutile. À la fin, vous saurez exactement comment un agent IA peut gérer vos boards GitLab.
+
+---
+
+🇬🇧 Welcome. This presentation is designed to give you a concrete, actionable understanding of LLMs and agentic AI — without unnecessary jargon. By the end, you'll know exactly how an AI agent can manage your GitLab boards.
+:::
+
+---
+
+## {data-act="1" background-image="assets/act1-bg.svg"}
+
+<div class="act-title en">ACT I — The Intelligence Layer</div>
+
+
+## The world just changed
+
+> "This is not an upgraded search engine. It's a reasoning layer."
+
+::: {.columns}
+::: {.column width="50%"}
+**Before LLMs**
+
+- You search → you get links
+- You filter, read, synthesise yourself
+- The tool executes your exact instructions
+:::
+::: {.column width="50%"}
+**With LLMs**
+
+- You ask → you get a synthesised answer
+- The model reasons about your intent
+- The tool understands context and adapts
+:::
+:::
+
+::: {.notes}
+🇫🇷 Commencez par ancrer la rupture. Les PMs ont tous utilisé Google. Montrez la différence qualitative — pas quantitative.
+
+---
+
+🇬🇧 Start by anchoring the shift. PMs have all used Google. Show the qualitative difference — not just a faster search.
+:::
+
+---
+
+## {data-act="1" background-image="assets/act1-bg.svg"}
+
+
+## What is an LLM?
+
+<div class="highlight-box">
+A **Large Language Model** is a system trained on billions of words to predict the most likely next token — at a scale where reasoning emerges.
+</div>
+
+::: {.incremental}
+- 📚 Trained on a large portion of the internet + books + code
+- 🔢 Transforms words into numeric vectors (tokens)
+- 🧠 Predicts the next word — billions of times
+- ✨ At this scale, reasoning **emerges**
+:::
+
+::: {.notes}
+🇫🇷 La métaphore clé : c'est de l'autocomplétion à une échelle qui crée quelque chose de nouveau. Ne pas sur-expliquer les maths.
+
+---
+
+🇬🇧 The key metaphor: it's autocomplete at a scale that creates something new. Don't over-explain the math.
+:::
+
+---
+
+## {data-act="1" background-image="assets/act1-bg.svg"}
+
+
+## Inside the Black Box
+
+::: {.columns}
+::: {.column width="55%"}
+**A word's journey**
+
+::: {.incremental}
+1. **Tokenisation** — "product" → `[5765]`
+2. **Embedding** — token → vector in 12,000-dim space
+3. **Attention** — each token "looks at" all others
+4. **Transformer layers** — 96 layers of reasoning
+5. **Softmax** — probability over 100,000 possible tokens
+6. **Sampling** — next token is chosen
+:::
+:::
+::: {.column width="45%"}
+<div class="card card-highlight" style="margin-top:1.5em">
+<div style="font-size:0.7em;color:var(--text-muted);margin-bottom:0.5em">EXAMPLE</div>
+
+`"The sprint is"`
+
+→ tokens : `[457, 1832, 203]`
+
+→ attention on "sprint"
+
+→ predicts : `"done"` (42%) `"blocked"` (31%)
+
+→ output : **"done"**
+</div>
+:::
+:::
+
+::: {.notes}
+🇫🇷 Ne pas aller trop dans les maths. L'objectif est que les PMs comprennent que c'est de la probabilité — pas de la magie, pas une base de données.
+
+---
+
+🇬🇧 Don't go deep into math. The goal is for PMs to understand this is probability — not magic, not a database.
+:::
+
+---
+
+## {data-act="1" background-image="assets/act1-bg.svg"}
+
+
+## Training vs. Inference
+
+::: {.columns}
+::: {.column width="50%"}
+<div class="card">
+<div class="tag">TRAINING</div>
+
+🏋️ **What the model learns**
+
+- Months of compute on thousands of GPUs
+- Cost: millions of euros
+- Result: billions of frozen parameters
+- Cutoff: **knowledge stops at a date**
+</div>
+:::
+::: {.column width="50%"}
+<div class="card">
+<div class="tag">INFERENCE</div>
+
+⚡ **What the model does**
+
+- Response in milliseconds
+- Cost per request: a few cents
+- No learning: parameters don't change
+- What you see every day in your tool
+</div>
+:::
+:::
+
+> 💡 **For PMs:** You always interact with inference. Training is the invisible foundation.
+
+::: {.notes}
+🇫🇷 L'iceberg : l'entraînement est sous l'eau, invisible et coûteux. L'inférence est ce qui dépasse la surface — ce que vous utilisez.
+
+---
+
+🇬🇧 The iceberg: training is underwater, invisible and expensive. Inference is what sticks above the surface — what you use.
+:::
+
+---
+
+## {data-act="1" background-image="assets/act1-bg.svg"}
+
+
+## Prompt Engineering 101
+
+<div class="highlight-box">
+How you phrase your question radically changes the quality of the answer.
+</div>
+
+::: {.columns}
+::: {.column width="33%"}
+<div class="card">
+<div class="tag" style="border-color:var(--error);color:var(--error)">WEAK</div>
+
+*"Summarise this sprint"*
+
+→ Generic, shallow summary
+</div>
+:::
+::: {.column width="33%"}
+<div class="card">
+<div class="tag" style="border-color:var(--warn);color:var(--warn)">MEDIUM</div>
+
+*"You are a senior PM. Summarise this sprint in 5 points for the exec team"*
+
+→ Better format, still generic
+</div>
+:::
+::: {.column width="33%"}
+<div class="card card-highlight">
+<div class="tag">STRONG</div>
+
+*"You are a senior PM. Here are 12 closed tickets [data]. Summarise in 5 points for the exec team. Highlight resolved blockers and remaining risks."*
+
+→ Precise, actionable summary
+</div>
+:::
+:::
+
+::: {.notes}
+🇫🇷 Exercice interactif possible : montrer les 3 prompts et demander au public lequel ils utiliseraient. Résultat : le contexte + le rôle + le format = qualité.
+
+---
+
+🇬🇧 Possible interactive exercise: show 3 prompts and ask the audience which one they'd use. Takeaway: context + role + format = quality.
+:::
+
+---
+
+## {data-act="1" background-image="assets/act1-bg.svg"}
+
+
+## LLM Limitations
+
+::: {.incremental}
+- 🌀 **Hallucinations** — The model invents facts with confidence. It doesn't "know" it's wrong.
+
+- 📅 **Knowledge cutoff** — The model knows nothing after its training date. GPT-4 doesn't know your sprint from last week.
+
+- 🧠 **No memory** — Each conversation starts from scratch (without explicit memory configured).
+
+- 📏 **Limited context window** — The model can only process a certain amount of text at once.
+
+- 🎲 **Non-deterministic** — The same question can yield different answers.
+:::
+
+<div class="highlight-box" style="margin-top:0.8em">
+💡 These limitations explain why we need agentic architectures — not just a standalone LLM.
+</div>
+
+::: {.notes}
+🇫🇷 L'honnêteté sur les limites construit la confiance avec le public PM. Ne pas les minimiser.
+
+---
+
+🇬🇧 Honesty about limitations builds trust with the PM audience. Don't downplay them.
+:::
+
+---
+
+## {data-act="1" background-image="assets/act1-bg.svg"}
+
+
+## RAG: Giving LLMs a Brain
+
+::: {.columns}
+::: {.column width="55%"}
+**Retrieval-Augmented Generation**
+
+::: {.incremental}
+1. 📥 You ask a question
+2. 🔍 A search engine finds relevant documents in **your** database
+3. 📎 Those documents are injected into the prompt
+4. 🤖 The LLM answers **grounded in those documents**
+5. ✅ The answer is anchored to your real data
+:::
+:::
+::: {.column width="45%"}
+<div class="card" style="margin-top:1.5em">
+<div style="font-size:0.65em;color:var(--text-muted);margin-bottom:0.5em">ANALOGY</div>
+
+🗂️ **Filing cabinet** = your vector store (GitLab issues, Notion, Confluence)
+
+🤓 **Analyst** = the LLM
+
+The analyst doesn't know your project. You give them the documents. They synthesise.
+</div>
+:::
+:::
+
+::: {.notes}
+🇫🇷 RAG est la technologie qui permet aux agents de travailler sur VOS données sans réentraîner le modèle. Essentiel pour les use cases GitLab.
+
+---
+
+🇬🇧 RAG is the technology that lets agents work on YOUR data without retraining the model. Essential for GitLab use cases.
+:::
+
+---
+
+## {data-act="1" background-image="assets/act1-bg.svg"}
+
+
+## Fine-tuning vs. Prompting
+
+| | Prompting | Fine-tuning |
+|---|---|---|
+| **Cost** | Low (cents per request) | High (GPU + labelled data) |
+| **Setup speed** | Minutes | Weeks |
+| **Flexibility** | Very high | Low post-training |
+| **Domain knowledge** | Via RAG + context | Baked in |
+| **When to use** | 90% of cases | Very specific style/tone/format |
+
+<div class="recommendation">
+<div class="rec-label" data-i18n="recommendationLabel">Recommendation</div>
+**Always** start with prompting + RAG. Only fine-tune if you've exhausted all prompt optimisations and have thousands of labelled examples.
+</div>
+
+::: {.notes}
+🇫🇷 La matrice de décision rassure les PMs : ils n'ont pas besoin de fine-tuner pour avoir de la valeur.
+
+---
+
+🇬🇧 The decision matrix reassures PMs: they don't need to fine-tune to get value.
+:::
+
+---
+
+## {data-act="1" background-image="assets/act1-bg.svg"}
+
+
+## Summary — ACT I
+
+<div class="act-title">The Intelligence Layer</div>
+
+::: {.columns}
+::: {.column width="60%"}
+::: {.incremental}
+- ✅ An LLM is a probability machine trained on language
+- ✅ It predicts the next token — reasoning emerges at scale
+- ✅ Its limitations (hallucinations, cutoff, no memory) are real
+- ✅ RAG grounds it in your data without retraining
+- ✅ Start with prompting — fine-tuning is rarely necessary
+:::
+:::
+::: {.column width="40%"}
+<div class="highlight-box" style="margin-top:1em">
+<div style="font-size:0.8em;font-weight:700;color:var(--accent-act1)">Next →</div>
+<br>
+LLMs are powerful tools.
+
+**But tools need hands.**
+
+→ ACT II: AI that acts.
+</div>
+:::
+:::
+
+::: {.notes}
+🇫🇷 Slide de transition. Marquer la rupture entre "comprendre le LLM" et "comprendre l'agent". C'est ici que le public PM commence à voir l'utilité pratique.
+
+---
+
+🇬🇧 Transition slide. Mark the shift from "understanding the LLM" to "understanding the agent". This is where the PM audience starts seeing practical value.
+:::
+
+---
+
+## {data-act="2" background-image="assets/act2-bg.svg"}
+
+<div class="act-title en">ACT II — The Agentic Layer</div>
+
+
+## What is an AI Agent?
+
+<div class="highlight-box act2">
+An AI agent = **LLM** + **Tools** + **Memory** + **Reasoning loop**
+
+It's no longer a model that responds. It's a system that **acts**.
+</div>
+
+::: {.columns}
+::: {.column width="50%"}
+**Standalone LLM**
+
+- Receives a question
+- Generates a text response
+- Stops
+:::
+::: {.column width="50%"}
+**AI Agent**
+
+- Receives a task
+- Plans the steps
+- Calls tools
+- Observes results
+- Loops until complete
+:::
+:::
+
+::: {.notes}
+🇫🇷 La rupture conceptuelle clé. Un LLM répond. Un agent agit dans le monde.
+
+---
+
+🇬🇧 The key conceptual break. An LLM responds. An agent acts in the world.
+:::
+
+---
+
+## {data-act="2" background-image="assets/act2-bg.svg"}
+
+
+## The Agent Loop
+
+<div class="highlight-box act2">
+**Perceive → Plan → Act → Observe → Repeat**
+</div>
+
+::: {.columns}
+::: {.column width="60%"}
+::: {.incremental}
+1. 👁️ **Perceive** — Agent receives a task + context
+2. 🧠 **Plan** — It breaks it into sub-steps
+3. ⚡ **Act** — It calls a tool (API, search, code...)
+4. 🔍 **Observe** — It reads the action result
+5. 🔁 **Repeat** — Until the task is complete
+6. ✅ **Terminate** — Returns the final result
+:::
+:::
+::: {.column width="40%"}
+<div class="card" style="text-align:center;padding:1.5em">
+<div style="font-size:2em">🔄</div>
+<div style="font-size:0.65em;color:var(--accent-act2);margin-top:0.5em">AGENT LOOP</div>
+<div style="font-size:0.55em;color:var(--text-muted);margin-top:0.3em">Each cycle = chance to self-correct</div>
+</div>
+:::
+:::
+
+::: {.notes}
+🇫🇷 Visuel clé de la présentation. Prenez le temps de faire apparaître chaque étape.
+
+---
+
+🇬🇧 Key visual of the presentation. Take time to reveal each step.
+:::
+
+---
+
+## {data-act="2" background-image="assets/act2-bg.svg"}
+
+
+## Tools: the Agent's Hands
+
+<div class="icon-grid">
+<div class="icon-grid-item">
+<div class="icon">🌐</div>
+<div class="label">REST APIs</div>
+<div class="desc">GitLab, Jira, Slack, GitHub</div>
+</div>
+<div class="icon-grid-item">
+<div class="icon">🔍</div>
+<div class="label">Web search</div>
+<div class="desc">Retrieves real-time information</div>
+</div>
+<div class="icon-grid-item">
+<div class="icon">💻</div>
+<div class="label">Code execution</div>
+<div class="desc">Python, SQL, shell scripts</div>
+</div>
+<div class="icon-grid-item">
+<div class="icon">📂</div>
+<div class="label">File access</div>
+<div class="desc">Read/write documents</div>
+</div>
+<div class="icon-grid-item">
+<div class="icon">🧠</div>
+<div class="label">Vector memory</div>
+<div class="desc">Semantic search over your data</div>
+</div>
+<div class="icon-grid-item">
+<div class="icon">🤖</div>
+<div class="label">Sub-agents</div>
+<div class="desc">Delegate to other agents</div>
+</div>
+</div>
+
+::: {.notes}
+🇫🇷 Les outils sont ce qui différencie un LLM d'un agent. Sans outils, pas d'action dans le monde réel.
+
+---
+
+🇬🇧 Tools are what differentiates an LLM from an agent. No tools = no real-world action.
+:::
+
+---
+
+## {data-act="2" background-image="assets/act2-bg.svg"}
+
+
+## Memory: Short vs. Long-term
+
+::: {.columns}
+::: {.column width="50%"}
+<div class="card">
+<div class="tag" style="border-color:var(--accent-act2);color:var(--accent-act2)">SHORT-TERM</div>
+
+🧠 **Context window**
+
+- Everything the agent "sees" in a session
+- Limited: 128K to 1M tokens depending on model
+- Forgotten at end of session
+- Analogy: **RAM**
+</div>
+:::
+::: {.column width="50%"}
+<div class="card">
+<div class="tag">LONG-TERM</div>
+
+💾 **Vector store**
+
+- Stores facts, documents, history
+- Persistent across sessions
+- Accessible via semantic search
+- Analogy: **Hard drive**
+</div>
+:::
+:::
+
+<div class="recommendation" style="margin-top:0.8em">
+<div class="rec-label">For GitLab boards</div>
+Tickets, epics, and comments → indexed in the vector store → accessible to the agent at any time.
+</div>
+
+::: {.notes}
+🇫🇷 RAM vs disque dur — analogie universelle. Les PMs comprennent immédiatement.
+
+---
+
+🇬🇧 RAM vs hard drive — universal analogy. PMs get it immediately.
+:::
+
+---
+
+## {data-act="2" background-image="assets/act2-bg.svg"}
+
+
+## Planning & Reasoning
+
+::: {.incremental}
+- 🔗 **Chain-of-Thought** — The agent thinks step by step before acting. *"First I list blocked tickets, then I find the cause, then I propose an action."*
+
+- ⚛️ **ReAct** (Reason + Act) — The agent alternates reasoning and action in a loop. Each action informs the next reasoning step.
+
+- 🌳 **Tree-of-Thought** — The agent explores multiple paths in parallel and picks the best. Useful for complex decisions.
+:::
+
+<div class="highlight-box act2" style="margin-top:0.8em">
+💡 For PMs: you don't need to choose the strategy. The model decides. You define **the task** and **the constraints**.
+</div>
+
+::: {.notes}
+🇫🇷 Inspiré de la conférence Stanford. Ne pas entrer dans les détails techniques — montrer que le raisonnement est structuré, pas aléatoire.
+
+---
+
+🇬🇧 Inspired by the Stanford lecture. Don't go into technical details — show that the reasoning is structured, not random.
+:::
+
+---
+
+## {data-act="2" background-image="assets/act2-bg.svg"}
+
+
+## Multi-Agent Systems
+
+<div class="highlight-box act2">
+A single agent is not always enough. Multi-agent systems delegate tasks to specialised agents coordinated by an orchestrator.
+</div>
+
+::: {.columns}
+::: {.column width="55%"}
+**Orchestrator + sub-agents architecture**
+
+::: {.incremental}
+- 🎼 **Orchestrator** — Receives task, plans, delegates
+- 📖 **Reader Agent** — Ingests data (read-only)
+- 🔬 **Analyst Agent** — Analyses, synthesises, drafts
+- ✍️ **Writer Agent** — Executes approved changes
+:::
+:::
+::: {.column width="45%"}
+<div class="card" style="text-align:center">
+<div style="font-size:1.4em">🎼</div>
+<div style="font-size:0.6em;color:var(--accent-act2)">ORCHESTRATOR</div>
+<div style="display:flex;justify-content:space-around;margin-top:0.8em">
+<div style="font-size:0.55em;text-align:center"><div>📖</div><div style="color:var(--text-muted)">Reader</div></div>
+<div style="font-size:0.55em;text-align:center"><div>🔬</div><div style="color:var(--text-muted)">Analyst</div></div>
+<div style="font-size:0.55em;text-align:center"><div>✍️</div><div style="color:var(--text-muted)">Writer</div></div>
+</div>
+</div>
+:::
+:::
+
+::: {.notes}
+🇫🇷 Métaphore du chef d'orchestre + musiciens spécialisés. Chacun excelle dans son domaine.
+
+---
+
+🇬🇧 Conductor + specialised musicians metaphor. Each excels in their domain.
+:::
+
+---
+
+## {data-act="2" background-image="assets/act2-bg.svg"}
+
+
+## MCP: The Agent Protocol
+
+<div class="highlight-box act2">
+**Model Context Protocol (MCP)** — The open standard that lets agents connect to any tool or data source.
+</div>
+
+::: {.columns}
+::: {.column width="55%"}
+::: {.incremental}
+- 🔌 **Before MCP** — Each integration = different custom code
+- 🌐 **With MCP** — A universal protocol: the agent talks to all tools the same way
+- 🛠️ **MCP Server** — Exposes your tools (GitLab, Notion...) to any compatible agent
+- 📦 **Ecosystem** — Hundreds of MCP servers already available
+:::
+:::
+::: {.column width="45%"}
+<div class="card">
+<div style="font-size:0.65em;color:var(--text-muted);margin-bottom:0.5em">GITLAB EXAMPLE</div>
+
+```
+Agent → MCP Server GitLab
+     → GET /projects/issues
+     → POST /issues/:id/notes
+     → PUT /issues/:id
+```
+</div>
+:::
+:::
+
+::: {.notes}
+🇫🇷 MCP est le USB-C des agents. Une fois que vous le comprenez, vous voyez pourquoi l'écosystème s'accélère.
+
+---
+
+🇬🇧 MCP is the USB-C of agents. Once you understand it, you see why the ecosystem is accelerating.
+:::
+
+---
+
+## {data-act="2" background-image="assets/act2-bg.svg"}
+
+
+## Human-in-the-Loop
+
+<div class="approval-gate">
+<div class="gate-icon">🚦</div>
+<div>
+<div class="gate-label" data-i18n="gateTitle">Approval Required</div>
+<div style="font-size:0.7em;margin-top:0.3em">The agent wants to: <strong>move 3 tickets to "In Progress"</strong>, <strong>assign @marie</strong>, <strong>add label "blocked"</strong></div>
+</div>
+</div>
+
+::: {.incremental}
+- ✅ **Approve** → Agent executes actions on GitLab
+- ❌ **Reject** → Agent cancels and explains why it proposed those actions
+- 🔧 **Modify** → You adjust actions before validation
+:::
+
+<div class="highlight-box act2" style="margin-top:0.8em">
+💡 Human-in-the-loop is not a weakness — it's a **trust feature**. You stay in control of all changes to your boards.
+</div>
+
+::: {.notes}
+🇫🇷 Montrez le visuel de la "gate" d'approbation. C'est ce que les PMs verront dans l'interface réelle.
+
+---
+
+🇬🇧 Show the approval gate visual. This is what PMs will see in the actual interface.
+:::
+
+---
+
+## {data-act="2" background-image="assets/act2-bg.svg"}
+
+
+## Trust & Guardrails
+
+::: {.columns}
+::: {.column width="55%"}
+**What can go wrong**
+
+::: {.incremental}
+- 🌀 Agent hallucinates an action → modifies wrong ticket
+- 🔁 Agent enters infinite retry loop
+- 🔓 Agent exceeds authorised scope
+- 💥 External tool returns error → inconsistent state
+:::
+:::
+::: {.column width="45%"}
+**The guardrails**
+
+<div class="card" style="margin-top:0.5em">
+<div class="dot ok"></div> Read-before-write<br>
+<div class="dot ok"></div> Retry budget (max 3)<br>
+<div class="dot ok"></div> GitLab project scope boundary<br>
+<div class="dot warn"></div> Approval gate on all writes<br>
+<div class="dot ok"></div> Audit log in every ticket<br>
+<div class="dot ok"></div> Rollback hook
+</div>
+:::
+:::
+
+::: {.notes}
+🇫🇷 La confiance se construit par les guardrails, pas par la foi. Rassurez les PMs sceptiques.
+
+---
+
+🇬🇧 Trust is built through guardrails, not faith. Reassure sceptical PMs.
+:::
+
+---
+
+## {data-act="2" background-image="assets/act2-bg.svg"}
+
+
+## Real-world Agent Examples
+
+::: {.columns}
+::: {.column width="50%"}
+<div class="card">
+<div class="tag">DEVELOPERS</div>
+
+🖥️ **Cursor / GitHub Copilot**
+Agent that reads your codebase, proposes changes, runs tests
+
+🤖 **Devin**
+Autonomous dev agent: reads GitHub issues, writes code, opens PRs
+</div>
+:::
+::: {.column width="50%"}
+<div class="card">
+<div class="tag">PRODUCT</div>
+
+📋 **Claude Projects**
+Agent with long-term memory over your product documents
+
+🔗 **Zapier AI**
+Agents that trigger workflows between tools
+
+🦊 **GitLab Duo**
+Native AI agent in GitLab: summarises MRs, generates tests
+</div>
+:::
+:::
+
+::: {.notes}
+🇫🇷 Ancrez dans des outils que les PMs connaissent. GitLab Duo est particulièrement pertinent pour ACT III.
+
+---
+
+🇬🇧 Ground in tools PMs already know. GitLab Duo is particularly relevant for ACT III.
+:::
+
+---
+
+## {data-act="2" background-image="assets/act2-bg.svg"}
+
+
+## Agents vs. Automation
+
+::: {.columns}
+::: {.column width="50%"}
+<div class="card">
+<div class="tag" style="border-color:var(--text-muted);color:var(--text-muted)">AUTOMATION</div>
+
+🔧 **Zapier / Make / n8n**
+
+- Follows a rigid predefined script
+- If A → then B (always)
+- Does not adapt to context
+- Fails on unexpected input
+- No reasoning
+</div>
+:::
+::: {.column width="50%"}
+<div class="card card-highlight">
+<div class="tag" style="border-color:var(--accent-act2);color:var(--accent-act2)">AI AGENT</div>
+
+🤖 **LLM Agent**
+
+- Reasons about the situation
+- Adapts strategy to context
+- Handles unforeseen cases
+- Can ask for help
+- Learns from observations
+</div>
+:::
+:::
+
+> **Rule:** If the task is always the same → automation. If the task varies or requires judgement → agent.
+
+::: {.notes}
+🇫🇷 Cette distinction est critique pour éviter le hype. Les agents ne remplacent pas l'automatisation — ils la complètent.
+
+---
+
+🇬🇧 This distinction is critical to avoid hype. Agents don't replace automation — they complement it.
+:::
+
+---
+
+## {data-act="2" background-image="assets/act2-bg.svg"}
+
+
+## Summary — ACT II
+
+<div class="act-title">The Agentic Layer</div>
+
+::: {.columns}
+::: {.column width="60%"}
+::: {.incremental}
+- ✅ An agent = LLM + Tools + Memory + Reasoning loop
+- ✅ The agent loop: Perceive → Plan → Act → Observe
+- ✅ MCP connects agents to your tools (GitLab included)
+- ✅ Human-in-the-loop = control over all writes
+- ✅ Multi-agents = orchestrator + specialists (Reader/Analyst/Writer)
+:::
+:::
+::: {.column width="40%"}
+<div class="highlight-box act2" style="margin-top:1em">
+<div style="font-size:0.8em;font-weight:700;color:var(--accent-act2)">Next →</div>
+<br>
+Agents navigate complexity.
+
+**Let's apply that to your GitLab boards.**
+
+→ ACT III: Your Product Agent.
+</div>
+:::
+:::
+
+::: {.notes}
+🇫🇷 Transition vers ACT III. Le public devrait maintenant avoir les bases pour comprendre comment un agent opère sur GitLab.
+
+---
+
+🇬🇧 Transition to ACT III. The audience should now have the foundation to understand how an agent operates on GitLab.
+:::
+
+---
+
+## {data-act="3" background-image="assets/act3-bg.svg"}
+
+<div class="act-title en">ACT III — Agents for GitLab Boards</div>
+
+
+## The PM's Daily Chaos
+
+::: {.columns}
+::: {.column width="55%"}
+::: {.incremental}
+- 📋 **Too many tickets** — Hundreds of issues spread across multiple GitLab projects
+- 🔀 **No unified view** — Each board is a silo
+- 🚧 **Invisible blockers** — Tickets blocked for 2 weeks go unnoticed
+- 📝 **Manual writing** — Sprint reviews, release notes, exec briefings: all by hand
+- 🔄 **Impossible sync** — One epic on 3 projects = 3 manual updates
+:::
+:::
+::: {.column width="45%"}
+<div class="card" style="margin-top:1em">
+<div style="font-size:0.65em;color:var(--text-muted);margin-bottom:0.5em">YOUR GITLAB BOARDS</div>
+<div style="font-size:0.75em">
+📁 Project A — 87 issues<br>
+📁 Project B — 124 issues<br>
+📁 Project C — 43 issues<br>
+<br>
+<span style="color:var(--error)">⚠️ 23 blocked tickets</span><br>
+<span style="color:var(--warn)">⏳ 12 epics without owner</span><br>
+<span style="color:var(--text-muted)">📅 Sprint review in 2h</span>
+</div>
+</div>
+:::
+:::
+
+::: {.notes}
+🇫🇷 Ouvrez avec la douleur. Les PMs doivent se reconnaître dans cette slide. Pause ici et demandez : "Qui ici a vécu ça cette semaine ?"
+
+---
+
+🇬🇧 Open with the pain. PMs must recognise themselves in this slide. Pause here and ask: "Who here experienced this this week?"
+:::
+
+---
+
+## {data-act="3" background-image="assets/act3-bg.svg"}
+
+
+## 1 Agent or Many?
+
+<div class="highlight-box act3">
+Before deploying an agent on your GitLab boards, you must answer a fundamental question: <strong>do you need a single agent or a fleet of agents?</strong>
+</div>
+
+::: {.incremental}
+- The answer depends on **6 factors** we will evaluate together
+- There is no universally right answer — there is the right answer **for your context**
+- We give you an **actionable decision framework**
+:::
+
+<div class="recommendation">
+<div class="rec-label" data-i18n="recommendationLabel">Recommended starting point</div>
+<span class="fr">Pour la plupart des équipes GitLab : <strong>1 orchestrateur + 3 sous-agents spécialisés</strong></span>
+<span class="en">For most GitLab teams: <strong>1 orchestrator + 3 specialised sub-agents</strong></span>
+</div>
+
+::: {.notes}
+🇫🇷 Slide d'introduction au framework. Le suspense : "on va répondre à cette question ensemble."
+
+---
+
+🇬🇧 Framework introduction slide. The suspense: "we'll answer this question together."
+:::
+
+---
+
+## {data-act="3" background-image="assets/act3-bg.svg"}
+
+
+## The Decision Framework — 6 Axes
+
+| Axis | Key question | → Single agent | → Multi-agent |
+|------|-------------|----------------|---------------|
+| **1. Decomposition** | Are tasks parallelisable? | No, sequential | Yes, independent |
+| **2. Coupling** | Must context be shared? | Strong coupling | Weak coupling |
+| **3. Complexity** | Board score (projects × teams × depth) | < 5 | > 10 |
+| **4. Workflows** | Task frequencies and types? | Uniform, sequential | Mixed, concurrent |
+| **5. Failures** | Can one failure block everything? | Acceptable risk | Isolation critical |
+| **6. Observability** | Do you have a tracing infra? | No | Yes (required) |
+
+<div class="recommendation">
+<div class="rec-label" data-i18n="recommendationLabel">Your score</div>
+Majority → Single agent: start simple. Majority → Multi-agent: architect from the start.
+</div>
+
+::: {.notes}
+🇫🇷 Faites parcourir le tableau ligne par ligne. Demandez au public de "voter" mentalement pour leur situation.
+
+---
+
+🇬🇧 Walk through the table row by row. Ask the audience to mentally "vote" for their situation.
+:::
+
+---
+
+## {data-act="3" background-image="assets/act3-bg.svg"}
+
+
+## Meet Your AI Product Agent
+
+<div class="highlight-box act3">
+**Recommended architecture for GitLab**: 1 Orchestrator + 3 Specialised Sub-agents
+</div>
+
+::: {.columns}
+::: {.column width="60%"}
+::: {.incremental}
+- 🎼 **Orchestrator** — Receives your requests, plans, delegates to sub-agents
+- 📖 **gitlab-reader** — Ingests issues, epics, milestones, MRs (read-only — limited access)
+- 🔬 **gitlab-analyst** — Analyses patterns, generates summaries, drafts release notes
+- ✍️ **gitlab-writer** — Executes approved changes (labels, assignments, comments)
+:::
+:::
+::: {.column width="40%"}
+<div class="card" style="text-align:center;padding:1.5em">
+<div style="font-size:0.65em;color:var(--accent-act3);font-weight:700">WHY 3 SUB-AGENTS?</div>
+<br>
+<div style="font-size:0.6em;color:var(--text-muted);text-align:left">
+✅ Separates read and write<br>
+✅ Isolates modification risk<br>
+✅ Per-agent traceability<br>
+✅ Independently extensible
+</div>
+</div>
+:::
+:::
+
+::: {.notes}
+🇫🇷 Le "hero concept" slide. Présentez les 4 agents comme une équipe — chacun avec un rôle clair.
+
+---
+
+🇬🇧 The hero concept slide. Present the 4 agents as a team — each with a clear role.
+:::
+
+---
+
+## {data-act="3" background-image="assets/act3-bg.svg"}
+
+
+## Ingestion: Reading the Boards
+
+**`gitlab-reader` agent in action**
+
+::: {.incremental}
+1. 📡 Connected via GitLab MCP Server (read-only auth token)
+2. 🔍 `GET /projects` → lists all authorised projects
+3. 📋 `GET /projects/:id/issues?state=opened` → all open tickets
+4. 🗂️ `GET /groups/:id/epics` → all active epics
+5. 🗓️ `GET /projects/:id/milestones` → active milestones
+6. 💾 Indexes everything into vector store (long-term memory)
+:::
+
+<div class="card" style="margin-top:0.8em;font-size:0.65em">
+<span style="color:var(--accent-act3)">✓</span> 254 issues ingested &nbsp;|&nbsp;
+<span style="color:var(--accent-act3)">✓</span> 18 epics indexed &nbsp;|&nbsp;
+<span style="color:var(--accent-act3)">✓</span> 3 active milestones &nbsp;|&nbsp;
+<span style="color:var(--warn)">⏳</span> 23 unlabelled issues detected
+</div>
+
+::: {.notes}
+🇫🇷 Montrez les appels API réels — les PMs verront que c'est concret et auditable.
+
+---
+
+🇬🇧 Show actual API calls — PMs will see this is concrete and auditable.
+:::
+
+---
+
+## {data-act="3" background-image="assets/act3-bg.svg"}
+
+
+## Analysis: Finding Patterns
+
+**`gitlab-analyst` agent in action**
+
+::: {.columns}
+::: {.column width="55%"}
+::: {.incremental}
+- 🚧 **Blocker detection** — Tickets with "blocked" label for > 5 days with no update
+- 📉 **Priority drift** — Issues moved from P1 to P3 with no documented reason
+- 🔁 **Semantic duplicates** — Issues with similar title/description (similarity > 85%)
+- 👻 **Orphaned epics** — Epics with no assigned issues or no owner
+- ⏰ **Milestone delays** — Open issues whose milestone is overdue
+:::
+:::
+::: {.column width="45%"}
+<div class="card">
+<div style="font-size:0.65em;color:var(--text-muted);margin-bottom:0.5em">ANALYSIS REPORT</div>
+<div style="font-size:0.62em">
+<span style="color:var(--error)">⚠️ 8 critical blocked tickets</span><br>
+<span style="color:var(--warn)">📉 3 priority drifts</span><br>
+<span style="color:var(--warn)">🔁 5 potential duplicates</span><br>
+<span style="color:var(--text-muted)">👻 2 orphaned epics</span><br>
+<span style="color:var(--error)">⏰ 4 milestone delays</span>
+</div>
+</div>
+:::
+:::
+
+::: {.notes}
+🇫🇷 Ces patterns sont ceux que les PMs passent des heures à identifier manuellement. L'agent le fait en secondes.
+
+---
+
+🇬🇧 These are the patterns PMs spend hours identifying manually. The agent does it in seconds.
+:::
+
+---
+
+## {data-act="3" background-image="assets/act3-bg.svg"}
+
+
+## Synthesis: Writing the Brief
+
+**`gitlab-analyst` agent — Summary generation**
+
+::: {.columns}
+::: {.column width="55%"}
+**What the agent generates automatically:**
+
+::: {.incremental}
+- 📋 **Sprint summary** — Key points, velocity, blockers, risks for the next iteration
+- 📢 **Release notes** — From merged MRs and closed issues, formatted for users
+- 📊 **Exec briefing** — Synthetic view for leadership: status, risks, required decisions
+- 🏷️ **Label audit** — Label consistency report across all boards
+:::
+:::
+::: {.column width="45%"}
+<div class="card">
+<div style="font-size:0.6em;color:var(--text-muted);margin-bottom:0.5em">EXAMPLE — SPRINT SUMMARY</div>
+<div style="font-size:0.58em;line-height:1.6">
+<strong>Sprint 24 — Summary</strong><br>
+✅ 34 issues closed (87% of target)<br>
+🚧 3 persistent blockers: #142, #156, #203<br>
+⚠️ Risk: payment API integration delayed to S25<br>
+📌 Decision required: additional backend resource
+</div>
+</div>
+:::
+:::
+
+::: {.notes}
+🇫🇷 Montrez un exemple de output réel. Les PMs voient immédiatement le gain de temps.
+
+---
+
+🇬🇧 Show a real output example. PMs immediately see the time savings.
+:::
+
+---
+
+## {data-act="3" background-image="assets/act3-bg.svg"}
+
+
+## Action: Updating the Boards
+
+**`gitlab-writer` agent — Approved changes**
+
+<div class="approval-gate">
+<div class="gate-icon">🚦</div>
+<div>
+<div class="gate-label">Proposed actions — awaiting approval</div>
+<div style="font-size:0.65em;margin-top:0.4em">
+① Add label <code>blocked</code> to issues #142, #156, #203<br>
+② Assign @pierre to epic #E-12 (orphaned for 8 days)<br>
+③ Comment on #203: "Blocked for 9 days — escalation recommended"<br>
+④ Move #178 to milestone S25
+</div>
+</div>
+</div>
+
+::: {.incremental}
+- ✅ **Approved** → `PUT /issues/:id`, `POST /issues/:id/notes` executed
+- 🔍 **Audit** → Each action logged with reasoning chain in GitLab comment
+- ↩️ **Rollback** → Reverse action pre-calculated before every change
+:::
+
+::: {.notes}
+🇫🇷 Montrez que chaque modification est tracée et réversible. C'est la clé pour convaincre les PMs sceptiques.
+
+---
+
+🇬🇧 Show that every change is traced and reversible. This is key for sceptical PMs.
+:::
+
+---
+
+## {data-act="3" background-image="assets/act3-bg.svg"}
+
+
+## Cross-board Orchestration
+
+**Scenario: One epic, three GitLab projects**
+
+::: {.incremental}
+1. 🎼 **Orchestrator** receives: "Sync epic E-07 across projects A, B, and C"
+2. 📖 **gitlab-reader** ingests the state of all 3 projects in parallel
+3. 🔬 **gitlab-analyst** detects: project B has 2 sub-tasks not linked to the epic
+4. 🚦 **Approval**: "Link issues #B-45 and #B-67 to epic E-07?"
+5. ✍️ **gitlab-writer** executes across 3 projects after validation
+6. 📋 **gitlab-analyst** generates a cross-board sync report
+:::
+
+<div class="recommendation">
+<div class="rec-label">Result</div>
+3 projects synced in 45 seconds. Manually: 20–30 minutes of inter-board navigation.
+</div>
+
+::: {.notes}
+🇫🇷 C'est le cas d'usage "wow" — le moment où les PMs voient la valeur réelle des multi-agents.
+
+---
+
+🇬🇧 This is the "wow" use case — the moment PMs see the real value of multi-agents.
+:::
+
+---
+
+## {data-act="3" background-image="assets/act3-bg.svg"}
+
+
+## Live Demo
+
+<div class="act-title">GitLab Agent in Action</div>
+
+::: {.columns}
+::: {.column width="65%"}
+<div class="iframe-container">
+<iframe
+  src="https://gitlab.com"
+  height="480"
+  title="GitLab Board Demo"
+  loading="lazy">
+</iframe>
+</div>
+<div style="font-size:0.55em;color:var(--text-muted);margin-top:0.4em">
+⚠️ Replace the URL with your public GitLab demo project
+</div>
+:::
+::: {.column width="35%"}
+**Demo sequence**
+
+::: {.incremental}
+1. 👁️ Board open — 5 issues, 3 blocked
+2. 📖 `gitlab-reader` ingests the board
+3. 🔬 `gitlab-analyst` produces analysis
+4. 🚦 Approval gate shown
+5. ✍️ `gitlab-writer` executes
+6. 🔄 Board updates
+:::
+:::
+:::
+
+::: {.notes}
+🇫🇷 Si l'iframe ne charge pas (CORS/auth), basculez sur l'enregistrement vidéo de secours avec le bouton "Voir l'enregistrement".
+
+---
+
+🇬🇧 If the iframe fails to load (CORS/auth), switch to the video recording fallback.
+:::
+
+---
+
+## {data-act="3" background-image="assets/act3-bg.svg"}
+
+
+## How to Get Started
+
+::: {.columns}
+::: {.column width="33%"}
+<div class="card card-highlight" style="height:100%">
+<div class="tag">STEP 1</div>
+<div style="font-size:1.5em;margin:0.5em 0">🔌</div>
+**Connect GitLab**
+
+- Create a read-only access token
+- Install a GitLab MCP Server
+- Test the connection with Claude Desktop or Cursor
+</div>
+:::
+::: {.column width="33%"}
+<div class="card" style="height:100%">
+<div class="tag">STEP 2</div>
+<div style="font-size:1.5em;margin:0.5em 0">🧪</div>
+**Prototype one use case**
+
+- Pick 1 repetitive task (e.g. sprint summary)
+- Write the agent's system prompt
+- Validate quality over 3 sprints
+</div>
+:::
+::: {.column width="33%"}
+<div class="card" style="height:100%">
+<div class="tag">STEP 3</div>
+<div style="font-size:1.5em;margin:0.5em 0">🚀</div>
+**Deploy and iterate**
+
+- Add the approval gate
+- Enable audit logs
+- Extend to other boards progressively
+</div>
+:::
+:::
+
+::: {.notes}
+🇫🇷 Terminez sur de l'actionnable. Les PMs doivent pouvoir commencer dès lundi matin.
+
+---
+
+🇬🇧 End on something actionable. PMs should be able to start this Monday morning.
+:::
+
+---
+
+## {data-act="3" background-image="assets/act3-bg.svg"}
+
+
+## Q&A + Resources
+
+::: {.columns}
+::: {.column width="55%"}
+**Going further**
+
+- 🎓 [Stanford Lecture — LLMs & Agentic AI](https://www.youtube.com/watch?v=9vM4p9NN0Ts&t=1194s)
+- 🔗 [MCP Official Documentation](https://modelcontextprotocol.io)
+- 🦊 [GitLab REST API](https://docs.gitlab.com/ee/api/rest/)
+- 🤖 [GitLab Duo — Native GitLab AI](https://docs.gitlab.com/ee/user/ai_features.html)
+- 📚 [Anthropic — Building effective agents](https://www.anthropic.com/research/building-effective-agents)
+:::
+::: {.column width="45%"}
+<div class="card" style="text-align:center;padding:2em">
+<div style="font-size:2em">💬</div>
+<div style="font-size:0.8em;color:var(--accent-act3);font-weight:700;margin-top:0.5em">Questions?</div>
+<div style="font-size:0.6em;color:var(--text-muted);margin-top:0.5em">
+From Prompts to Products<br>
+LLMs & Agentic AI for PMs
+</div>
+</div>
+:::
+:::
+
+::: {.notes}
+🇫🇷 Laissez cette slide visible pendant le Q&A. Les participants peuvent photographier les ressources.
+
+---
+
+🇬🇧 Leave this slide visible during Q&A. Participants can photograph the resources.
+:::

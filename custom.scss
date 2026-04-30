@@ -49,7 +49,7 @@ $presentation-h3-font-size: 1.1em;
   text-align: left;
 }
 
-.reveal .slides section.present {
+.reveal .slides section {
   height: 100%;
   display: flex;
   flex-direction: column;
@@ -120,9 +120,7 @@ section[data-act="1"] { --act-accent: var(--accent-act1); }
 section[data-act="2"] { --act-accent: var(--accent-act2); }
 section[data-act="3"] { --act-accent: var(--accent-act3); }
 
-// ─── Language switcher visibility ─────────────────────────────────────────────
-body.lang-fr .en { display: none !important; }
-body.lang-en .fr { display: none !important; }
+// ─── (bilingual i18n CSS removed — presentations are now split into fr.qmd / en.qmd) ───
 
 .lang-badge {
   display: inline-block;
