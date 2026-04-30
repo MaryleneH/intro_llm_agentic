@@ -1,0 +1,33 @@
+<!-- i18n-switcher.html — injected after <body> by Quarto -->
+<!-- Renders the persistent FR / EN toggle in the top-left corner -->
+<div id="lang-switcher" role="toolbar" aria-label="Language switcher">
+  <button
+    data-lang="fr"
+    class="active"
+    onclick="applyLang('fr')"
+    title="Passer en français"
+    aria-pressed="true">
+    🇫🇷 FR
+  </button>
+  <button
+    data-lang="en"
+    onclick="applyLang('en')"
+    title="Switch to English"
+    aria-pressed="false">
+    🇬🇧 EN
+  </button>
+</div>
+
+<script>
+// Restore persisted language choice immediately on load
+(function() {
+  const saved = localStorage.getItem('presentation-lang') || 'fr';
+  // Apply class synchronously to avoid FOUC
+  document.body.classList.add('lang-' + saved);
+  // Mark correct button as active
+  document.querySelectorAll('#lang-switcher button').forEach(btn => {
+    btn.classList.toggle('active', btn.dataset.lang === saved);
+    btn.setAttribute('aria-pressed', btn.dataset.lang === saved ? 'true' : 'false');
+  });
+})();
+</script>

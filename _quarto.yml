@@ -1,0 +1,33 @@
+project:
+  type: website
+  output-dir: docs
+
+website:
+  title: "LLMs & IA Agentique pour PMs"
+
+format:
+  revealjs:
+    theme: [default, custom.scss]
+    slide-number: "c/t"
+    progress: true
+    history: true
+    touch: true
+    controls: true
+    controls-layout: bottom-right
+    transition: fade
+    transition-speed: slow
+    background-transition: fade
+    auto-animate: true
+    auto-animate-easing: ease-in-out
+    highlight-style: github-dark
+    center: false
+    width: 1920
+    height: 1080
+    margin: 0.08
+    logo: assets/logo.svg
+    footer: "LLMs & IA Agentique pour PMs — Des Prompts aux Produits"
+    include-in-header: assets/i18n-init.html
+    include-after-body: assets/i18n-switcher.html
+    menu:
+      side: left
+      width: wide
