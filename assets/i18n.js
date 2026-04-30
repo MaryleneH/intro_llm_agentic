@@ -171,11 +171,6 @@ document.addEventListener('DOMContentLoaded', () => {
   applyLang(currentLang);
 });
 
-// Also re-apply on Reveal slide change (in case of dynamic content)
-if (typeof Reveal !== 'undefined') {
-  Reveal.on('slidechanged', () => applyLang(currentLang));
-}
-
 // Export for use in i18n-switcher.html
 window.i18n = i18n;
 window.applyLang = applyLang;
