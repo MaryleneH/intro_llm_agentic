@@ -1,6 +1,9 @@
 project:
   type: website
   output-dir: docs
+  render:
+    - fr.qmd
+    - index.qmd
 
 website:
   title: "LLMs & Agentic AI for PMs"

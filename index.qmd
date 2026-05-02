@@ -198,16 +198,8 @@ format:
           .acts     { animation: fadeUp 0.5s ease 0.6s both; }
         </style>
         <script>
-          // Auto-redirect to last-used language
-          (function() {
-            var saved = localStorage.getItem('presentation-lang');
-            if (saved === 'en') { window.location.href = 'en.html'; }
-            else if (saved === 'fr') { window.location.href = 'fr.html'; }
-          })();
-          function goLang(lang) {
-            localStorage.setItem('presentation-lang', lang);
-            window.location.href = lang + '.html';
-          }
+          // Redirect directly to FR
+          window.location.replace('fr.html');
         </script>
 ---
 
@@ -222,18 +214,11 @@ format:
   <p class="audience">Pour PMs & POs · For PMs & POs</p>
 
   <div class="lang-buttons">
-    <a class="lang-btn btn-fr" href="fr.html" onclick="localStorage.setItem('presentation-lang','fr')">
+    <a class="lang-btn btn-fr" href="fr.html">
       <span class="flag">🇫🇷</span>
       <span class="label">
         <span class="lang-code">Français</span>
         <span class="lang-name">Voir la présentation</span>
-      </span>
-    </a>
-    <a class="lang-btn btn-en" href="en.html" onclick="localStorage.setItem('presentation-lang','en')">
-      <span class="flag">🇬🇧</span>
-      <span class="label">
-        <span class="lang-code">English</span>
-        <span class="lang-name">View presentation</span>
       </span>
     </a>
   </div>

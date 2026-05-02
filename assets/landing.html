@@ -175,17 +175,8 @@
     }
   </style>
   <script>
-    // Auto-redirect if language already chosen
-    (function() {
-      var saved = localStorage.getItem('presentation-lang');
-      if (saved === 'en') window.location.replace('en.html');
-      else if (saved === 'fr') window.location.replace('fr.html');
-    })();
-
-    function goLang(lang, url) {
-      localStorage.setItem('presentation-lang', lang);
-      window.location.href = url;
-    }
+    // Redirect directly to FR
+    window.location.replace('fr.html');
   </script>
 </head>
 <body>
@@ -201,18 +192,11 @@
     <p class="audience">Pour PMs &amp; POs &nbsp;·&nbsp; For PMs &amp; POs</p>
 
     <div class="lang-buttons">
-      <a class="lang-btn btn-fr" href="fr.html" onclick="localStorage.setItem('presentation-lang','fr')">
+      <a class="lang-btn btn-fr" href="fr.html">
         <span class="flag">🇫🇷</span>
         <span class="btn-label">
           <span class="lang-code">Français</span>
           <span class="lang-name">Voir la présentation</span>
-        </span>
-      </a>
-      <a class="lang-btn btn-en" href="en.html" onclick="localStorage.setItem('presentation-lang','en')">
-        <span class="flag">🇬🇧</span>
-        <span class="btn-label">
-          <span class="lang-code">English</span>
-          <span class="lang-name">View presentation</span>
         </span>
       </a>
     </div>
