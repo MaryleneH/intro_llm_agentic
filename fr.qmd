@@ -1024,6 +1024,50 @@ L'Agent devient votre **Agile Coach** et **Analyste transversal** :
 *LangGraph définit un graphe explicite où chaque nœud est une étape de raisonnement et les arêtes (edges) sont les décisions conditionnelles de l'Agent.*
 :::
 
+## Structure Python : LangChain + LangGraph
+
+::: {.columns}
+::: {.column width="100%"}
+::: {.fragment .fade-up}
+::: card-v
+```text
+agent_system/
+│
+├── config/
+│   ├── settings.py
+│   └── llm_config.py   # Configuration ALBERT DINUM
+│
+├── data/
+│   └── gitlab_client.py
+│
+├── chains/
+│   ├── parsing_chain.py
+│   ├── analysis_chain.py
+│   └── recommendation_chain.py
+│
+├── graph/
+│   ├── nodes/
+│   │   ├── ingest_node.py
+│   │   ├── analysis_node.py
+│   │   ├── risk_detection_node.py
+│   │   └── summary_node.py
+│   └── graph_definition.py
+│
+├── tools/
+│   ├── gitlab_tools.py
+│   └── pm_helpers.py
+│
+├── agent/
+│   ├── agent_controller.py
+│   └── agent_state.py
+│
+└── main.py
+```
+:::
+:::
+:::
+:::
+
 ## Architecture 2 : Google ADK
 
 ::: {.columns}
@@ -1061,6 +1105,46 @@ L'Agent devient votre **Agile Coach** et **Analyste transversal** :
 
 ::: {.fragment .fade-up style="margin-top: 2rem; text-align: center; color: var(--muted); font-size: 1.1rem;"}
 *Google ADK se concentre sur une configuration par "Skills" et "Tools" de manière déclarative, déléguant la gestion d'état au moteur cognitif plutôt qu'à un graphe strict.*
+:::
+
+## Structure Python : Google ADK
+
+::: {.columns}
+::: {.column width="100%"}
+::: {.fragment .fade-up}
+::: card-c
+```text
+agent_system_adk/
+│
+├── config/
+│   ├── settings.py
+│   └── llm_config.py   # Configuration ALBERT DINUM
+│
+├── data/
+│   └── gitlab_client.py
+│
+├── adk_components/
+│   ├── skills/
+│   │   ├── parsing_skill.py
+│   │   ├── analysis_skill.py
+│   │   └── risk_detection_skill.py
+│   ├── tools/
+│   │   ├── gitlab_tools.py
+│   │   └── pm_helpers.py
+│   ├── memory/
+│   │   └── agent_memory.py
+│   └── routing/
+│       └── task_router.py
+│
+├── agent/
+│   ├── adk_agent.py
+│   └── agent_controller.py
+│
+└── main.py
+```
+:::
+:::
+:::
 :::
 
 ## Conclusion {background-color="#001a0f"}
