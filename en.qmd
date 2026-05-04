@@ -798,7 +798,7 @@ This is where the Agent comes in: it **reads, synthesizes, and alerts** in real 
 
 :::
 
-## Board 1 : Gestion des CV
+## Board 1: Resume Management
 
 ::: kanban-board
 
@@ -839,7 +839,7 @@ This is where the Agent comes in: it **reads, synthesizes, and alerts** in real 
 
 :::
 
-## Board 2 : Gestion des mobilités
+## Board 2: Mobility Management
 
 ::: kanban-board
 
@@ -880,7 +880,7 @@ This is where the Agent comes in: it **reads, synthesizes, and alerts** in real 
 
 :::
 
-## Board 3 : Gestion API
+## Board 3: API Management
 
 ::: kanban-board
 
@@ -921,17 +921,17 @@ This is where the Agent comes in: it **reads, synthesizes, and alerts** in real 
 
 :::
 
-## L'Agent au service des Boards
+## The Agent serving the Boards
 
 ::: {.columns}
 
 ::: {.column width="55%"}
-L'Agent devient votre **Agile Coach** et **Analyste transversal** :
+The Agent becomes your **Agile Coach** and **Transversal Analyst**:
 
-- **👁️ Lecture croisée** : L'Agent accède aux 3 boards GitLab simultanément via l'API.
-- **🚨 Détection d'anomalies** : *"Le ticket 'Extract skills' est en 'To Do' depuis 12 jours, risque de dérive."*
-- **🔗 Gestion des dépendances** : *"La 'Gestion des mobilités' est bloquée par l'API Gateway."*
-- **💡 Proposition d'actions** : Rédaction automatique de sub-tasks, assignation, ou fermeture de tickets dupliqués.
+- **👁️ Cross-reading**: The Agent accesses the 3 GitLab boards simultaneously via API.
+- **🚨 Anomaly detection**: *"The ticket 'Extract skills' has been in 'To Do' for 12 days, drift risk."*
+- **🔗 Dependency management**: *"Mobility Management is blocked by the API Gateway."*
+- **💡 Action proposals**: Automatic sub-task drafting, assignment, or duplicate ticket closing.
 
 :::
 
@@ -939,9 +939,9 @@ L'Agent devient votre **Agile Coach** et **Analyste transversal** :
 
 ::: {.fragment .zoom-in}
 ::: card-g
-**Synthèse PM Hebdomadaire**
+**Weekly PM Synthesis**
 
-*"Sur 45 tickets actifs : 3 sont bloqués (dont 1 critique sur l'API), la vélocité Frontend est nominale. Je recommande de re-prioriser le fix PDF parser avant le Sprint Planning."*
+*"Out of 45 active tickets: 3 are blocked (including 1 critical on API), Frontend velocity is nominal. I recommend re-prioritizing the PDF parser fix before Sprint Planning."*
 :::
 :::
 
@@ -949,7 +949,7 @@ L'Agent devient votre **Agile Coach** et **Analyste transversal** :
 
 :::
 
-## Workflow Multi-Agents : GitLab & PM
+## Multi-Agent Workflow: GitLab & PM
 
 ::: agent-diagram
 ::: ad-lines
@@ -961,27 +961,27 @@ L'Agent devient votre **Agile Coach** et **Analyste transversal** :
 
 ::: {.ad-node .ad-top .fragment .fade-up}
 #### 🦊 GitLab Boards
-<p>Gestion CV, Mobilités, APIs</p>
+<p>Resume Management, Mobility, APIs</p>
 :::
 
 ::: {.ad-node .ad-left .fragment .slide-right}
 #### 🔍 Analysis
-<p>Lecture API, Détection statuts</p>
+<p>API Reading, Status detection</p>
 :::
 
 ::: {.ad-center .fragment .zoom-in}
 <h3 class="grad-g">INSIGHTS</h3>
-<p style="font-size: 1.2rem; margin-top: 0.5rem; color: #fff;">Agent PM</p>
+<p style="font-size: 1.2rem; margin-top: 0.5rem; color: #fff;">PM Agent</p>
 :::
 
 ::: {.ad-node .ad-right .fragment .slide-left}
-#### 💡 Recommandations
-<p>Alertes, Goulots, Priorités</p>
+#### 💡 Recommendations
+<p>Alerts, Bottlenecks, Priorities</p>
 :::
 
 ::: {.ad-node .ad-bottom .fragment .fade-up}
 #### 🧑‍💻 PM Actions
-<p>Prise de décision, Stratégie</p>
+<p>Decision making, Strategy</p>
 :::
 :::
 
