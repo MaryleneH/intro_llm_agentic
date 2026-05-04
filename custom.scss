@@ -154,7 +154,7 @@ $border-radius: 12px;
   /* ── Slide headings ── */
   h2 {
     font-family: 'Outfit', sans-serif;
-    font-size: 1.75rem;
+    font-size: 2.2rem;
     font-weight: 800;
     letter-spacing: -0.025em;
     line-height: 1.2;
@@ -180,7 +180,7 @@ $border-radius: 12px;
 
   /* ── Body text ── */
   p {
-    font-size: 1rem;
+    font-size: 1.3rem;
     line-height: 1.55;
     color: var(--text);
     margin-bottom: 0.6rem;
@@ -192,10 +192,10 @@ $border-radius: 12px;
   }
 
   li {
-    font-size: 1.0rem;
+    font-size: 1.3rem;
     line-height: 1.6;
     color: var(--text);
-    margin-bottom: 0.5rem;
+    margin-bottom: 0.6rem;
   }
 
   li::marker { color: var(--v); }
@@ -226,17 +226,17 @@ $border-radius: 12px;
   pre {
     border-radius: 10px;
     border: 1px solid var(--glass-border);
-    font-size: 0.78rem;
+    font-size: 1.0rem;
   }
   code { font-family: 'JetBrains Mono', monospace; }
   .sourceCode { background: rgba(0,0,0,0.45) !important; }
 
   /* ── Math ── */
-  .math { color: #e2d9ff; font-size: 0.92rem; }
+  .math { color: #e2d9ff; font-size: 1.2rem; }
 
   /* ── Tables ── */
   table {
-    font-size: 0.95rem;
+    font-size: 1.2rem;
     border-collapse: separate;
     border-spacing: 0;
     width: 100%;
@@ -250,14 +250,14 @@ $border-radius: 12px;
     color: #fff;
     font-weight: 600;
     padding: 0.6rem 0.9rem;
-    font-size: 0.92rem;
+    font-size: 1.2rem;
   }
   table td {
     background: var(--glass);
     padding: 0.5rem 0.9rem;
     border-top: 1px solid var(--glass-border);
     color: var(--text);
-    font-size: 0.95rem;
+    font-size: 1.2rem;
   }
   table tr:hover td { background: rgba(124,58,237,0.07); }
 
@@ -279,7 +279,7 @@ $border-radius: 12px;
   padding: 0.9rem 1.4rem;
   margin: 0.65rem 0;
   text-align: center;
-  font-size: 0.9rem;
+  font-size: 1.2rem;
 }
 
 /* Glass card */
@@ -289,11 +289,11 @@ $border-radius: 12px;
   border-radius: 12px;
   padding: 1rem 1.3rem;
   margin-bottom: 0.6rem;
-  font-size: 0.95rem;
+  font-size: 1.2rem;
   line-height: 1.55;
 }
-.card p  { font-size: 0.95rem; margin-bottom: 0.2rem; }
-.card li { font-size: 0.92rem; }
+.card p  { font-size: 1.2rem; margin-bottom: 0.2rem; }
+.card li { font-size: 1.15rem; }
 
 .card-v { border-color: var(--v-border); background: var(--v-soft); }
 .card-c { border-color: var(--c-border); background: var(--c-soft); }
@@ -306,10 +306,10 @@ $border-radius: 12px;
   border-radius: 0 8px 8px 0;
   padding: 0.7rem 1rem;
   margin: 0.6rem 0;
-  font-size: 0.95rem;
+  font-size: 1.2rem;
   line-height: 1.55;
 }
-.highlight-band p { font-size: 0.95rem; margin: 0; }
+.highlight-band p { font-size: 1.2rem; margin: 0; }
 
 /* Checkpoint block */
 .checkpoint {
@@ -322,12 +322,12 @@ $border-radius: 12px;
 }
 .checkpoint h3 {
   font-family: 'Outfit', sans-serif;
-  font-size: 1.4rem;
+  font-size: 1.8rem;
   font-weight: 900;
   margin-bottom: 0.5rem;
   color: #fff;
 }
-.checkpoint p, .checkpoint li { font-size: 0.95rem; }
+.checkpoint p, .checkpoint li { font-size: 1.2rem; }
 
 /* Gradient text utilities */
 .grad-v   { background: linear-gradient(135deg, #c4b5fd, #7C3AED); -webkit-background-clip:text; -webkit-text-fill-color:transparent; background-clip:text; }
@@ -343,9 +343,9 @@ $border-radius: 12px;
 }
 
 /* Badge */
-.badge-v { display:inline-block; font-size:0.55rem; font-weight:700; letter-spacing:0.2em; text-transform:uppercase; border-radius:20px; padding:0.28em 0.95em; color:var(--v); border:1px solid var(--v-border); background:var(--v-soft); }
-.badge-c { display:inline-block; font-size:0.55rem; font-weight:700; letter-spacing:0.2em; text-transform:uppercase; border-radius:20px; padding:0.28em 0.95em; color:var(--c); border:1px solid var(--c-border); background:var(--c-soft); }
-.badge-g { display:inline-block; font-size:0.55rem; font-weight:700; letter-spacing:0.2em; text-transform:uppercase; border-radius:20px; padding:0.28em 0.95em; color:var(--g); border:1px solid var(--g-border); background:var(--g-soft); }
+.badge-v { display:inline-block; font-size:0.75rem; font-weight:700; letter-spacing:0.2em; text-transform:uppercase; border-radius:20px; padding:0.28em 0.95em; color:var(--v); border:1px solid var(--v-border); background:var(--v-soft); }
+.badge-c { display:inline-block; font-size:0.75rem; font-weight:700; letter-spacing:0.2em; text-transform:uppercase; border-radius:20px; padding:0.28em 0.95em; color:var(--c); border:1px solid var(--c-border); background:var(--c-soft); }
+.badge-g { display:inline-block; font-size:0.75rem; font-weight:700; letter-spacing:0.2em; text-transform:uppercase; border-radius:20px; padding:0.28em 0.95em; color:var(--g); border:1px solid var(--g-border); background:var(--g-soft); }
 
 /* Grid helpers */
 .grid-2 { display:grid; grid-template-columns:repeat(2,1fr); gap:0.9rem; }
