@@ -470,7 +470,7 @@ while not done:
 
 - 🔍 **Recherche** — Web, Confluence, Slack
 - 💻 **Code** — Python sandbox, SQL, R
-- 📝 **Écriture** — Jira, Notion, email, Slack
+- 📝 **Écriture** — GitLab, Notion, email, Slack
 - 📊 **Analyse** — CSV, BI dashboards, métriques
 - 🌐 **APIs** — REST, GraphQL, webhooks
 :::
@@ -508,7 +508,7 @@ Avantage : le Planner raisonne en **langage naturel** ; l'Executor opère en **m
 
 *"Prépare le bilan sprint"*
 
-1. Récupérer tickets fermés (Jira API)
+1. Récupérer tickets fermés (GitLab API)
 2. Calculer vélocité (Python)
 3. Identifier les blockers (NLP)
 4. Rédiger le résumé (LLM)
@@ -700,7 +700,7 @@ Plus de temps pour la **stratégie, l'utilisateur, la décision**.
 ↓ délègue à :
 
 - Agent Feedback (NLP/clustering)
-- Agent Backlog (Jira/Linear)
+- Agent Backlog (GitLab)
 - Agent Reporting (analytics)
 - Agent Communication (Slack)
 
@@ -722,7 +722,7 @@ Chaque agent peut être un LLM différent, calibré pour son domaine.
 
 **④ Review** — Human-in-the-loop : le PM valide, enrichit ou rejette
 
-**⑤ Sync** — Ticket poussé dans Jira/Linear, notif Slack, roadmap mise à jour
+**⑤ Sync** — Ticket poussé dans GitLab, notif Slack, roadmap mise à jour
 
 ::: {.fragment .fade-up}
 ::: highlight-band
@@ -763,6 +763,226 @@ L'agent amplifie votre jugement. Il ne le remplace pas.
 
 :::
 
+:::
+
+## L'Enjeu Multi-Boards
+
+::: {.columns}
+
+::: {.column width="50%"}
+**Pourquoi consolider la vue ?**
+
+La réalité d'un PM n'est pas un board unique, mais un **écosystème de boards**.
+
+- **Priorités croisées** : un ticket "Frontend" dépend d'un ticket "API".
+- **Goulots d'étranglement** : la QA est saturée sur le Mobile, bloquant la release.
+- **Risques invisibles** : une dette technique ignorée sur la Gestion CV retarde les mobilités.
+:::
+
+::: {.column width="50%"}
+
+::: {.fragment .fade-up}
+::: card-g
+**Le défi du PM**
+Obtenir une vue globale de l'avancement, des risques et des dépendances **sans passer 3h par jour** à lire des tickets GitLab sur 4 projets différents.
+:::
+:::
+
+::: {.fragment .fade-up}
+::: highlight-band
+C'est ici qu'intervient l'Agent : il **lit, synthétise et alerte** en temps réel sur l'ensemble de l'instance GitLab.
+:::
+:::
+
+:::
+
+:::
+
+## Board 1 : Gestion des CV
+
+::: kanban-board
+
+::: kanban-col
+<div class="kanban-col-header">To Do <span class="kanban-col-count">1</span></div>
+::: {.k-card .fragment .fade-up}
+<h5>Extract skills using LLM</h5>
+<div class="k-tags"><span class="k-lbl lbl-backend">Backend</span><span class="k-lbl lbl-enhancement">Enhancement</span></div>
+<div class="k-meta"><span class="k-milestone">🚩 Sprint 14</span><span class="k-assignee">AI</span></div>
+:::
+:::
+
+::: kanban-col
+<div class="kanban-col-header">In Progress <span class="kanban-col-count">1</span></div>
+::: {.k-card .fragment .fade-up delay="100"}
+<h5>Add dark mode toggle</h5>
+<div class="k-tags"><span class="k-lbl lbl-frontend">Frontend</span></div>
+<div class="k-meta"><span class="k-milestone">🚩 Sprint 14</span><span class="k-assignee c2">PM</span></div>
+:::
+:::
+
+::: kanban-col
+<div class="kanban-col-header">Review <span class="kanban-col-count">0</span></div>
+:::
+
+::: kanban-col
+<div class="kanban-col-header">Blocked <span class="kanban-col-count">1</span></div>
+::: {.k-card .fragment .fade-up delay="200"}
+<h5>Fix PDF parser crash</h5>
+<div class="k-tags"><span class="k-lbl lbl-bug">Bug</span><span class="k-lbl lbl-urgent">Urgent</span></div>
+<div class="k-meta"><span class="k-milestone">🚩 Hotfix</span><span class="k-assignee c3">Dev</span></div>
+:::
+:::
+
+::: kanban-col
+<div class="kanban-col-header">Done <span class="kanban-col-count">0</span></div>
+:::
+
+:::
+
+## Board 2 : Gestion des mobilités
+
+::: kanban-board
+
+::: kanban-col
+<div class="kanban-col-header">Backlog <span class="kanban-col-count">1</span></div>
+::: {.k-card .fragment .fade-up}
+<h5>Improve dashboard loading time</h5>
+<div class="k-tags"><span class="k-lbl lbl-perf">Performance</span></div>
+<div class="k-meta"><span class="k-milestone">🚩 Q3 Release</span><span class="k-assignee c2">PM</span></div>
+:::
+:::
+
+::: kanban-col
+<div class="kanban-col-header">In Progress <span class="kanban-col-count">1</span></div>
+::: {.k-card .fragment .fade-up delay="100"}
+<h5>Add mobility matching widget</h5>
+<div class="k-tags"><span class="k-lbl lbl-frontend">Frontend</span><span class="k-lbl lbl-enhancement">Enhancement</span></div>
+<div class="k-meta"><span class="k-milestone">🚩 Sprint 14</span><span class="k-assignee">AI</span></div>
+:::
+:::
+
+::: kanban-col
+<div class="kanban-col-header">QA <span class="kanban-col-count">0</span></div>
+:::
+
+::: kanban-col
+<div class="kanban-col-header">Blocked <span class="kanban-col-count">1</span></div>
+::: {.k-card .fragment .fade-up delay="200"}
+<h5>Broken layout on Safari</h5>
+<div class="k-tags"><span class="k-lbl lbl-bug">Bug</span></div>
+<div class="k-meta"><span class="k-milestone">🚩 Sprint 14</span><span class="k-assignee c3">Dev</span></div>
+:::
+:::
+
+::: kanban-col
+<div class="kanban-col-header">Done <span class="kanban-col-count">0</span></div>
+:::
+
+:::
+
+## Board 3 : Gestion API
+
+::: kanban-board
+
+::: kanban-col
+<div class="kanban-col-header">To Do <span class="kanban-col-count">2</span></div>
+::: {.k-card .fragment .fade-up}
+<h5>Add rate-limiting middleware</h5>
+<div class="k-tags"><span class="k-lbl lbl-backend">Backend</span><span class="k-lbl lbl-perf">Perf</span></div>
+<div class="k-meta"><span class="k-milestone">🚩 Q3 Release</span><span class="k-assignee">AI</span></div>
+:::
+::: {.k-card .fragment .fade-up delay="100"}
+<h5>Migrate logs to OpenTelemetry</h5>
+<div class="k-tags"><span class="k-lbl lbl-infra">Infra</span></div>
+<div class="k-meta"><span class="k-milestone">🚩 Tech Debt</span><span class="k-assignee c3">Dev</span></div>
+:::
+:::
+
+::: kanban-col
+<div class="kanban-col-header">In Progress <span class="kanban-col-count">0</span></div>
+:::
+
+::: kanban-col
+<div class="kanban-col-header">Review <span class="kanban-col-count">0</span></div>
+:::
+
+::: kanban-col
+<div class="kanban-col-header">Blocked <span class="kanban-col-count">0</span></div>
+:::
+
+::: kanban-col
+<div class="kanban-col-header">Done <span class="kanban-col-count">1</span></div>
+::: {.k-card .fragment .fade-up delay="200"}
+<h5>Fix 500 error on POST /auth</h5>
+<div class="k-tags"><span class="k-lbl lbl-bug">Bug</span><span class="k-lbl lbl-urgent">Urgent</span></div>
+<div class="k-meta"><span class="k-milestone">🚩 Hotfix</span><span class="k-assignee c2">PM</span></div>
+:::
+:::
+
+:::
+
+## L'Agent au service des Boards
+
+::: {.columns}
+
+::: {.column width="55%"}
+L'Agent devient votre **Agile Coach** et **Analyste transversal** :
+
+- **👁️ Lecture croisée** : L'Agent accède aux 3 boards GitLab simultanément via l'API.
+- **🚨 Détection d'anomalies** : *"Le ticket 'Extract skills' est en 'To Do' depuis 12 jours, risque de dérive."*
+- **🔗 Gestion des dépendances** : *"La 'Gestion des mobilités' est bloquée par l'API Gateway."*
+- **💡 Proposition d'actions** : Rédaction automatique de sub-tasks, assignation, ou fermeture de tickets dupliqués.
+
+:::
+
+::: {.column width="45%"}
+
+::: {.fragment .zoom-in}
+::: card-g
+**Synthèse PM Hebdomadaire**
+
+*"Sur 45 tickets actifs : 3 sont bloqués (dont 1 critique sur l'API), la vélocité Frontend est nominale. Je recommande de re-prioriser le fix PDF parser avant le Sprint Planning."*
+:::
+:::
+
+:::
+
+:::
+
+## Workflow Multi-Agents : GitLab & PM
+
+::: agent-diagram
+::: ad-lines
+::: ad-line-h
+:::
+::: ad-line-v
+:::
+:::
+
+::: {.ad-node .ad-top .fragment .fade-up}
+#### 🦊 GitLab Boards
+<p>Gestion CV, Mobilités, APIs</p>
+:::
+
+::: {.ad-node .ad-left .fragment .slide-right}
+#### 🔍 Analysis
+<p>Lecture API, Détection statuts</p>
+:::
+
+::: {.ad-center .fragment .zoom-in}
+<h3 class="grad-g">INSIGHTS</h3>
+<p style="font-size: 1.2rem; margin-top: 0.5rem; color: #fff;">Agent PM</p>
+:::
+
+::: {.ad-node .ad-right .fragment .slide-left}
+#### 💡 Recommandations
+<p>Alertes, Goulots, Priorités</p>
+:::
+
+::: {.ad-node .ad-bottom .fragment .fade-up}
+#### 🧑‍💻 PM Actions
+<p>Prise de décision, Stratégie</p>
+:::
 :::
 
 ## Conclusion {background-color="#001a0f"}
