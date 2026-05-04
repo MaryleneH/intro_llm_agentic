@@ -370,6 +370,42 @@ Il peut exécuter du code, appeler des APIs, lire des fichiers, écrire dans une
 
 :::
 
+## L'Anatomie d'un Agent
+
+::: agent-diagram
+::: ad-lines
+::: ad-line-h
+:::
+::: ad-line-v
+:::
+:::
+
+::: {.ad-node .ad-top .fragment .fade-up}
+#### 🧠 Cerveau
+<p>LLM (Raisonnement, Planification)</p>
+:::
+
+::: {.ad-node .ad-left .fragment .slide-right}
+#### 💾 Mémoire
+<p>Contexte court, RAG long terme</p>
+:::
+
+::: {.ad-center .fragment .zoom-in}
+<h3 class="grad-v">AGENT</h3>
+<p style="font-size: 1.2rem; margin-top: 0.5rem; color: #fff;">Orchestrateur</p>
+:::
+
+::: {.ad-node .ad-right .fragment .slide-left}
+#### 🛠️ Outils
+<p>Recherche Web, APIs, Python</p>
+:::
+
+::: {.ad-node .ad-bottom .fragment .fade-up}
+#### ⚙️ Action
+<p>Exécution dans le monde réel</p>
+:::
+:::
+
 ## La Boucle ReAct
 
 ::: {.columns}
