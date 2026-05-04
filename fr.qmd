@@ -7,137 +7,142 @@ title-slide-attributes:
 
 # ACT I {.act-section .act1 background-color="#0D0F1A"}
 
-::: {.badge .badge-v}
+::: badge-v
 La Couche Intelligence
 :::
 
-## Qu'est-ce qu'un LLM ? {.act1-slide}
+## Qu'est-ce qu'un LLM ?
 
 ::: {.columns}
+
 ::: {.column width="55%"}
 Un **Large Language Model** est un modèle autorégressif qui apprend la distribution conditionnelle du langage :
 
-::: {.formula-box}
+::: formula-box
 $$P(w_1, \ldots, w_T) = \prod_{t=1}^{T} P(w_t \mid w_1, \ldots, w_{t-1})$$
 :::
 
-::: {.fragment .fade-up}
 À chaque pas, le modèle prédit le **token suivant** parmi un vocabulaire $\mathcal{V}$ (30k–100k tokens).
 :::
-:::
+
 ::: {.column width="45%"}
+
 ::: {.fragment .fade-up}
-::: {.card .card-v}
-**Échelle (loi de scaling)**
+::: card-v
+**Lois de scaling**
 
 - Paramètres : 7B → 1T+
 - Données : trillions de tokens
 - Compute : milliers de GPU·jours
 :::
 :::
+
 ::: {.fragment .fade-up}
-::: {.card}
+::: card
 **Ce que ça change pour vous**
 
-Ce n'est pas un moteur de recherche.  
+Ce n'est pas un moteur de recherche.
 C'est un **générateur de probabilités sur du texte**.
 :::
 :::
-:::
+
 :::
 
-## Comment il apprend {.act1-slide}
+:::
+
+## Comment il apprend
 
 ::: {.columns}
-::: {.column width="50%"}
-**Pré-entraînement** : maximiser la log-vraisemblance
 
-::: {.formula-box}
+::: {.column width="50%"}
+**Pré-entraînement** — maximiser la log-vraisemblance :
+
+::: formula-box
 $$\mathcal{L} = -\sum_{t=1}^{T} \log P_\theta(w_t \mid w_{<t})$$
 :::
 
-Optimisé par **AdamW** + scheduler cosine sur $\sim$10²³ FLOPs.
+Optimisé par **AdamW** + scheduler cosine.
 
 ::: {.fragment .fade-up}
-::: {.highlight-band}
+::: highlight-band
 **Loi de Chinchilla** : pour $N$ paramètres, il faut $\approx 20N$ tokens d'entraînement optimal.
 :::
 :::
+
 :::
+
 ::: {.column width="50%"}
+
 ::: {.fragment .fade-up}
 **Pipeline complet**
 
-::: {.step-row}
-::: {.step-num}1:::
-::: {.step-content}
-**Pré-entraînement** — corpus massif, prédiction de token
-:::
-:::
-::: {.step-row}
-::: {.step-num}2:::
-::: {.step-content}
-**SFT** — fine-tuning supervisé sur des démonstrations
-:::
-:::
-::: {.step-row}
-::: {.step-num}3:::
-::: {.step-content}
-**RLHF** — alignement par feedback humain
-:::
-:::
-:::
-:::
+**① Pré-entraînement** — corpus massif, prédiction de token
+
+**② SFT** — fine-tuning supervisé sur des démonstrations
+
+**③ RLHF** — alignement par feedback humain
 :::
 
-## Le Transformer : Self-Attention {.act1-slide}
+:::
+
+:::
+
+## Le Transformer : Self-Attention
 
 ::: {.columns}
-::: {.column width="55%"}
-Le mécanisme central : chaque token **attend** tous les autres.
 
-::: {.formula-box}
+::: {.column width="55%"}
+Le mécanisme central — chaque token **attend** tous les autres :
+
+::: formula-box
 $$\text{Attention}(Q,K,V) = \text{softmax}\!\left(\frac{QK^\top}{\sqrt{d_k}}\right)\!V$$
 :::
 
-::: {.fragment .fade-up}
 - $Q$ = ce que je cherche, $K$ = ce que j'offre, $V$ = ce que je transmets
 - $\sqrt{d_k}$ : normalisation pour éviter la saturation du softmax
-- **Multi-head** : $h$ têtes parallèles, chacune capture une relation différente
+
+::: {.fragment .fade-up}
+**Multi-head** : $h$ têtes parallèles, chacune capture une relation différente.
 :::
+
 :::
+
 ::: {.column width="45%"}
+
 ::: {.fragment .zoom-in}
-::: {.card .card-v}
-**Intuition**
+::: card-v
+**Intuition contextuelle**
 
-Le mot *"banque"* dans *"la banque du fleuve"* vs *"la banque centrale"* obtient des représentations **différentes** grâce à l'attention contextuelle.
-:::
-:::
+Le mot *"banque"* dans *"la banque du fleuve"* vs *"la banque centrale"* reçoit des représentations **différentes** grâce à l'attention.
 :::
 :::
 
-## Tokens & Échantillonnage {.act1-slide}
+:::
+
+:::
+
+## Tokens & Échantillonnage
 
 ::: {.columns}
+
 ::: {.column width="50%"}
-**Tokenisation** : BPE / SentencePiece
+**Tokenisation BPE / SentencePiece**
 
 `"Product Manager"` → `["Product", " Man", "ager"]`
 
 **Distribution de sortie** avec température $T$ :
 
-::: {.formula-box}
+::: formula-box
 $$P(w_i) = \frac{\exp(z_i / T)}{\sum_j \exp(z_j / T)}$$
 :::
 
-::: {.fragment .fade-up}
 - $T \to 0$ : déterministe (greedy)
 - $T = 1$ : distribution apprise
 - $T > 1$ : plus créatif, moins précis
 :::
-:::
+
 ::: {.column width="50%"}
+
 ::: {.fragment .fade-up}
 **Stratégies d'échantillonnage**
 
@@ -145,181 +150,171 @@ $$P(w_i) = \frac{\exp(z_i / T)}{\sum_j \exp(z_j / T)}$$
 |---|---|
 | Greedy | $\arg\max$ à chaque pas |
 | Top-k | Filtrer les $k$ meilleurs |
-| Top-p (nucleus) | Filtrer par masse $p$ cumulée |
-| Beam search | Explorer $b$ séquences en parallèle |
-:::
-:::
+| Top-p (nucleus) | Masse cumulée $p$ |
+| Beam search | $b$ séquences en parallèle |
+
 :::
 
-## RLHF : Aligner le modèle {.act1-slide}
+:::
+
+:::
+
+## RLHF : Aligner le modèle
 
 ::: {.columns}
+
 ::: {.column width="55%"}
 **Reinforcement Learning from Human Feedback**
 
-::: {.step-row}
-::: {.step-num}1:::
-::: {.step-content}
-**Reward Model** entraîné sur préférences humaines : $r_\phi(x,y)$
-:::
-:::
-::: {.step-row}
-::: {.step-num}2:::
-::: {.step-content}
-**PPO** optimise la politique $\pi_\theta$ contre ce reward
-:::
+**① Reward Model** entraîné sur préférences humaines : $r_\phi(x,y)$
+
+**② PPO** optimise la politique $\pi_\theta$ contre ce reward :
+
+::: formula-box
+$$\max_{\pi_\theta}\ \mathbb{E}[r_\phi(x,y)] - \beta\, D_{\text{KL}}[\pi_\theta \| \pi_{\text{ref}}]$$
 :::
 
-::: {.formula-box}
-$$\max_{\pi_\theta} \mathbb{E}[r_\phi(x,y)] - \beta\, D_{\text{KL}}[\pi_\theta \| \pi_{\text{ref}}]$$
+Le terme KL évite que le modèle s'éloigne trop du modèle de référence.
 :::
 
-::: {.fragment .fade-up}
-Le terme KL évite que le modèle "triche" en s'éloignant trop du modèle de référence.
-:::
-:::
 ::: {.column width="45%"}
+
 ::: {.fragment .fade-up}
-::: {.card .card-c}
+::: card-c
 **Variantes modernes**
 
-- **DPO** : Direct Preference Optimization (sans RM explicite)
-- **RLAIF** : feedback généré par un autre LLM
-- **Constitutional AI** : règles de constitution
-:::
-:::
+- **DPO** — Direct Preference Optimization (sans RM explicite)
+- **RLAIF** — feedback généré par un autre LLM
+- **Constitutional AI** — règles de constitution (Anthropic)
 :::
 :::
 
-## Le Prompt comme Interface {.act1-slide}
+:::
+
+:::
+
+## Le Prompt comme Interface
 
 ::: {.columns}
+
 ::: {.column width="50%"}
 **Structure d'un prompt efficace**
 
-::: {.card .card-v}
+::: card-v
 ```
-RÔLE      → Tu es un analyste produit senior
-CONTEXTE  → Voici les feedbacks de la semaine : ...
-TÂCHE     → Identifie les 3 pain points prioritaires
-FORMAT    → Réponse en JSON avec score d'impact
-CONTRAINTE→ Maximum 200 tokens, pas d'hallucination
+RÔLE       Tu es un analyste produit senior
+CONTEXTE   Feedbacks de la semaine : [...]
+TÂCHE      Identifie les 3 pain points prioritaires
+FORMAT     JSON avec score d'impact
+CONTRAINTE Max 200 tokens, pas d'hallucination
 ```
 :::
 
 ::: {.fragment .fade-up}
-**Chain-of-Thought** : ajouter *"Raisonne étape par étape"* améliore les performances sur les tâches complexes de $\sim$30%.
+**Chain-of-Thought** : ajouter *"Raisonne étape par étape"* améliore les performances de ~30% sur les tâches complexes.
 :::
+
 :::
+
 ::: {.column width="50%"}
+
 ::: {.fragment .fade-up}
-**Ce que peut faire un LLM bien prompté**
+**Ce qu'un LLM bien prompté peut faire**
 
-::: {.grid-2}
-::: {.card}
-✍️ Rédiger, reformuler, traduire
-:::
-::: {.card}
-📊 Extraire, classifier, structurer
-:::
-::: {.card}
-🔍 Résumer, analyser, comparer
-:::
-::: {.card}
-💡 Générer des idées, brainstormer
-:::
-:::
-:::
-:::
+- ✍️ Rédiger, reformuler, traduire
+- 📊 Extraire, classifier, structurer
+- 🔍 Résumer, analyser, comparer
+- 💡 Brainstormer, générer des variantes
+- 🧮 Raisonner pas à pas sur des données
 :::
 
-## Limites critiques du LLM {.act1-slide}
+:::
+
+:::
+
+## Limites critiques du LLM
 
 ::: {.columns}
+
 ::: {.column width="50%"}
-::: {.card .card-v}
+::: card-v
 **❌ Pas de mémoire persistante**
 
-Le contexte est une fenêtre finie : 8k → 128k tokens. Au-delà, le modèle oublie.
+La fenêtre de contexte est finie (8k–128k tokens). Au-delà, le modèle oublie.
 :::
+
 ::: {.fragment .fade-up}
-::: {.card}
+::: card
 **❌ Hallucinations**
 
-Le modèle génère du texte plausible, pas forcément vrai. Perplexité basse ≠ exactitude factuelle.
+Le modèle génère du texte plausible, pas nécessairement exact. Perplexité basse ≠ exactitude factuelle.
 :::
 :::
+
 ::: {.fragment .fade-up}
-::: {.card}
+::: card
 **❌ Pas d'action dans le monde**
 
-Un LLM seul ne peut pas envoyer un email, modifier un ticket, ni appeler une API.
+Un LLM seul ne peut pas envoyer un email, modifier un ticket ni appeler une API.
 :::
 :::
+
 :::
+
 ::: {.column width="50%"}
+
 ::: {.fragment .zoom-in}
-::: {.highlight-band}
+::: highlight-band
 **La conclusion de l'ACT I**
 
-> Un LLM est un cerveau extraordinairement cultivé.  
-> Mais **sans mains, sans mémoire, sans agenda**.  
-> C'est là qu'entre l'Agent.
-:::
-:::
+Un LLM est un cerveau extraordinairement cultivé.
+Mais **sans mains, sans mémoire, sans agenda**.
+
+C'est là qu'entre l'Agent.
 :::
 :::
 
-## RAG : Mémoire Externe {.act1-slide}
+:::
+
+:::
+
+## RAG : Mémoire Externe
 
 ::: {.columns}
+
 ::: {.column width="55%"}
 **Retrieval-Augmented Generation**
 
-::: {.step-row}
-::: {.step-num}1:::
-::: {.step-content}
-**Encode** : la question $q$ → vecteur $e_q \in \mathbb{R}^d$
+**① Encode** — la question $q$ → vecteur $e_q \in \mathbb{R}^d$
+
+**② Retrieve** — similarité cosinus sur une base vectorielle :
+
+::: formula-box
+$$\text{sim}(e_q, e_d) = \frac{e_q \cdot e_d}{\|e_q\|\,\|e_d\|}$$
 :::
+
+**③ Augment** — injecter les chunks les plus proches dans le prompt
+
+**④ Generate** — le LLM répond en se fondant sur les documents récupérés
 :::
-::: {.step-row}
-::: {.step-num}2:::
-::: {.step-content}
-**Retrieve** : similarité cosinus sur une base vectorielle
-:::
-:::
-::: {.step-row}
-::: {.step-num}3:::
-::: {.step-content}
-**Augment** : injecter les chunks $k$ les plus proches dans le prompt
-:::
-:::
-::: {.step-row}
-::: {.step-num}4:::
-::: {.step-content}
-**Generate** : le LLM répond en se fondant sur les documents récupérés
-:::
-:::
-:::
+
 ::: {.column width="45%"}
+
 ::: {.fragment .fade-up}
-::: {.formula-box}
-$$\text{sim}(e_q, e_d) = \frac{e_q \cdot e_d}{\|e_q\|\|e_d\|}$$
-:::
-:::
-::: {.fragment .fade-up}
-::: {.card .card-g}
+::: card-g
 **Cas d'usage PM**
 
-Interroger 3 ans de feedbacks Intercom en langage naturel, avec citations de source.
-:::
-:::
+Interroger 3 ans de feedbacks Intercom en langage naturel, avec **citations de source** et **score de confiance**.
 :::
 :::
 
-## Checkpoint ACT I {.act1-slide background-color="#0a0014"}
+:::
 
-::: {.checkpoint}
+:::
+
+## Checkpoint ACT I {background-color="#0a0014"}
+
+::: checkpoint
 ### 🧠 Ce qu'est un LLM
 
 Un modèle autorégressif qui génère du texte token par token, entraîné par maximisation de vraisemblance puis aligné par RLHF.
@@ -327,122 +322,79 @@ Un modèle autorégressif qui génère du texte token par token, entraîné par 
 **Il est puissant mais aveugle, astatique et inactif.**
 
 ::: {.fragment .fade-up}
-::: {.grid-3}
-::: {.card}
-✅ Génère du texte pertinent
+| ✅ Ce qu'il fait | ❌ Ce qu'il ne fait pas |
+|---|---|
+| Génère du texte pertinent | Mémoriser entre les sessions |
+| Comprend le contexte | Agir dans le monde réel |
+| Suit des instructions | Garantir l'exactitude factuelle |
 :::
-::: {.card}
-✅ Comprend le contexte
-:::
-::: {.card}
-✅ Suit des instructions
-:::
-:::
-:::
-::: {.fragment .fade-up}
-::: {.grid-3}
-::: {.card}
-❌ Pas de mémoire longue
-:::
-::: {.card}
-❌ Hallucine
-:::
-::: {.card}
-❌ Pas d'action
-:::
-:::
-:::
+
 :::
 
 # ACT II {.act-section .act2 background-color="#020f14"}
 
-::: {.badge .badge-c}
+::: badge-c
 La Couche Agentique
 :::
 
-## Du LLM à l'Agent {.act2-slide}
+## Du LLM à l'Agent
 
 ::: {.columns}
-::: {.column width="55%"}
-Un **Agent IA** = LLM + 4 composants
 
-::: {.step-row}
-::: {.step-num}🧠:::
-::: {.step-content}
-**Cerveau** — LLM pour le raisonnement et la génération
+::: {.column width="55%"}
+Un **Agent IA** = LLM + 4 composants indispensables
+
+**🧠 Cerveau** — LLM pour le raisonnement et la génération
+
+**💾 Mémoire** — courte (contexte), longue (vector store), épisodique
+
+**🛠️ Outils** — APIs, code sandbox, recherche, base de données
+
+**🔄 Boucle** — plan → action → observation → itération
 :::
-:::
-::: {.step-row}
-::: {.step-num}💾:::
-::: {.step-content}
-**Mémoire** — courte (contexte), longue (vector store), épisodique
-:::
-:::
-::: {.step-row}
-::: {.step-num}🛠️:::
-::: {.step-content}
-**Outils** — APIs, code, recherche, base de données
-:::
-:::
-::: {.step-row}
-::: {.step-num}🔄:::
-::: {.step-content}
-**Boucle** — plan → action → observation → itération
-:::
-:::
-:::
+
 ::: {.column width="45%"}
+
 ::: {.fragment .zoom-in}
-::: {.card .card-c}
+::: card-c
 **La différence clé**
 
-Un LLM répond.  
+Un LLM **répond**.
 Un Agent **agit**.
 
 Il peut exécuter du code, appeler des APIs, lire des fichiers, écrire dans une base de données — et recommencer jusqu'à atteindre son objectif.
 :::
 :::
-:::
+
 :::
 
-## La Boucle ReAct {.act2-slide}
+:::
+
+## La Boucle ReAct
 
 ::: {.columns}
+
 ::: {.column width="55%"}
 **Reason + Act** — le pattern fondamental
 
-::: {.step-row}
-::: {.step-num}1:::
-::: {.step-content}
-**Thought** : raisonnement interne sur l'état actuel
-:::
-:::
-::: {.step-row}
-::: {.step-num}2:::
-::: {.step-content}
-**Action** : appel d'outil (`search`, `code`, `write`)
-:::
-:::
-::: {.step-row}
-::: {.step-num}3:::
-::: {.step-content}
-**Observation** : résultat retourné par l'outil
-:::
-:::
-::: {.step-row}
-::: {.step-num}4:::
-::: {.step-content}
-**Repeat** : jusqu'à l'objectif atteint ou échec
-:::
-:::
+**① Thought** — raisonnement interne sur l'état actuel
+
+**② Action** — appel d'outil (`search`, `code`, `write`)
+
+**③ Observation** — résultat retourné par l'outil
+
+**④ Repeat** — jusqu'à l'objectif atteint ou échec
 
 ::: {.fragment .fade-up}
-::: {.highlight-band}
+::: highlight-band
 Formellement : $\pi(a_t \mid s_t, h_{<t})$ où $h$ est l'historique des (thought, action, obs).
 :::
 :::
+
 :::
+
 ::: {.column width="45%"}
+
 ::: {.fragment .fade-up}
 ```python
 # Pseudocode ReAct
@@ -454,12 +406,15 @@ while not done:
     done    = llm.is_complete(obs)
 ```
 :::
-:::
+
 :::
 
-## Mémoire & Outils {.act2-slide}
+:::
+
+## Mémoire & Outils
 
 ::: {.columns}
+
 ::: {.column width="50%"}
 **Types de mémoire**
 
@@ -469,91 +424,75 @@ while not done:
 | Vectorielle | Long terme | Embeddings + ANN |
 | Épisodique | Historique | Résumés structurés |
 | Procédurale | Permanent | Prompt système |
+
 :::
+
 ::: {.column width="50%"}
+
 ::: {.fragment .fade-up}
 **Outils typiques**
 
-::: {.grid-2}
-::: {.card .card-c}
-🔍 **Recherche**  
-Web, Confluence, Slack
-:::
-::: {.card .card-c}
-💻 **Code**  
-Python sandbox, SQL
-:::
-::: {.card .card-c}
-📝 **Écriture**  
-Jira, Notion, email
-:::
-::: {.card .card-c}
-📊 **Analyse**  
-CSV, charts, dashboards
-:::
-:::
-:::
-:::
+- 🔍 **Recherche** — Web, Confluence, Slack
+- 💻 **Code** — Python sandbox, SQL, R
+- 📝 **Écriture** — Jira, Notion, email, Slack
+- 📊 **Analyse** — CSV, BI dashboards, métriques
+- 🌐 **APIs** — REST, GraphQL, webhooks
 :::
 
-## Plan & Execute {.act2-slide}
+:::
+
+:::
+
+## Plan & Execute
 
 ::: {.columns}
+
 ::: {.column width="55%"}
 Pour les tâches complexes : **décomposer avant d'agir**
 
-::: {.step-row}
-::: {.step-num}1:::
-::: {.step-content}
-**Planner** : LLM décompose l'objectif en sous-tâches $\{t_1, \ldots, t_n\}$
-:::
-:::
-::: {.step-row}
-::: {.step-num}2:::
-::: {.step-content}
-**Executor** : agent exécute chaque $t_i$ avec ses outils
-:::
-:::
-::: {.step-row}
-::: {.step-num}3:::
-::: {.step-content}
-**Replanner** : révise le plan si une étape échoue
+**① Planner** — LLM décompose l'objectif en sous-tâches $\{t_1, \ldots, t_n\}$
+
+**② Executor** — agent exécute chaque $t_i$ avec ses outils
+
+**③ Replanner** — révise le plan si une étape échoue
+
+::: {.fragment .fade-up}
+::: highlight-band
+Avantage : le Planner raisonne en **langage naturel** ; l'Executor opère en **mode outillé**. Séparation des responsabilités.
 :::
 :::
 
-::: {.fragment .fade-up}
-::: {.highlight-band}
-Avantage : le Planner peut raisonner en **langage naturel** tandis que l'Executor opère en **mode outillé**. Séparation des responsabilités.
 :::
-:::
-:::
+
 ::: {.column width="45%"}
+
 ::: {.fragment .zoom-in}
-::: {.card .card-c}
+::: card-c
 **Exemple PM**
 
 *"Prépare le bilan sprint"*
 
-↓ Plan :
 1. Récupérer tickets fermés (Jira API)
 2. Calculer vélocité (Python)
-3. Identifier blockers (analyse NLP)
+3. Identifier les blockers (NLP)
 4. Rédiger le résumé (LLM)
 5. Envoyer sur Slack (webhook)
 :::
 :::
-:::
+
 :::
 
-## Systèmes Multi-Agents {.act2-slide}
+:::
+
+## Systèmes Multi-Agents
 
 ::: {.columns}
+
 ::: {.column width="55%"}
 **Quand un agent ne suffit pas**
 
-::: {.card .card-c}
-**Orchestrateur** → coordonne et délègue  
-**Agents spécialisés** → chacun expert dans son domaine
+::: card-c
+**Orchestrateur** → coordonne et délègue aux agents spécialisés.
 :::
 
 ::: {.fragment .fade-up}
@@ -566,309 +505,265 @@ Avantage : le Planner peut raisonner en **langage naturel** tandis que l'Executo
 | Hiérarchique | Complexité croissante |
 | Peer-to-peer | Debate / validation croisée |
 :::
+
 :::
+
 ::: {.column width="45%"}
+
 ::: {.fragment .fade-up}
-::: {.card}
-**Avantages**
+::: card
+**✅ Avantages**
 
 - Spécialisation → meilleure performance
 - Isolation des erreurs
 - Parallélisme → rapidité
-- Maintenance modulaire
 :::
 :::
+
 ::: {.fragment .fade-up}
-::: {.card}
-**Risques**
+::: card
+**⚠️ Risques**
 
 - Coûts multipliés
 - Erreurs en cascade
-- Latence inter-agents
 - Complexité de débogage
 :::
 :::
-:::
+
 :::
 
-## Human-in-the-Loop & Risques {.act2-slide}
+:::
+
+## Human-in-the-Loop & Risques
 
 ::: {.columns}
+
 ::: {.column width="50%"}
 **HITL : quand demander validation ?**
 
-::: {.step-row}
-::: {.step-num}⚠️:::
-::: {.step-content}
-**Action irréversible** : suppression, envoi d'email
+**⚠️ Action irréversible** — suppression, envoi d'email
+
+**💰 Coût élevé** — appel API payant, calcul long
+
+**🎯 Ambiguïté** — objectif mal défini ou contradictoire
+
+**🛡️ Criticité métier** — engagement contractuel, OKR
+
 :::
-:::
-::: {.step-row}
-::: {.step-num}💰:::
-::: {.step-content}
-**Coût élevé** : appel API payant, calcul long
-:::
-:::
-::: {.step-row}
-::: {.step-num}🎯:::
-::: {.step-content}
-**Ambiguïté** : objectif mal défini ou contradictoire
-:::
-:::
-:::
+
 ::: {.column width="50%"}
+
 ::: {.fragment .fade-up}
 **Les 6 axes de décision**
 
-::: {.grid-2}
-::: {.card .card-c}
-🔁 **Réversibilité**
-:::
-::: {.card .card-c}
-⚡ **Complexité**
-:::
-::: {.card .card-c}
-🛡️ **Risque**
-:::
-::: {.card .card-c}
-🤖 **Autonomie**
-:::
-::: {.card .card-c}
-💸 **Coût**
-:::
-::: {.card .card-c}
-💎 **Valeur**
-:::
-:::
-:::
-:::
+| Axe | Question clé |
+|---|---|
+| 🔁 Réversibilité | Peut-on annuler ? |
+| ⚡ Complexité | Combien d'étapes ? |
+| 🛡️ Risque | Impact si erreur ? |
+| 🤖 Autonomie | Niveau de confiance ? |
+| 💸 Coût | Budget tokens/API ? |
+| 💎 Valeur | ROI attendu ? |
 :::
 
-## Checkpoint ACT II {.act2-slide background-color="#020f14"}
+:::
 
-::: {.checkpoint}
+:::
+
+## Checkpoint ACT II {background-color="#020f14"}
+
+::: checkpoint
 ### 🤖 L'Agent IA en résumé
 
-LLM + Mémoire + Outils + Boucle de raisonnement  
-= un système capable d'**agir de façon autonome** vers un objectif.
+LLM + Mémoire + Outils + Boucle de raisonnement = un système capable d'**agir de façon autonome** vers un objectif.
 
 ::: {.fragment .fade-up}
-**La question n'est plus "est-ce possible ?"**  
-**Elle est : "combien d'agents, avec quels outils, sous quelle gouvernance ?"**
+**La question n'est plus "est-ce possible ?"**
+
+**Elle est : combien d'agents, avec quels outils, sous quelle gouvernance ?**
 :::
+
 :::
 
 # ACT III {.act-section .act3 background-color="#001a0f"}
 
-::: {.badge .badge-g}
+::: badge-g
 Agents & Product Boards
 :::
 
-## Votre Board, Votre Agent {.act3-slide}
+## Votre Board, Votre Agent
 
 ::: {.columns}
+
 ::: {.column width="55%"}
 **Ce qu'un Agent PM peut orchestrer**
 
-::: {.step-row}
-::: {.step-num}📥:::
-::: {.step-content}
-**Ingestion** : feedbacks, emails, reviews App Store
+**📥 Ingestion** — feedbacks, emails, reviews App Store, NPS
+
+**🎫 Tickets** — création, déduplication, priorisation automatique
+
+**🗺️ Roadmap** — scoring RICE/ICE, dépendances, alertes de dérive
+
+**📊 Reporting** — bilan sprint, changelog, suivi OKRs
+
+**🔔 Proactivité** — anomalies détectées, recommandations, blockers
+
 :::
-:::
-::: {.step-row}
-::: {.step-num}🎫:::
-::: {.step-content}
-**Tickets** : création, déduplication, priorisation
-:::
-:::
-::: {.step-row}
-::: {.step-num}🗺️:::
-::: {.step-content}
-**Roadmap** : scoring RICE/ICE, dépendances, alertes
-:::
-:::
-::: {.step-row}
-::: {.step-num}📊:::
-::: {.step-content}
-**Reporting** : bilan sprint, changelog, OKRs
-:::
-:::
-::: {.step-row}
-::: {.step-num}🔔:::
-::: {.step-content}
-**Proactivité** : anomalies, blockers, recommandations
-:::
-:::
-:::
+
 ::: {.column width="45%"}
+
 ::: {.fragment .zoom-in}
-::: {.card .card-g}
+::: card-g
 **La promesse**
 
-Moins de tâches répétitives à faible valeur.  
+Moins de tâches répétitives à faible valeur.
 Plus de temps pour la **stratégie, l'utilisateur, la décision**.
 :::
 :::
-:::
+
 :::
 
-## Architecture Multi-Agents PM {.act3-slide}
+:::
+
+## Architecture Multi-Agents PM
 
 ::: {.columns}
+
 ::: {.column width="55%"}
 **Combien d'agents ? Le dilemme**
 
-::: {.highlight-band}
-**1 agent généraliste** : simple, moins cher, plus facile à déboguer. Suffisant pour ~80% des cas.
+::: highlight-band
+**1 agent généraliste** — simple, moins cher, plus facile à déboguer. Suffisant pour ~80% des cas.
 :::
 
 ::: {.fragment .fade-up}
-::: {.highlight-band}
-**N agents spécialisés** : meilleure performance, parallélisme, isolation des erreurs. Nécessaire si les tâches sont hétérogènes ou critiques.
+::: highlight-band
+**N agents spécialisés** — meilleure performance, parallélisme, isolation des erreurs. Nécessaire si les tâches sont hétérogènes ou critiques.
 :::
 :::
 
 ::: {.fragment .fade-up}
-**Critères de décision**
-
 | Critère | 1 Agent | N Agents |
 |---|---|---|
 | Volume de tâches | Faible | Élevé |
-| Domaines | Homogène | Hétérogène |
+| Domaines couverts | Homogène | Hétérogène |
 | Criticité | Standard | Haute |
 | Budget | Limité | Flexible |
 :::
+
 :::
+
 ::: {.column width="45%"}
-::: {.fragment .fade-up}
-**Architecture recommandée pour une équipe PM**
-
-::: {.card .card-g}
-**Orchestrateur PM**  
-↓ délègue  
-├─ Agent Feedback (NLP)  
-├─ Agent Backlog (Jira)  
-├─ Agent Reporting (analytics)  
-└─ Agent Communication (Slack)
-:::
-
-::: {.card}
-Chaque agent peut être un LLM différent, calibré pour son domaine. L'orchestrateur parle à tous.
-:::
-:::
-:::
-:::
-
-## Workflow : De l'Idée au Ticket {.act3-slide}
-
-::: {.columns}
-::: {.column width="100%"}
-::: {.step-row}
-::: {.step-num}1:::
-::: {.step-content}
-**Collect** — Agent Feedback scrape Intercom, reviews, NPS, interviews
-:::
-:::
-::: {.step-row}
-::: {.step-num}2:::
-::: {.step-content}
-**Cluster** — NLP : regroupement thématique, extraction de pain points, scoring fréquence × impact
-:::
-:::
-::: {.step-row}
-::: {.step-num}3:::
-::: {.step-content}
-**Draft** — Agent Backlog génère un ticket structuré (titre, description, critères d'acceptance, labels, score RICE)
-:::
-:::
-::: {.step-row}
-::: {.step-num}4:::
-::: {.step-content}
-**Review** — Human-in-the-loop : le PM valide, enrichit ou rejette
-:::
-:::
-::: {.step-row}
-::: {.step-num}5:::
-::: {.step-content}
-**Sync** — Ticket poussé dans Jira/Linear, notif Slack, roadmap mise à jour
-:::
-:::
 
 ::: {.fragment .fade-up}
-::: {.highlight-band}
-Ce workflow réduit le temps de triage de **~3h/semaine à ~20min** dans les équipes pionnières.
-:::
-:::
+::: card-g
+**Architecture recommandée**
+
+**Orchestrateur PM**
+
+↓ délègue à :
+
+- Agent Feedback (NLP/clustering)
+- Agent Backlog (Jira/Linear)
+- Agent Reporting (analytics)
+- Agent Communication (Slack)
+
+Chaque agent peut être un LLM différent, calibré pour son domaine.
 :::
 :::
 
-## Limites & Gouvernance {.act3-slide}
+:::
+
+:::
+
+## Workflow : De l'Idée au Ticket
+
+**① Collect** — Agent Feedback scrape Intercom, reviews, NPS, interviews
+
+**② Cluster** — NLP : regroupement thématique, extraction de pain points, scoring fréquence × impact
+
+**③ Draft** — Agent Backlog génère un ticket structuré (titre, description, critères d'acceptance, labels, score RICE)
+
+**④ Review** — Human-in-the-loop : le PM valide, enrichit ou rejette
+
+**⑤ Sync** — Ticket poussé dans Jira/Linear, notif Slack, roadmap mise à jour
+
+::: {.fragment .fade-up}
+::: highlight-band
+Ce workflow réduit le temps de triage de **~3h/semaine à ~20 min** dans les équipes pionnières.
+:::
+:::
+
+## Limites & Gouvernance
 
 ::: {.columns}
+
 ::: {.column width="50%"}
 **Ce que l'agent NE doit PAS décider seul**
 
-::: {.card}
-❌ Prioriser un epic stratégique sans validation
+- ❌ Prioriser un epic stratégique sans validation
+- ❌ Communiquer avec un client externe
+- ❌ Clore un ticket lié à un engagement contractuel
+- ❌ Modifier un OKR ou une métrique nord
+- ❌ Recruiter ou évaluer un membre de l'équipe
+
 :::
-::: {.fragment .fade-up}
-::: {.card}
-❌ Communiquer avec un client externe
-:::
-:::
-::: {.fragment .fade-up}
-::: {.card}
-❌ Clore un ticket lié à un engagement contractuel
-:::
-:::
-::: {.fragment .fade-up}
-::: {.card}
-❌ Modifier un OKR ou une métrique nord
-:::
-:::
-:::
+
 ::: {.column width="50%"}
+
 ::: {.fragment .fade-up}
+::: card-g
 **Le PM comme gouverneur**
 
-::: {.card .card-g}
 Votre rôle évolue :
 
 - De **faire** → à **superviser**
-- De **gérer le backlog** → à **définir les règles du jeu de l'agent**
+- De **gérer le backlog** → à **définir les règles de l'agent**
 - De **écrire des tickets** → à **valider et corriger**
 
 L'agent amplifie votre jugement. Il ne le remplace pas.
 :::
 :::
-:::
+
 :::
 
-## Conclusion {.act3-slide background-color="#001a0f"}
+:::
 
-::: {.checkpoint}
+## Conclusion {background-color="#001a0f"}
+
+::: checkpoint
 ### 🚀 Ce que vous emportez aujourd'hui
 
-::: {.grid-3}
-::: {.card}
-**1. LLMs**  
+::: {.columns}
+
+::: {.column width="33%"}
+::: card
+**1 · LLMs**
+
 Modèles probabilistes. Puissants, mais sans mémoire ni action.
 :::
-::: {.card}
-**2. Agents**  
+:::
+
+::: {.column width="33%"}
+::: card
+**2 · Agents**
+
 LLM + outils + boucle. Ils agissent, itèrent, orchestrent.
 :::
-::: {.card}
-**3. Product**  
+:::
+
+::: {.column width="33%"}
+::: card
+**3 · Product**
+
 L'agent PM existe. La question est : comment le gouverner ?
 :::
 :::
 
-::: {.fragment .fade-up}
-**Prochaine étape**
-
-Identifiez **une tâche répétitive** dans votre semaine.  
-Demandez-vous : *"Un agent pourrait-il faire ça avec les bons outils ?"*
 :::
+
+::: {.fragment .fade-up}
+**Prochaine étape** — Identifiez une tâche répétitive dans votre semaine. Demandez-vous : *un agent pourrait-il faire ça avec les bons outils ?*
+:::
+
 :::
