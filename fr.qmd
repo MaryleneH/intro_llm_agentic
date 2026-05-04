@@ -985,6 +985,84 @@ L'Agent devient votre **Agile Coach** et **Analyste transversal** :
 :::
 :::
 
+## Architecture 1 : LangChain + LangGraph
+
+::: {.columns}
+::: {.column width="100%"}
+**Orchestration par Machine à États** (Graphes cycliques)
+:::
+:::
+
+::: arch-flow
+::: {.arch-node .fragment .fade-up}
+#### 📥 Input
+<p>GitLab Boards, Issues, Metadata</p>
+:::
+<div class="arch-arrow fragment fade-up"></div>
+::: {.arch-node .fragment .fade-up}
+#### ⚙️ Pre-Processing
+<p>LangChain Document Loaders & Splitters</p>
+:::
+<div class="arch-arrow fragment fade-up"></div>
+::: {.arch-node .core .fragment .zoom-in}
+<span class="badge-albert">ALBERT (DINUM)</span>
+<p>LangGraph State Machine</p>
+:::
+<div class="arch-arrow fragment fade-up"></div>
+::: {.arch-node .fragment .fade-up}
+#### 🔀 Decision
+<p>Analyse, Priorisation, Détection de risques</p>
+:::
+<div class="arch-arrow fragment fade-up"></div>
+::: {.arch-node .fragment .fade-up}
+#### 📤 Output
+<p>Insights PM & Recommandations</p>
+:::
+:::
+
+::: {.fragment .fade-up style="margin-top: 2rem; text-align: center; color: var(--muted); font-size: 1.1rem;"}
+*LangGraph définit un graphe explicite où chaque nœud est une étape de raisonnement et les arêtes (edges) sont les décisions conditionnelles de l'Agent.*
+:::
+
+## Architecture 2 : Google ADK
+
+::: {.columns}
+::: {.column width="100%"}
+**Orchestration Déclarative** (Agent Developer Kit)
+:::
+:::
+
+::: arch-flow
+::: {.arch-node .fragment .fade-up}
+#### 📥 Ingestion
+<p>GitLab Webhooks, Milestones, Labels</p>
+:::
+<div class="arch-arrow fragment fade-up"></div>
+::: {.arch-node .fragment .fade-up}
+#### 🛠️ Components
+<p>Skills (Code/Search), Memory, Routing</p>
+:::
+<div class="arch-arrow fragment fade-up"></div>
+::: {.arch-node .core .adk .fragment .zoom-in}
+<span class="badge-albert">ALBERT (DINUM)</span>
+<p>Cognitive Core (ADK)</p>
+:::
+<div class="arch-arrow fragment fade-up"></div>
+::: {.arch-node .fragment .fade-up}
+#### 🔄 Orchestration
+<p>Monitoring, Feedback Loops automatiques</p>
+:::
+<div class="arch-arrow fragment fade-up"></div>
+::: {.arch-node .fragment .fade-up}
+#### 🧑‍🏫 Output
+<p>Coaching Agile, Détection de goulots</p>
+:::
+:::
+
+::: {.fragment .fade-up style="margin-top: 2rem; text-align: center; color: var(--muted); font-size: 1.1rem;"}
+*Google ADK se concentre sur une configuration par "Skills" et "Tools" de manière déclarative, déléguant la gestion d'état au moteur cognitif plutôt qu'à un graphe strict.*
+:::
+
 ## Conclusion {background-color="#001a0f"}
 
 ::: checkpoint

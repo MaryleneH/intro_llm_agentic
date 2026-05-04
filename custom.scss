@@ -456,6 +456,88 @@ $border-radius: 12px;
   opacity: 0.6;
 }
 
+/* ─── Arch Flow Diagram ──────────────────────────────── */
+.arch-flow {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+  margin-top: 2rem;
+}
+
+.arch-node {
+  background: rgba(255,255,255,0.02);
+  border: 1px solid var(--glass-border);
+  border-radius: 12px;
+  padding: 1.2rem;
+  text-align: center;
+  flex: 1;
+  backdrop-filter: blur(8px);
+  position: relative;
+  z-index: 5;
+  transition: transform 0.3s ease;
+}
+
+.arch-node:hover {
+  transform: translateY(-5px);
+  border-color: rgba(255,255,255,0.2);
+}
+
+.arch-node.core {
+  background: radial-gradient(circle, rgba(124,58,237,0.1) 0%, rgba(0,0,0,0) 70%);
+  border: 2px solid var(--v);
+  box-shadow: 0 0 30px rgba(124,58,237,0.2);
+  flex: 1.2;
+}
+
+.arch-node.core.adk {
+  border-color: #4285F4;
+  box-shadow: 0 0 30px rgba(66,133,244,0.2);
+  background: radial-gradient(circle, rgba(66,133,244,0.1) 0%, rgba(0,0,0,0) 70%);
+}
+
+.arch-node h4 {
+  font-family: 'Outfit', sans-serif;
+  font-size: 1.4rem;
+  margin-bottom: 0.4rem;
+  color: #fff;
+}
+
+.arch-node p {
+  font-size: 1.1rem;
+  color: var(--muted);
+  line-height: 1.4;
+  margin: 0;
+}
+
+.arch-arrow {
+  color: var(--muted);
+  font-size: 2rem;
+  animation: pulseArrow 2s infinite;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+@keyframes pulseArrow {
+  0% { transform: translateX(0); opacity: 0.3; }
+  50% { transform: translateX(5px); opacity: 1; }
+  100% { transform: translateX(0); opacity: 0.3; }
+}
+
+/* Badge Albert */
+.badge-albert {
+  display: inline-block;
+  background: linear-gradient(135deg, #0055A4 0%, #FFFFFF 50%, #EF4135 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  font-weight: 900;
+  font-family: 'Outfit', sans-serif;
+  font-size: 1.8rem;
+  margin-bottom: 0.2rem;
+  letter-spacing: 0.05em;
+}
+
 /* ─── Kanban Board ───────────────────────────────────── */
 .kanban-board {
   display: flex;
