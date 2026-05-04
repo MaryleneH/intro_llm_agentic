@@ -1,233 +1,91 @@
 ---
-title: "LLMs & Agentic AI for PMs"
+title: "LLMs & IA Agentique pour les PMs"
 format:
   html:
     page-layout: custom
     include-in-header:
       text: |
+        <link rel="preconnect" href="https://fonts.googleapis.com">
+        <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;700;900&family=Inter:wght@300;400;600&display=swap" rel="stylesheet">
         <style>
-          * { margin: 0; padding: 0; box-sizing: border-box; }
+          *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
           body {
             min-height: 100vh;
             background: #0D0F1A;
             font-family: 'Inter', sans-serif;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            overflow: hidden;
+            display: flex; align-items: center; justify-content: center;
+            overflow: hidden; color: #F1F5F9;
           }
-          /* Mesh background */
           body::before {
-            content: '';
-            position: fixed;
-            inset: 0;
+            content: ''; position: fixed; inset: 0; pointer-events: none; z-index: 0;
             background:
-              radial-gradient(ellipse 80% 60% at 20% 20%, rgba(124,58,237,0.12) 0%, transparent 60%),
-              radial-gradient(ellipse 60% 80% at 80% 80%, rgba(6,182,212,0.08) 0%, transparent 60%),
-              radial-gradient(ellipse 50% 40% at 50% 50%, rgba(16,185,129,0.04) 0%, transparent 70%);
-            pointer-events: none;
-            z-index: 0;
+              radial-gradient(ellipse 80% 60% at 15% 20%, rgba(124,58,237,0.18) 0%, transparent 60%),
+              radial-gradient(ellipse 60% 80% at 85% 80%, rgba(6,182,212,0.12) 0%, transparent 60%),
+              radial-gradient(ellipse 50% 40% at 50% 50%, rgba(16,185,129,0.06) 0%, transparent 70%);
           }
-          .landing {
-            position: relative;
-            z-index: 1;
-            text-align: center;
-            padding: 2rem;
-            max-width: 720px;
-            width: 100%;
-          }
+          .landing { position: relative; z-index: 1; text-align: center; padding: 3rem 2rem; max-width: 700px; width: 100%; }
           .badge {
-            display: inline-block;
-            font-size: 0.65rem;
-            font-weight: 700;
-            letter-spacing: 0.2em;
-            text-transform: uppercase;
-            color: #7C3AED;
-            border: 1px solid rgba(124,58,237,0.4);
-            border-radius: 20px;
-            padding: 0.35em 1em;
-            margin-bottom: 1.8rem;
-            background: rgba(124,58,237,0.08);
-            backdrop-filter: blur(8px);
+            display: inline-block; font-size: 0.6rem; font-weight: 700; letter-spacing: 0.22em;
+            text-transform: uppercase; color: #7C3AED; border: 1px solid rgba(124,58,237,0.4);
+            border-radius: 20px; padding: 0.35em 1.2em; margin-bottom: 2rem;
+            background: rgba(124,58,237,0.08); animation: fadeUp 0.5s ease 0.1s both;
           }
           h1 {
-            font-family: 'Outfit', sans-serif;
-            font-size: clamp(2rem, 5vw, 3.2rem);
-            font-weight: 900;
-            letter-spacing: -0.03em;
-            line-height: 1.1;
+            font-family: 'Outfit', sans-serif; font-size: clamp(2.4rem, 5vw, 3.6rem);
+            font-weight: 900; letter-spacing: -0.03em; line-height: 1.05;
             background: linear-gradient(135deg, #7C3AED 0%, #06B6D4 55%, #10B981 100%);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            background-clip: text;
-            margin-bottom: 0.6rem;
+            -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text;
+            margin-bottom: 0.7rem; animation: fadeUp 0.5s ease 0.2s both;
           }
-          .subtitle {
-            font-size: 1rem;
-            color: #94A3B8;
-            margin-bottom: 0.5rem;
-            line-height: 1.6;
-          }
+          .subtitle { font-size: 0.95rem; color: #94A3B8; line-height: 1.7; margin-bottom: 0.4rem; animation: fadeUp 0.5s ease 0.3s both; }
           .audience {
-            font-size: 0.7rem;
-            font-weight: 600;
-            letter-spacing: 0.12em;
-            text-transform: uppercase;
-            color: #7C3AED;
-            opacity: 0.8;
-            margin-bottom: 3rem;
+            font-size: 0.62rem; font-weight: 700; letter-spacing: 0.16em; text-transform: uppercase;
+            color: #7C3AED; opacity: 0.8; margin-bottom: 3rem; animation: fadeUp 0.5s ease 0.35s both;
           }
-          .lang-buttons {
-            display: flex;
-            gap: 1.2rem;
-            justify-content: center;
-            flex-wrap: wrap;
-            margin-bottom: 2rem;
-          }
-          .lang-btn {
-            position: relative;
-            display: flex;
-            align-items: center;
-            gap: 0.8rem;
-            padding: 1.2rem 2.4rem;
-            border-radius: 16px;
-            text-decoration: none;
-            font-family: 'Outfit', sans-serif;
-            font-weight: 700;
-            font-size: 1.05rem;
-            letter-spacing: 0.01em;
-            transition: transform 0.2s ease, box-shadow 0.2s ease, border-color 0.2s ease;
-            cursor: pointer;
-            overflow: hidden;
-          }
-          .lang-btn::before {
-            content: '';
-            position: absolute;
-            inset: 0;
-            opacity: 0;
-            transition: opacity 0.2s ease;
-          }
-          .lang-btn:hover {
-            transform: translateY(-3px);
-          }
-          .lang-btn:hover::before { opacity: 1; }
-          .lang-btn .flag {
-            font-size: 1.6rem;
-            line-height: 1;
-          }
-          .lang-btn .label {
-            display: flex;
-            flex-direction: column;
-            text-align: left;
-          }
-          .lang-btn .lang-code {
-            font-size: 1rem;
-            font-weight: 800;
-          }
-          .lang-btn .lang-name {
-            font-size: 0.7rem;
-            font-weight: 400;
-            opacity: 0.8;
-          }
-          /* FR button */
-          .btn-fr {
-            background: linear-gradient(135deg, rgba(124,58,237,0.15), rgba(124,58,237,0.05));
+          .cta {
+            display: inline-flex; align-items: center; gap: 1rem; padding: 1.2rem 2.8rem;
+            border-radius: 16px; text-decoration: none; font-family: 'Outfit', sans-serif;
+            font-weight: 700; font-size: 1.1rem; color: #F1F5F9;
+            background: linear-gradient(135deg, rgba(124,58,237,0.2), rgba(6,182,212,0.1));
             border: 1.5px solid rgba(124,58,237,0.5);
-            color: #F1F5F9;
-            box-shadow: 0 4px 24px rgba(124,58,237,0.15);
+            box-shadow: 0 4px 30px rgba(124,58,237,0.2), 0 0 0 0 rgba(124,58,237,0.4);
+            transition: transform 0.2s ease, box-shadow 0.25s ease, border-color 0.2s ease;
+            animation: fadeUp 0.5s ease 0.45s both;
           }
-          .btn-fr::before {
-            background: linear-gradient(135deg, rgba(124,58,237,0.25), rgba(124,58,237,0.08));
-          }
-          .btn-fr:hover {
+          .cta:hover {
+            transform: translateY(-4px);
             border-color: rgba(124,58,237,0.9);
-            box-shadow: 0 8px 40px rgba(124,58,237,0.3);
+            box-shadow: 0 12px 50px rgba(124,58,237,0.35), 0 0 0 4px rgba(124,58,237,0.08);
           }
-          /* EN button */
-          .btn-en {
-            background: linear-gradient(135deg, rgba(6,182,212,0.12), rgba(6,182,212,0.04));
-            border: 1.5px solid rgba(6,182,212,0.4);
-            color: #F1F5F9;
-            box-shadow: 0 4px 24px rgba(6,182,212,0.1);
-          }
-          .btn-en::before {
-            background: linear-gradient(135deg, rgba(6,182,212,0.22), rgba(6,182,212,0.06));
-          }
-          .btn-en:hover {
-            border-color: rgba(6,182,212,0.9);
-            box-shadow: 0 8px 40px rgba(6,182,212,0.25);
-          }
-          .divider {
-            width: 60px;
-            height: 1px;
-            background: linear-gradient(90deg, transparent, rgba(255,255,255,0.12), transparent);
-            margin: 0.5rem auto 1.5rem;
-          }
-          .acts {
-            display: flex;
-            gap: 0.8rem;
-            justify-content: center;
-            flex-wrap: wrap;
-          }
-          .act-pill {
-            font-size: 0.6rem;
-            font-weight: 600;
-            letter-spacing: 0.1em;
-            text-transform: uppercase;
-            padding: 0.3em 0.9em;
-            border-radius: 20px;
-            border: 1px solid;
-          }
-          .act-pill.act1 { color: #7C3AED; border-color: rgba(124,58,237,0.35); background: rgba(124,58,237,0.08); }
-          .act-pill.act2 { color: #06B6D4; border-color: rgba(6,182,212,0.35); background: rgba(6,182,212,0.08); }
-          .act-pill.act3 { color: #10B981; border-color: rgba(16,185,129,0.35); background: rgba(16,185,129,0.08); }
-
-          @import url('https://fonts.googleapis.com/css2?family=Outfit:wght@400;700;900&family=Inter:wght@300;400;600&display=swap');
-
-          /* Entrance animation */
-          @keyframes fadeUp {
-            from { opacity: 0; transform: translateY(24px); }
-            to   { opacity: 1; transform: translateY(0); }
-          }
-          .badge    { animation: fadeUp 0.5s ease 0.1s both; }
-          h1        { animation: fadeUp 0.5s ease 0.2s both; }
-          .subtitle { animation: fadeUp 0.5s ease 0.3s both; }
-          .audience { animation: fadeUp 0.5s ease 0.35s both; }
-          .lang-buttons { animation: fadeUp 0.5s ease 0.45s both; }
-          .divider  { animation: fadeUp 0.5s ease 0.55s both; }
-          .acts     { animation: fadeUp 0.5s ease 0.6s both; }
+          .cta .flag { font-size: 1.6rem; }
+          .cta .lbl { display: flex; flex-direction: column; text-align: left; }
+          .cta .lbl span:last-child { font-size: 0.68rem; font-weight: 400; opacity: 0.75; }
+          .divider { width: 50px; height: 1px; background: linear-gradient(90deg,transparent,rgba(255,255,255,0.1),transparent); margin: 2rem auto; animation: fadeUp 0.5s ease 0.55s both; }
+          .acts { display: flex; gap: 0.7rem; justify-content: center; flex-wrap: wrap; animation: fadeUp 0.5s ease 0.6s both; }
+          .pill { font-size: 0.58rem; font-weight: 600; letter-spacing: 0.1em; text-transform: uppercase; padding: 0.3em 1em; border-radius: 20px; border: 1px solid; }
+          .p1 { color: #7C3AED; border-color: rgba(124,58,237,0.35); background: rgba(124,58,237,0.08); }
+          .p2 { color: #06B6D4; border-color: rgba(6,182,212,0.35); background: rgba(6,182,212,0.08); }
+          .p3 { color: #10B981; border-color: rgba(16,185,129,0.35); background: rgba(16,185,129,0.08); }
+          @keyframes fadeUp { from { opacity:0; transform:translateY(20px); } to { opacity:1; transform:translateY(0); } }
         </style>
-        <script>
-          // Redirect directly to FR
-          window.location.replace('fr.html');
-        </script>
 ---
 
 <div class="landing">
-  <div class="badge">Des Prompts aux Produits · From Prompts to Products</div>
-
-  <h1>LLMs & Agentic AI</h1>
-  <p class="subtitle">
-    A bilingual presentation on LLMs and Agentic AI for Product Managers.<br>
-    Une présentation bilingue sur les LLMs et l'IA Agentique pour les PMs.
-  </p>
-  <p class="audience">Pour PMs & POs · For PMs & POs</p>
-
-  <div class="lang-buttons">
-    <a class="lang-btn btn-fr" href="fr.html">
-      <span class="flag">🇫🇷</span>
-      <span class="label">
-        <span class="lang-code">Français</span>
-        <span class="lang-name">Voir la présentation</span>
-      </span>
-    </a>
-  </div>
-
+  <div class="badge">Des Prompts aux Produits</div>
+  <h1>LLMs & IA Agentique</h1>
+  <p class="subtitle">Une présentation pédagogique sur les LLMs et l'IA Agentique<br>à destination des Product Managers et Product Owners.</p>
+  <p class="audience">Pour PMs & POs · Statisticiens & Praticiens IA</p>
+  <a class="cta" href="fr.html">
+    <span class="flag">🇫🇷</span>
+    <span class="lbl">
+      <span>Voir la présentation</span>
+      <span>Version française · ~45 min</span>
+    </span>
+  </a>
   <div class="divider"></div>
-
   <div class="acts">
-    <span class="act-pill act1">ACT I · La Couche Intelligence</span>
-    <span class="act-pill act2">ACT II · La Couche Agentique</span>
-    <span class="act-pill act3">ACT III · Agents GitLab</span>
+    <span class="pill p1">ACT I · La Couche Intelligence</span>
+    <span class="pill p2">ACT II · La Couche Agentique</span>
+    <span class="pill p3">ACT III · Agents & Product Boards</span>
   </div>
 </div>

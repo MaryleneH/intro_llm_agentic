@@ -2,11 +2,11 @@ project:
   type: website
   output-dir: docs
   render:
-    - fr.qmd
     - index.qmd
+    - fr.qmd
 
 website:
-  title: "LLMs & Agentic AI for PMs"
+  title: "LLMs & IA Agentique pour les PMs"
   navbar: false
 
 format:
@@ -23,13 +23,14 @@ format:
     background-transition: fade
     auto-animate: true
     auto-animate-easing: ease-in-out
+    auto-animate-duration: 0.6
     highlight-style: github-dark
     center: false
     width: 1920
     height: 1080
     margin: 0.08
     logo: assets/logo.svg
-    footer: "LLMs & Agentic AI for PMs — From Prompts to Products"
+    footer: "LLMs & IA Agentique pour les PMs — Des Prompts aux Produits"
     menu:
       side: left
       width: wide
