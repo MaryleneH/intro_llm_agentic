@@ -113,7 +113,7 @@ $$\text{Attention}(Q,K,V) = \text{softmax}\!\left(\frac{QK^\top}{\sqrt{d_k}}\rig
 ::: card-v
 **Intuition contextuelle**
 
-Le mot *"banque"* dans *"la banque du fleuve"* vs *"la banque centrale"* reçoit des représentations **différentes** grâce à l'attention.
+Le mot *"avocat"* dans *"manger un avocat"* vs *"appeler son avocat"* reçoit des représentations **différentes** grâce à l'attention.
 :::
 :::
 
