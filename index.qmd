@@ -378,7 +378,7 @@ format:
 <body>
 
   <nav class="top-nav">
-    <a href="#" class="lang-btn">English version <span class="arr">↗</span></a>
+    <a href="en.html" class="lang-btn">English version <span class="arr">↗</span></a>
   </nav>
 
   <div class="bg-shapes">
