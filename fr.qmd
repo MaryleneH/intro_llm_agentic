@@ -1068,6 +1068,45 @@ agent_system/
 :::
 :::
 
+## Comment ça marche ? (LangGraph)
+
+::: {.columns style="margin-top: 2rem;"}
+
+::: {.column width="60%"}
+::: {.fragment .fade-up}
+**Le cycle de décision pas à pas :**
+:::
+
+::: {.fragment .fade-up}
+**1. 📥 Ingestion** : L'Agent lit les tickets sur les boards GitLab.
+:::
+::: {.fragment .fade-up}
+**2. 🔍 Analyse** : Il extrait les statuts, labels et priorités.
+:::
+::: {.fragment .fade-up}
+**3. 🧠 Raisonnement** : **ALBERT (DINUM)** croise ces données pour comprendre le contexte.
+:::
+::: {.fragment .fade-up}
+**4. 🔀 Décision** : LangGraph aiguille vers la bonne action (alerter, créer une sous-tâche).
+:::
+::: {.fragment .fade-up}
+**5. 💡 Recommandation** : Le système génère une synthèse actionnable pour le PM.
+:::
+
+:::
+
+::: {.column width="40%"}
+::: {.fragment .fade-in}
+::: card-v
+**Pourquoi cette architecture ?**
+
+Elle garantit que l'Agent suit un **processus logique et contrôlable**. Le PM sait exactement *comment* et *pourquoi* une décision a été prise.
+:::
+:::
+:::
+
+:::
+
 ## Architecture 2 : Google ADK
 
 ::: {.columns}
@@ -1145,6 +1184,44 @@ agent_system_adk/
 :::
 :::
 :::
+
+## Comment ça marche ? (Google ADK)
+
+::: {.columns style="margin-top: 2rem;"}
+
+::: {.column width="60%"}
+::: {.fragment .fade-up}
+**L'orchestration par "Compétences" :**
+:::
+
+::: {.fragment .fade-up}
+**1. 📥 Événement** : Un webhook GitLab signale un ticket bloqué.
+:::
+::: {.fragment .fade-up}
+**2. 🛠️ Choix de l'Outil** : L'Agent sélectionne la "Skill" appropriée.
+:::
+::: {.fragment .fade-up}
+**3. 🧠 Interprétation** : **ALBERT (DINUM)** évalue la criticité du blocage.
+:::
+::: {.fragment .fade-up}
+**4. 🔄 Itération** : Le moteur cognitif (ADK) ajuste son plan si besoin.
+:::
+::: {.fragment .fade-up}
+**5. 🧑‍🏫 Action** : L'Agent notifie le PM avec des solutions de contournement.
+:::
+
+:::
+
+::: {.column width="40%"}
+::: {.fragment .fade-in}
+::: card-c
+**L'avantage pour le PM**
+
+Moins de règles strictes à définir ! L'Agent ADK est plus "fluide" et s'adapte dynamiquement aux événements imprévus des boards.
+:::
+:::
+:::
+
 :::
 
 ## Conclusion {background-color="#001a0f"}
