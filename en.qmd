@@ -1076,7 +1076,17 @@ The Agent becomes your **Agile Coach** and **Transversal Analyst**:
 
 ::: {.ad-node .ad-bottom .fragment .fade-up}
 #### 🧑‍💻 PM Actions
-<p>Decision making, Strategy</p>
+<p>Validation, Sprint Adjustment</p>
+:::
+:::
+
+::: {.columns style="margin-top: 2rem;"}
+::: {.column width="100%"}
+::: {.fragment .fade-up}
+::: highlight-band
+**What this means in practice:** The PM no longer needs to manually inspect 45 tickets every morning. The Agent acts as a **Delivery Copilot**, highlighting exactly what requires human attention.
+:::
+:::
 :::
 :::
 

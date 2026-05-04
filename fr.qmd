@@ -985,6 +985,111 @@ L'Agent devient votre **Agile Coach** et **Analyste transversal** :
 :::
 :::
 
+## L'Agent Agile Coach en Action
+
+::: {.columns}
+::: {.column width="100%"}
+**Vue consolidée des 3 Boards GitLab (CV, Mobilités, API)**
+:::
+:::
+
+::: kanban-board
+::: {.kb-col .fragment .fade-up}
+#### 📋 To Do
+<div class="kb-card">
+  <div class="kb-labels"><span class="lbl-backend">backend</span></div>
+  <p class="kb-title">Refactor auth flow</p>
+  <div class="kb-meta">Sprint 14 • Board API</div>
+</div>
+<div class="kb-card">
+  <div class="kb-labels"><span class="lbl-frontend">frontend</span></div>
+  <p class="kb-title">Update CV parser UI</p>
+  <div class="kb-meta">Sprint 14 • Board CV</div>
+</div>
+:::
+
+::: {.kb-col .fragment .fade-up}
+#### 🔄 In Progress
+<div class="kb-card">
+  <div class="kb-labels"><span class="lbl-bug">bug</span> <span class="lbl-urgent">urgent</span></div>
+  <p class="kb-title">Fix mobile crash on login</p>
+  <div class="kb-meta">Release Q3 • Board API</div>
+</div>
+:::
+
+::: {.kb-col .fragment .fade-up}
+#### 🚧 Blocked
+<div class="kb-card blocked">
+  <div class="kb-labels"><span class="lbl-backend">backend</span></div>
+  <p class="kb-title">PDF parser failing</p>
+  <div class="kb-meta">Sprint 14 • Board CV</div>
+</div>
+<div class="kb-card blocked">
+  <div class="kb-labels"><span class="lbl-enhancement">enhancement</span></div>
+  <p class="kb-title">Mobility matching alg</p>
+  <div class="kb-meta">Sprint 14 • Board Mobilités</div>
+</div>
+:::
+
+::: {.kb-col .fragment .fade-up}
+#### ✅ Done
+<div class="kb-card done">
+  <div class="kb-labels"><span class="lbl-frontend">frontend</span></div>
+  <p class="kb-title">Setup CI/CD</p>
+  <div class="kb-meta">Sprint 13</div>
+</div>
+:::
+:::
+
+::: {.fragment .fade-up style="margin-top: 2rem; text-align: center; color: var(--muted); font-size: 1.1rem;"}
+*L'Agent scanne ces boards en temps réel et génère des insights consolidés pour le PM.*
+:::
+
+## Synthèse Agentique
+
+::: {.columns}
+::: {.column width="100%"}
+**Rapport généré par l'Agent PM (ALBERT DINUM)**
+:::
+:::
+
+::: agent-diagram
+::: {.ad-node .ad-top .fragment .fade-up}
+#### 🔍 Insight
+<p>Dépendance inter-équipes détectée.</p>
+:::
+
+::: {.ad-node .ad-left .fragment .slide-right}
+#### ⚠️ Risque
+<p>Le blocage du parser CV retarde le matching Mobilité.</p>
+:::
+
+::: {.ad-center .fragment .zoom-in}
+<h3 class="grad-c">AGENT PM</h3>
+<p style="font-size: 1.2rem; margin-top: 0.5rem; color: #fff;">Agile Coach</p>
+:::
+
+::: {.ad-node .ad-right .fragment .slide-left}
+#### 💡 Recommandation
+<p>Réassigner 1 dév Backend pour débloquer le parser CV.</p>
+:::
+
+::: {.ad-node .ad-bottom .fragment .fade-up}
+#### 🧑‍💻 PM Actions
+<p>Validation, Ajustement du Sprint</p>
+:::
+:::
+
+::: {.columns style="margin-top: 2rem;"}
+::: {.column width="100%"}
+::: {.fragment .fade-up}
+::: highlight-band
+**Ce que cela signifie concrètement :** Le PM n'a plus besoin d'inspecter manuellement 45 tickets chaque matin. L'Agent agit comme un **Copilote de Delivery**, mettant en évidence ce qui requiert réellement l'attention humaine.
+:::
+:::
+:::
+:::
+
 ## Architecture 1 : LangChain + LangGraph
 
 ::: {.columns}
