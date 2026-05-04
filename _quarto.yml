@@ -26,9 +26,9 @@ format:
     auto-animate-duration: 0.6
     highlight-style: github-dark
     center: false
-    width: 1920
-    height: 1080
-    margin: 0.08
+    width: 1600
+    height: 900
+    margin: 0.06
     logo: assets/logo.svg
     footer: "LLMs & IA Agentique pour les PMs — Des Prompts aux Produits"
     menu:
