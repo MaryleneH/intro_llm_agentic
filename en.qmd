@@ -424,6 +424,7 @@ Prompt: "Rewrite this review with positive sentiment."
 ::: {.column width="50%"}
 ### The Technical Concept
 We gently shift the pre-trained weights $W_0$ without wiping out the core knowledge base (avoiding **Catastrophic Forgetting**).
+
 - **Microscopic Learning Rate ($\eta$)**: Gently nudges the weights.
 - **PEFT / LoRA (Low-Rank Adaptation)**: Freeze the base weights $W_0$ and only train small adapter matrices:
 $$W = W_0 + B \times A$$

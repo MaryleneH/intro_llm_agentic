@@ -423,6 +423,7 @@ Prompt: "Réécris cet avis de manière positive."
 ::: {.column width="50%"}
 ### Le Concept Technique
 Nous ajustons les poids pré-entraînés $W_0$ sans détruire la base de connaissances (pour éviter **l'Oubli Catastrophique**).
+
 - **Taux d'Apprentissage Microscopique ($\eta$)** : Applique de minuscules corrections.
 - **PEFT / LoRA (Low-Rank Adaptation)** : On gèle les poids de base $W_0$ et on entraîne uniquement des matrices de bas rang :
 $$W = W_0 + B \times A$$
