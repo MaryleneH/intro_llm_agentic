@@ -527,11 +527,6 @@ $$\text{Objectif}(\theta) = \mathbb{E} \left[ r_\psi(x, y) - \beta D_{\text{KL}}
 
 :::
 
-# ACT I {.act-section .act1 background-color="#0D0F1A"}ttache une **laisse mathématique (la divergence KL)** qui la pénalise dès qu'elle s'éloigne de sa façon naturelle de parler.
-:::
-
-:::
-
 # ACT I {.act-section .act1 background-color="#0D0F1A"}
 
 ::: badge-v
