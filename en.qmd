@@ -180,27 +180,40 @@ $$\vec{x}_{\text{final}} = \vec{e}_{\text{token}} + \vec{PE}_{\text{position}}$$
 
 ## Group 1: Pre-training — Visual Schema: Positional Wave Superposition {auto-animate="true"}
 
-<div style="height: 2.5rem;"></div>
+<div style="height: 2rem;"></div>
 
 ::: {.columns}
 
-::: {.column width="50%"}
-::: {.formula-box}
-**Positional Signature Waves**
-```
-Position 1: [Sin Wave A]  /\  /\  /\
-Position 2: [Sin Wave B]  / \/ \/ \/
-Position 3: [Sin Wave C]  |__|__|__|
-```
-:::
+::: {.column width="58%"}
+<div style="background: rgba(255,255,255,0.02); border: 1px solid rgba(255,255,255,0.08); border-radius: 14px; padding: 1rem; text-align: center;">
+<p style="font-family: 'Outfit', sans-serif; font-size: 1.1rem; font-weight: 600; color: #A5B4FC; margin-bottom: 0.8rem; letter-spacing: 0.03em;">Sinusoidal Waves & Positional Summation</p>
+
+![](assets/positional_encoding_en.png){width="100%"}
+
+</div>
 :::
 
-::: {.column width="50%"}
+::: {.column width="42%"}
+<div style="height: 0.5rem;"></div>
+
 ::: card-v
-<h4>Summing the Vectors</h4>
-- **Input**: Token Embedding Vector $\vec{e}_{\text{token}}$
-- **Add**: Positional Encoding Vector $\vec{PE}_{\text{position}}$ (unique wave value at index *pos*)
-- **Result**: Context-Ready Input Vector $\vec{x}_{\text{final}}$
+**Vector Summation**
+
+- **Input**: Token Embedding $\vec{e}_{\text{token}}$
+- **+ Add**: Positional Encoding $\vec{PE}_{\text{pos}}$
+- **= Result**: Context-Ready Vector $\vec{x}_{\text{final}}$
+:::
+
+<div style="height: 0.6rem;"></div>
+
+::: highlight-band
+**Every position gets a unique wave** — Sin/cos frequencies vary per dimension, producing an unrepeatable fingerprint for each sequence index.
+:::
+
+<div style="height: 0.6rem;"></div>
+
+::: card-c
+**Why waves?** — Trigonometric functions let the model infer relative distances between tokens, even on sequences it has never seen before.
 :::
 :::
 
