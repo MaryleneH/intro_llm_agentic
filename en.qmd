@@ -117,33 +117,38 @@ Moving in a specific direction (adding a "gender vector") transforms the coordin
 
 ## Group 1: Pre-training — Visual Schema: The Vector Map {auto-animate="true"}
 
-<div style="height: 2.5rem;"></div>
+<div style="height: 2rem;"></div>
 
 ::: {.columns}
 
-::: {.column width="60%"}
-::: {.formula-box}
-**Multi-Dimensional Coordinate Space ($\mathbb{R}^{d_{\text{model}}}$)**
-```
- [Y-Axis: Royalty]
-    ▲
-    │         👑 [King] (0.2, 0.9)  ───(Gender Vector Shift)───► 👸 [Queen] (0.8, 0.9)
-    │
-    │
-    │         👨 [Man] (0.2, 0.2)   ───(Gender Vector Shift)───► 👩 [Woman] (0.8, 0.2)
-    │
-    │                                                                🍌 [Banana] (0.9, -0.6)
-    └──────────────────────────────────────────────────────────────────────────────────────► [X-Axis: Gender]
-```
-:::
+::: {.column width="58%"}
+<div style="background: rgba(255,255,255,0.02); border: 1px solid rgba(255,255,255,0.08); border-radius: 14px; padding: 1rem; text-align: center;">
+<p style="font-family: 'Outfit', sans-serif; font-size: 1.1rem; font-weight: 600; color: #A5B4FC; margin-bottom: 0.8rem; letter-spacing: 0.03em;">Multi-Dimensional Coordinate Space — $\mathbb{R}^{d_{\text{model}}}$</p>
+
+![](assets/vector_map_en.png){width="100%"}
+
+</div>
 :::
 
-::: {.column width="40%"}
+::: {.column width="42%"}
+<div style="height: 0.5rem;"></div>
+
 ::: card-v
-**Key Visual Takeaways:**
-- Words with high semantic overlap cluster together.
-- The spatial offset (arrows) from *Man* to *Woman* is mathematically parallel to *King* to *Queen*.
-- Irrelevant words (*Banana*) lie in completely distant coordinate sectors.
+**The Geometry of Meaning**
+
+Words are placed on a map with $d_{\text{model}}$ dimensions. Their **position** encodes their **meaning**.
+:::
+
+<div style="height: 0.6rem;"></div>
+
+::: highlight-band
+**Vector parallelism** — The offset from *Man* → *Woman* is geometrically parallel to *King* → *Queen*. This is the arithmetic of meaning.
+:::
+
+<div style="height: 0.6rem;"></div>
+
+::: card-g
+**Semantic isolation** — Unrelated concepts (*Banana*) are pushed to distant regions of the space, confirming that proximity = similarity.
 :::
 :::
 

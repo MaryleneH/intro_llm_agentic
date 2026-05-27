@@ -116,33 +116,38 @@ En se déplaçant dans une direction précise (ajouter le vecteur "genre"), on t
 
 ## Groupe 1 : Pré-entraînement — Schéma Visuel : La Carte Vectorielle {auto-animate="true"}
 
-<div style="height: 2.5rem;"></div>
+<div style="height: 2rem;"></div>
 
 ::: {.columns}
 
-::: {.column width="60%"}
-::: {.formula-box}
-**Espace Vectoriel Multi-Dimensionnel ($\mathbb{R}^{d_{\text{model}}}$)**
-```
- [Axe Y : Royauté]
-    ▲
-    │         👑 [Roi] (0.2, 0.9)  ───(Décalage de Genre)───► 👸 [Reine] (0.8, 0.9)
-    │
-    │
-    │         👨 [Homme] (0.2, 0.2)  ───(Décalage de Genre)───► 👩 [Femme] (0.8, 0.2)
-    │
-    │                                                                🍌 [Banane] (0.9, -0.6)
-    └──────────────────────────────────────────────────────────────────────────────────────► [Axe X : Genre]
-```
-:::
+::: {.column width="58%"}
+<div style="background: rgba(255,255,255,0.02); border: 1px solid rgba(255,255,255,0.08); border-radius: 14px; padding: 1rem; text-align: center;">
+<p style="font-family: 'Outfit', sans-serif; font-size: 1.1rem; font-weight: 600; color: #A5B4FC; margin-bottom: 0.8rem; letter-spacing: 0.03em;">Espace Vectoriel Multi-Dimensionnel — $\mathbb{R}^{d_{\text{model}}}$</p>
+
+![](assets/vector_map_fr.png){width="100%"}
+
+</div>
 :::
 
-::: {.column width="40%"}
+::: {.column width="42%"}
+<div style="height: 0.5rem;"></div>
+
 ::: card-v
-**Points Visuels Majeurs :**
-- Les concepts sémantiquement proches forment des grappes physiques.
-- Le décalage spatial (les flèches) de *Homme* à *Femme* est parallèle à celui de *Roi* à *Reine*.
-- Les mots hors sujet (*Banane*) sont repoussés dans des secteurs géographiques lointains.
+**La Géométrie du Sens**
+
+Les mots sont placés sur une carte à $d_{\text{model}}$ dimensions. Leur **position** encode leur **signification**.
+:::
+
+<div style="height: 0.6rem;"></div>
+
+::: highlight-band
+**Parallélisme vectoriel** — Le décalage de *Homme* → *Femme* est géométriquement parallèle à *Roi* → *Reine*. C'est l'arithmétique du sens.
+:::
+
+<div style="height: 0.6rem;"></div>
+
+::: card-g
+**Isolation sémantique** — Les concepts sans rapport (*Banane*) sont repoussés dans des régions distantes de l'espace, confirmant que la proximité = similarité.
 :::
 :::
 
