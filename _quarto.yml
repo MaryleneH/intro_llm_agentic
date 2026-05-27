@@ -34,7 +34,6 @@ format:
     footer: "LLMs & IA Agentique pour les PMs — Des Prompts aux Produits"
     navigation-mode: linear
     mouse-wheel: true
-    scrollable: true
     keyboard: true
     hash: true
     menu:

@@ -52,7 +52,7 @@ $\downarrow$
 ::: {.arch-flow}
 
 ::: {.arch-node}
-#### 📝 1. Raw Text String
+<h4>📝 1. Raw Text String</h4>
 `"Understanding LLMs..."`
 :::
 
@@ -61,7 +61,7 @@ $\downarrow$
 :::
 
 ::: {.arch-node .core}
-#### ✂️ 2. BPE Tokenizer
+<h4>✂️ 2. BPE Tokenizer</h4>
 `["Under", "standing", " LL", "Ms"]`
 :::
 
@@ -70,7 +70,7 @@ $\downarrow$
 :::
 
 ::: {.arch-node}
-#### 🔢 3. Numerical Token IDs
+<h4>🔢 3. Numerical Token IDs</h4>
 `[12405, 4321, 298, 1543]`
 :::
 
@@ -192,7 +192,7 @@ Position 3: [Sin Wave C]  |__|__|__|
 
 ::: {.column width="50%"}
 ::: card-v
-#### Summing the Vectors
+<h4>Summing the Vectors</h4>
 - **Input**: Token Embedding Vector $\vec{e}_{\text{token}}$
 - **Add**: Positional Encoding Vector $\vec{PE}_{\text{position}}$ (unique wave value at index *pos*)
 - **Result**: Context-Ready Input Vector $\vec{x}_{\text{final}}$
@@ -290,7 +290,7 @@ $$\theta \leftarrow \theta - \eta \nabla \mathcal{L}$$
 ::: {.arch-flow}
 
 ::: {.arch-node}
-#### 📥 1. Context Input
+<h4>📥 1. Context Input</h4>
 `"Artificial intelligence is"`
 :::
 
@@ -299,7 +299,7 @@ $$\theta \leftarrow \theta - \eta \nabla \mathcal{L}$$
 :::
 
 ::: {.arch-node .core}
-#### 🧠 2. Parameter Dials ($\theta$)
+<h4>🧠 2. Parameter Dials ($\theta$)</h4>
 Calculates probabilities for the next token.
 :::
 
@@ -308,7 +308,7 @@ Calculates probabilities for the next token.
 :::
 
 ::: {.arch-node}
-#### 🔮 3. Prediction ($82\%$ changing)
+<h4>🔮 3. Prediction ($82\%$ changing)</h4>
 Compares to actual next word $\rightarrow$ **Loss**
 :::
 
@@ -454,18 +454,18 @@ $$\mathcal{L}_{\text{RM}} = -\mathbb{E}_{(x, y_w, y_l)} \left[ \log \sigma\left(
 ::: {.grid-3}
 
 ::: {.card}
-#### 📝 Prompt
+<h4>📝 Prompt</h4>
 `"Explain AI simply."`
 :::
 
 ::: {.card}
-#### 🆚 Pairwise Options
+<h4>🆚 Pairwise Options</h4>
 - **Output A**: *"AI is artificial neural..."*
 - **Output B**: *"AI is like a digital brain..."*
 :::
 
 ::: {.card-g}
-#### ⚖️ Reward Model Evaluation
+<h4>⚖️ Reward Model Evaluation</h4>
 - Human prefers: **Output B**
 - RM Score (A): `-1.42` (Poor)
 - RM Score (B): `+2.65` (Great)
@@ -905,12 +905,12 @@ It can execute code, call APIs, read files, write to a database — and repeat u
 :::
 
 ::: {.ad-node .ad-top .fragment .fade-up}
-#### 🧠 Brain
+<h4>🧠 Brain</h4>
 <p>LLM (Reasoning, Planning)</p>
 :::
 
 ::: {.ad-node .ad-left .fragment .slide-right}
-#### 💾 Memory
+<h4>💾 Memory</h4>
 <p>Short context, Long-term RAG</p>
 :::
 
@@ -920,12 +920,12 @@ It can execute code, call APIs, read files, write to a database — and repeat u
 :::
 
 ::: {.ad-node .ad-right .fragment .slide-left}
-#### 🛠️ Tools
+<h4>🛠️ Tools</h4>
 <p>Web Search, APIs, Python</p>
 :::
 
 ::: {.ad-node .ad-bottom .fragment .fade-up}
-#### ⚙️ Action
+<h4>⚙️ Action</h4>
 <p>Execution in the real world</p>
 :::
 :::
@@ -1484,12 +1484,12 @@ The Agent becomes your **Agile Coach** and **Transversal Analyst**:
 :::
 
 ::: {.ad-node .ad-top .fragment .fade-up}
-#### 🦊 GitLab Boards
+<h4>🦊 GitLab Boards</h4>
 <p>Resume Management, Mobility, APIs</p>
 :::
 
 ::: {.ad-node .ad-left .fragment .slide-right}
-#### 🔍 Analysis
+<h4>🔍 Analysis</h4>
 <p>API Reading, Status detection</p>
 :::
 
@@ -1499,12 +1499,12 @@ The Agent becomes your **Agile Coach** and **Transversal Analyst**:
 :::
 
 ::: {.ad-node .ad-right .fragment .slide-left}
-#### 💡 Recommendations
+<h4>💡 Recommendations</h4>
 <p>Alerts, Bottlenecks, Priorities</p>
 :::
 
 ::: {.ad-node .ad-bottom .fragment .fade-up}
-#### 🧑‍💻 PM Actions
+<h4>🧑‍💻 PM Actions</h4>
 <p>Decision making, Strategy</p>
 :::
 :::
@@ -1519,7 +1519,7 @@ The Agent becomes your **Agile Coach** and **Transversal Analyst**:
 
 ::: kanban-board
 ::: {.kb-col .fragment .fade-up}
-#### 📋 To Do
+<h4>📋 To Do</h4>
 <div class="kb-card">
   <div class="kb-labels"><span class="lbl-backend">backend</span></div>
   <p class="kb-title">Refactor auth flow</p>
@@ -1533,7 +1533,7 @@ The Agent becomes your **Agile Coach** and **Transversal Analyst**:
 :::
 
 ::: {.kb-col .fragment .fade-up}
-#### 🔄 In Progress
+<h4>🔄 In Progress</h4>
 <div class="kb-card">
   <div class="kb-labels"><span class="lbl-bug">bug</span> <span class="lbl-urgent">urgent</span></div>
   <p class="kb-title">Fix mobile crash on login</p>
@@ -1542,7 +1542,7 @@ The Agent becomes your **Agile Coach** and **Transversal Analyst**:
 :::
 
 ::: {.kb-col .fragment .fade-up}
-#### 🚧 Blocked
+<h4>🚧 Blocked</h4>
 <div class="kb-card blocked">
   <div class="kb-labels"><span class="lbl-backend">backend</span></div>
   <p class="kb-title">PDF parser failing</p>
@@ -1556,7 +1556,7 @@ The Agent becomes your **Agile Coach** and **Transversal Analyst**:
 :::
 
 ::: {.kb-col .fragment .fade-up}
-#### ✅ Done
+<h4>✅ Done</h4>
 <div class="kb-card done">
   <div class="kb-labels"><span class="lbl-frontend">frontend</span></div>
   <p class="kb-title">Setup CI/CD</p>
@@ -1579,12 +1579,12 @@ The Agent becomes your **Agile Coach** and **Transversal Analyst**:
 
 ::: agent-diagram
 ::: {.ad-node .ad-top .fragment .fade-up}
-#### 🔍 Insight
+<h4>🔍 Insight</h4>
 <p>Cross-team dependency detected.</p>
 :::
 
 ::: {.ad-node .ad-left .fragment .slide-right}
-#### ⚠️ Risk
+<h4>⚠️ Risk</h4>
 <p>CV parsing blocked delays Mobility matching.</p>
 :::
 
@@ -1594,12 +1594,12 @@ The Agent becomes your **Agile Coach** and **Transversal Analyst**:
 :::
 
 ::: {.ad-node .ad-right .fragment .slide-left}
-#### 💡 Recommendation
+<h4>💡 Recommendation</h4>
 <p>Reassign 1 Backend dev to unblock CV parser.</p>
 :::
 
 ::: {.ad-node .ad-bottom .fragment .fade-up}
-#### 🧑‍💻 PM Actions
+<h4>🧑‍💻 PM Actions</h4>
 <p>Validation, Sprint Adjustment</p>
 :::
 :::
@@ -1624,12 +1624,12 @@ The Agent becomes your **Agile Coach** and **Transversal Analyst**:
 
 ::: arch-flow
 ::: {.arch-node .fragment .fade-up}
-#### 📥 Input
+<h4>📥 Input</h4>
 <p>GitLab Boards, Issues, Metadata</p>
 :::
 <div class="arch-arrow fragment fade-up"></div>
 ::: {.arch-node .fragment .fade-up}
-#### ⚙️ Pre-Processing
+<h4>⚙️ Pre-Processing</h4>
 <p>LangChain Document Loaders & Splitters</p>
 :::
 <div class="arch-arrow fragment fade-up"></div>
@@ -1639,12 +1639,12 @@ The Agent becomes your **Agile Coach** and **Transversal Analyst**:
 :::
 <div class="arch-arrow fragment fade-up"></div>
 ::: {.arch-node .fragment .fade-up}
-#### 🔀 Decision
+<h4>🔀 Decision</h4>
 <p>Analysis, Prioritization, Risk detection</p>
 :::
 <div class="arch-arrow fragment fade-up"></div>
 ::: {.arch-node .fragment .fade-up}
-#### 📤 Output
+<h4>📤 Output</h4>
 <p>PM Insights & Recommendations</p>
 :::
 :::
@@ -1746,12 +1746,12 @@ It ensures the Agent follows a **logical and controllable process**. The PM know
 
 ::: arch-flow
 ::: {.arch-node .fragment .fade-up}
-#### 📥 Ingestion
+<h4>📥 Ingestion</h4>
 <p>GitLab Webhooks, Milestones, Labels</p>
 :::
 <div class="arch-arrow fragment fade-up"></div>
 ::: {.arch-node .fragment .fade-up}
-#### 🛠️ Components
+<h4>🛠️ Components</h4>
 <p>Skills (Code/Search), Memory, Routing</p>
 :::
 <div class="arch-arrow fragment fade-up"></div>
@@ -1761,12 +1761,12 @@ It ensures the Agent follows a **logical and controllable process**. The PM know
 :::
 <div class="arch-arrow fragment fade-up"></div>
 ::: {.arch-node .fragment .fade-up}
-#### 🔄 Orchestration
+<h4>🔄 Orchestration</h4>
 <p>Monitoring, Automatic Feedback Loops</p>
 :::
 <div class="arch-arrow fragment fade-up"></div>
 ::: {.arch-node .fragment .fade-up}
-#### 🧑‍🏫 Output
+<h4>🧑‍🏫 Output</h4>
 <p>Agile Coaching, Bottleneck detection</p>
 :::
 :::
