@@ -13,6 +13,8 @@ Le Pipeline de Fabrication
 
 ## Groupe 1 : Pré-entraînement — 1. Tokenisation {auto-animate="true"}
 
+<div style="height: 2.5rem;"></div>
+
 ::: {.columns}
 
 ::: {.column width="50%"}
@@ -42,7 +44,46 @@ $\downarrow$
 
 :::
 
+## Groupe 1 : Pré-entraînement — Schéma Visuel : Le Flux de Tokenisation {auto-animate="true"}
+
+<div style="height: 2.5rem;"></div>
+
+::: {.arch-flow}
+
+::: {.arch-node}
+#### 📝 1. Texte Brut
+`"Comprendre les LLM..."`
+:::
+
+::: {.arch-arrow}
+➔
+:::
+
+::: {.arch-node .core}
+#### ✂️ 2. Tokenizer BPE
+`["Com", "prendre", " les", " LL", "M"]`
+:::
+
+::: {.arch-arrow}
+➔
+:::
+
+::: {.arch-node}
+#### 🔢 3. Identifiants (IDs)
+`[8740, 1243, 104, 298, 1021]`
+:::
+
+:::
+
+<div style="height: 2.5rem;"></div>
+
+::: highlight-band
+**Éclairage Pédagogique** : Le modèle ne voit jamais de lettres humaines. Il voit une suite continue d'identifiants mathématiques uniques servant de clés d'entrée dans son vocabulaire.
+:::
+
 ## Groupe 1 : Pré-entraînement — 2. Embeddings & Espace {auto-animate="true"}
+
+<div style="height: 2.5rem;"></div>
 
 ::: {.columns}
 
@@ -72,7 +113,43 @@ En se déplaçant dans une direction précise (ajouter le vecteur "genre"), on t
 
 :::
 
+## Groupe 1 : Pré-entraînement — Schéma Visuel : La Carte Vectorielle {auto-animate="true"}
+
+<div style="height: 2.5rem;"></div>
+
+::: {.columns}
+
+::: {.column width="60%"}
+::: {.formula-box}
+**Espace Vectoriel Multi-Dimensionnel ($\mathbb{R}^{d_{\text{model}}}$)**
+```
+ [Axe Y : Royauté]
+    ▲
+    │         👑 [Roi] (0.2, 0.9)  ───(Décalage de Genre)───► 👸 [Reine] (0.8, 0.9)
+    │
+    │
+    │         👨 [Homme] (0.2, 0.2)  ───(Décalage de Genre)───► 👩 [Femme] (0.8, 0.2)
+    │
+    │                                                                🍌 [Banane] (0.9, -0.6)
+    └──────────────────────────────────────────────────────────────────────────────────────► [Axe X : Genre]
+```
+:::
+:::
+
+::: {.column width="40%"}
+::: card-v
+**Points Visuels Majeurs :**
+- Les concepts sémantiquement proches forment des grappes physiques.
+- Le décalage spatial (les flèches) de *Homme* à *Femme* est parallèle à celui de *Roi* à *Reine*.
+- Les mots hors sujet (*Banane*) sont repoussés dans des secteurs géographiques lointains.
+:::
+:::
+
+:::
+
 ## Groupe 1 : Pré-entraînement — 3. Codage Positionnel {auto-animate="true"}
+
+<div style="height: 2.5rem;"></div>
 
 ::: {.columns}
 
@@ -94,7 +171,37 @@ $$\vec{x}_{\text{final}} = \vec{e}_{\text{token}} + \vec{PE}_{\text{position}}$$
 
 :::
 
+## Groupe 1 : Pré-entraînement — Schéma Visuel : Superposition d'Ondes {auto-animate="true"}
+
+<div style="height: 2.5rem;"></div>
+
+::: {.columns}
+
+::: {.column width="50%"}
+::: {.formula-box}
+**Signatures Temporelles Positionnelles**
+```
+Position 1 : [Onde Sin A]  /\  /\  /\
+Position 2 : [Onde Sin B]  / \/ \/ \/
+Position 3 : [Onde Sin C]  |__|__|__|
+```
+:::
+:::
+
+::: {.column width="50%"}
+::: card-v
+#### Somme des Vecteurs
+- **Entrée** : Vecteur d'Embedding $\vec{e}_{\text{token}}$
+- **Somme** : Vecteur de Codage Positionnel $\vec{PE}_{\text{position}}$ (unique à l'index *pos*)
+- **Résultat** : Vecteur final modulé $\vec{x}_{\text{final}}$
+:::
+:::
+
+:::
+
 ## Groupe 1 : Pré-entraînement — 4. L'Auto-Attention {auto-animate="true"}
+
+<div style="height: 2.5rem;"></div>
 
 ::: {.columns}
 
@@ -125,7 +232,36 @@ $$\text{Attention}(Q, K, V) = \text{softmax}\left(\frac{QK^T}{\sqrt{d_k}}\right)
 
 :::
 
+## Groupe 1 : Pré-entraînement — Schéma Visuel : La Matrice d'Attention {auto-animate="true"}
+
+<div style="height: 2.5rem;"></div>
+
+::: {.columns}
+
+::: {.column width="50%"}
+### Matrice de corrélation : "vol de l'avion"
+| Token | vol | de | l | avion |
+|---|---|---|---|---|
+| **vol** | 0.15 | 0.02 | 0.01 | **0.82** |
+| **de** | 0.05 | 0.85 | 0.05 | 0.05 |
+| **l** | 0.02 | 0.03 | 0.90 | 0.05 |
+| **avion** | **0.78** | 0.02 | 0.01 | 0.19 |
+:::
+
+::: {.column width="50%"}
+::: card-v
+**Décryptage des scores :**
+- Le mot **vol** lie son attention à **avion** avec un score de `0.82`.
+- Ce calcul modifie dynamiquement la coordonnée de *vol* vers le concept de *transport* lors du traitement de la phrase.
+- L'attention multi-têtes effectue ce calcul en parallèle sur $h$ filtres contextuels.
+:::
+:::
+
+:::
+
 ## Groupe 1 : Pré-entraînement — 5. Boucle d'Entraînement {auto-animate="true"}
+
+<div style="height: 2.5rem;"></div>
 
 ::: {.columns}
 
@@ -145,13 +281,52 @@ $$\theta \leftarrow \theta - \eta \nabla \mathcal{L}$$
 
 :::
 
-## Groupe 2 : Fine-tuning — 1. SFT Supervisé {auto-animate="true"}
+## Groupe 1 : Pré-entraînement — Schéma Visuel : Boucle Autorégressive {auto-animate="true"}
+
+<div style="height: 2.5rem;"></div>
+
+::: {.arch-flow}
+
+::: {.arch-node}
+#### 📥 1. Contexte d'Entrée
+`"L'intelligence artificielle est"`
+:::
+
+::: {.arch-arrow}
+➔
+:::
+
+::: {.arch-node .core}
+#### 🧠 2. Boutons de Réglage ($\theta$)
+Estime les probabilités du mot suivant.
+:::
+
+::: {.arch-arrow}
+➔
+:::
+
+::: {.arch-node}
+#### 🔮 3. Prédiction ($82\%$ fascinante)
+Comparée au mot réel attendu $\rightarrow$ **Perte**
+:::
+
+:::
+
+<div style="height: 1.5rem;"></div>
+
+```
+[◀◀◀◀◀◀ RÉTROPROPAGATION : L'onde d'erreur ajuste les 100 milliards de boutons (θ) ◀◀◀◀◀]
+```
+
+## Groupe 2 : Fine-tuning {auto-animate="true"}
 
 ::: badge-c
 La Phase d'Alignement
 :::
 
 ## Groupe 2 : Fine-tuning — 1. SFT Supervisé {auto-animate="true"}
+
+<div style="height: 2.5rem;"></div>
 
 ::: {.columns}
 
@@ -179,7 +354,47 @@ Cela réoriente la distribution de probabilité du modèle pour qu'il réponde a
 
 :::
 
+## Groupe 2 : Fine-tuning — Schéma Visuel : Entonnoir de Distribution {auto-animate="true"}
+
+<div style="height: 2.5rem;"></div>
+
+::: {.columns}
+
+::: {.column width="50%"}
+::: {.formula-box}
+**Modèle Pré-entraîné (Complétion Libre)**
+```
+Prompt: "J'ai adoré votre outil..."
+  ├── "donc j'écris cet avis." [45%]
+  ├── "et voici d'autres avis." [35%]
+  └── "mais la livraison fut lente." [20%]
+```
+:::
+:::
+
+::: {.column width="50%"}
+::: {.formula-box}
+**Modèle SFT Alignement (Consignes)**
+```
+Prompt: "Réécris cet avis de manière positive."
+  ├── "Excellent outil ! Je recommande vivement." [92%]
+  ├── "Complétion générique..." [6%]
+  └── "Autre..." [2%]
+```
+:::
+:::
+
+:::
+
+<div style="height: 1rem;"></div>
+
+::: highlight-band
+**Canalisation SFT** : Le prompt structure et restreint les chemins de sortie du modèle pour cibler un comportement d'assistant précis.
+:::
+
 ## Groupe 2 : Fine-tuning — 2. Ajuster les Poids {auto-animate="true"}
+
+<div style="height: 2.5rem;"></div>
 
 ::: {.columns}
 
@@ -199,13 +414,15 @@ $$W = W_0 + B \times A$$
 
 :::
 
-## Groupe 3 : RLHF — 1. Modèle de Récompense {auto-animate="true"}
+## Groupe 3 : RLHF {auto-animate="true"}
 
 ::: badge-g
 Apprentissage par Renforcement
 :::
 
 ## Groupe 3 : RLHF — 1. Modèle de Récompense {auto-animate="true"}
+
+<div style="height: 2.5rem;"></div>
 
 ::: {.columns}
 
@@ -227,7 +444,41 @@ $$\mathcal{L}_{\text{RM}} = -\mathbb{E}_{(x, y_w, y_l)} \left[ \log \sigma\left(
 
 :::
 
+## Groupe 3 : RLHF — Schéma Visuel : Duel de Préférences {auto-animate="true"}
+
+<div style="height: 2.5rem;"></div>
+
+::: {.grid-3}
+
+::: {.card}
+#### 📝 Prompt
+`"Explique l'IA simplement."`
+:::
+
+::: {.card}
+#### 🆚 Choix du Duel
+- **Réponse A** : *"L'IA est un réseau neuronal..."*
+- **Réponse B** : *"L'IA est comme un cerveau..."*
+:::
+
+::: {.card-g}
+#### ⚖️ Évaluation du Juge
+- L'humain préfère : **Réponse B**
+- Score du Juge (A) : `-1.42` (Moyen)
+- Score du Juge (B) : `+2.65` (Excellent)
+:::
+
+:::
+
+<div style="height: 1.5rem;"></div>
+
+::: highlight-band
+**Mathématique de Préférence Bradley-Terry** : L'écart entre les scores dicte l'ajustement. Le réseau de neurones apprend à modéliser mathématiquement les goûts humains.
+:::
+
 ## Groupe 3 : RLHF — 2. PPO & Alignement {auto-animate="true"}
+
+<div style="height: 2.5rem;"></div>
 
 ::: {.columns}
 
@@ -236,7 +487,7 @@ $$\mathcal{L}_{\text{RM}} = -\mathbb{E}_{(x, y_w, y_l)} \left[ \log \sigma\left(
 Nous optimisons la politique du modèle $\pi_\theta$ avec l'algorithme **PPO (Proximal Policy Optimization)** pour maximiser le score du juge numérique, tout en ajoutant une **pénalité de divergence KL** pour empêcher le modèle de trop s'éloigner du modèle SFT initial :
 
 ::: formula-box
-$$\text{Objectif}(\theta) = \mathbb{E} \left[ r_\psi(x, y) - \beta D_{\text{KL}}(\pi_\theta(y \mid x) \,\|\, \pi_{\text{ref}}(y \mid x)) \right]$$
+$$\text{Objectif}(\theta) = \mathbb{E} \left[ r_\psi(x, y) - \beta D_{\text{KL}}(\pi_\theta(y \mid x) \,\|\, \pi_{\text{sft}}(y \mid x)) \right]$$
 :::
 :::
 
@@ -245,6 +496,37 @@ $$\text{Objectif}(\theta) = \mathbb{E} \left[ r_\psi(x, y) - \beta D_{\text{KL}}
 > Si vous donnez une friandise à votre chien à chaque fois qu'il s'assoit, il peut faire n'importe quoi juste pour réclamer à manger.
 > Sans contraintes, une IA va inventer des mots "tricheurs" qui plaisent au juge numérique mais ne veulent rien dire.
 > On lui attache une **laisse mathématique (la divergence KL)** qui la pénalise dès qu'elle s'éloigne de sa façon naturelle de parler.
+:::
+
+:::
+
+## Groupe 3 : RLHF — Schéma Visuel : Équilibre des Forces {auto-animate="true"}
+
+<div style="height: 2.5rem;"></div>
+
+::: {.columns}
+
+::: {.column width="50%"}
+::: {.formula-box}
+**Vecteurs de Forces de la Politique**
+```
+      ◀─── [Laisse Divergence KL] ─── (Politique Active) ─── [Attraction Juge (RM)] ───►
+           (Rester proche du SFT)         [Modèle Core]       (Maximiser l'avis Humain)
+```
+:::
+:::
+
+::: {.column width="50%"}
+::: card-g
+**Pourquoi cet équilibre est mathématiquement vital :**
+- **L'attraction du juge** maximise la pertinence et la sécurité.
+- **L'élastique de divergence KL** empêche le modèle de s'effondrer dans du jargon incompréhensible qui plairait statistiquement au juge mais perdrait toute syntaxe.
+:::
+:::
+
+:::
+
+# ACT I {.act-section .act1 background-color="#0D0F1A"}ttache une **laisse mathématique (la divergence KL)** qui la pénalise dès qu'elle s'éloigne de sa façon naturelle de parler.
 :::
 
 :::

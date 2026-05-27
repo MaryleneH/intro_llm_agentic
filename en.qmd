@@ -13,6 +13,8 @@ The Construction Pipeline
 
 ## Group 1: Pre-training — 1. Tokenization & Vocab {auto-animate="true"}
 
+<div style="height: 2.5rem;"></div>
+
 ::: {.columns}
 
 ::: {.column width="50%"}
@@ -42,7 +44,46 @@ $\downarrow$
 
 :::
 
+## Group 1: Pre-training — Visual Schema: Tokenization Flow {auto-animate="true"}
+
+<div style="height: 2.5rem;"></div>
+
+::: {.arch-flow}
+
+::: {.arch-node}
+#### 📝 1. Raw Text String
+`"Understanding LLMs..."`
+:::
+
+::: {.arch-arrow}
+➔
+:::
+
+::: {.arch-node .core}
+#### ✂️ 2. BPE Tokenizer
+`["Under", "standing", " LL", "Ms"]`
+:::
+
+::: {.arch-arrow}
+➔
+:::
+
+::: {.arch-node}
+#### 🔢 3. Numerical Token IDs
+`[12405, 4321, 298, 1543]`
+:::
+
+:::
+
+<div style="height: 2.5rem;"></div>
+
+::: highlight-band
+**Pedagogical Insight**: The model does not see text as human letters. It sees a sequence of unique mathematical integer codes that act as keys into its vocabulary database.
+:::
+
 ## Group 1: Pre-training — 2. Embeddings & Space {auto-animate="true"}
+
+<div style="height: 2.5rem;"></div>
 
 ::: {.columns}
 
@@ -61,7 +102,7 @@ $$\cos(\theta) = \frac{\vec{A} \cdot \vec{B}}{\|\vec{A}\| \|\vec{B}\|}$$
 ::: {.column width="50%"}
 ### The Intuitive Analogy
 > How do you explain "royalty" or "gender" to a computer? You place them on a giant multi-dimensional map.
-> On this map, words with similar meanings are physical neighbors. 
+> On this map, words with similar meanings are physical neighbors.
 
 ::: card-v
 **Vector Math in Action:**
@@ -73,7 +114,43 @@ Moving in a specific direction (adding a "gender vector") transforms the coordin
 
 :::
 
+## Group 1: Pre-training — Visual Schema: The Vector Map {auto-animate="true"}
+
+<div style="height: 2.5rem;"></div>
+
+::: {.columns}
+
+::: {.column width="60%"}
+::: {.formula-box}
+**Multi-Dimensional Coordinate Space ($\mathbb{R}^{d_{\text{model}}}$)**
+```
+ [Y-Axis: Royalty]
+    ▲
+    │         👑 [King] (0.2, 0.9)  ───(Gender Vector Shift)───► 👸 [Queen] (0.8, 0.9)
+    │
+    │
+    │         👨 [Man] (0.2, 0.2)   ───(Gender Vector Shift)───► 👩 [Woman] (0.8, 0.2)
+    │
+    │                                                                🍌 [Banana] (0.9, -0.6)
+    └──────────────────────────────────────────────────────────────────────────────────────► [X-Axis: Gender]
+```
+:::
+:::
+
+::: {.column width="40%"}
+::: card-v
+**Key Visual Takeaways:**
+- Words with high semantic overlap cluster together.
+- The spatial offset (arrows) from *Man* to *Woman* is mathematically parallel to *King* to *Queen*.
+- Irrelevant words (*Banana*) lie in completely distant coordinate sectors.
+:::
+:::
+
+:::
+
 ## Group 1: Pre-training — 3. Positional Encoding {auto-animate="true"}
+
+<div style="height: 2.5rem;"></div>
 
 ::: {.columns}
 
@@ -95,7 +172,37 @@ $$\vec{x}_{\text{final}} = \vec{e}_{\text{token}} + \vec{PE}_{\text{position}}$$
 
 :::
 
+## Group 1: Pre-training — Visual Schema: Positional Wave Superposition {auto-animate="true"}
+
+<div style="height: 2.5rem;"></div>
+
+::: {.columns}
+
+::: {.column width="50%"}
+::: {.formula-box}
+**Positional Signature Waves**
+```
+Position 1: [Sin Wave A]  /\  /\  /\
+Position 2: [Sin Wave B]  / \/ \/ \/
+Position 3: [Sin Wave C]  |__|__|__|
+```
+:::
+:::
+
+::: {.column width="50%"}
+::: card-v
+#### Summing the Vectors
+- **Input**: Token Embedding Vector $\vec{e}_{\text{token}}$
+- **Add**: Positional Encoding Vector $\vec{PE}_{\text{position}}$ (unique wave value at index *pos*)
+- **Result**: Context-Ready Input Vector $\vec{x}_{\text{final}}$
+:::
+:::
+
+:::
+
 ## Group 1: Pre-training — 4. Self-Attention {auto-animate="true"}
+
+<div style="height: 2.5rem;"></div>
 
 ::: {.columns}
 
@@ -126,7 +233,36 @@ $$\text{Attention}(Q, K, V) = \text{softmax}\left(\frac{QK^T}{\sqrt{d_k}}\right)
 
 :::
 
+## Group 1: Pre-training — Visual Schema: The Attention Matrix {auto-animate="true"}
+
+<div style="height: 2.5rem;"></div>
+
+::: {.columns}
+
+::: {.column width="50%"}
+### Correlation Matrix: "bank of the river"
+| Token | bank | of | the | river |
+|---|---|---|---|---|
+| **bank** | 0.15 | 0.02 | 0.01 | **0.82** |
+| **of** | 0.05 | 0.85 | 0.05 | 0.05 |
+| **the** | 0.02 | 0.03 | 0.90 | 0.05 |
+| **river** | **0.78** | 0.02 | 0.01 | 0.19 |
+:::
+
+::: {.column width="50%"}
+::: card-v
+**Attention Weights Explained:**
+- The row **bank** actively "attends" to **river** with a high score of `0.82`.
+- This calculation dynamically shifts the semantic embedding coordinate of *bank* away from *financial* and towards *nature* during processing.
+- Multi-head attention runs this calculation in parallel across $h$ different context filters.
+:::
+:::
+
+:::
+
 ## Group 1: Pre-training — 5. Training Loop {auto-animate="true"}
+
+<div style="height: 2.5rem;"></div>
 
 ::: {.columns}
 
@@ -146,13 +282,52 @@ $$\theta \leftarrow \theta - \eta \nabla \mathcal{L}$$
 
 :::
 
-## Group 2: Fine-tuning — 1. Supervised SFT {auto-animate="true"}
+## Group 1: Pre-training — Visual Schema: Autoregressive Training Loop {auto-animate="true"}
+
+<div style="height: 2.5rem;"></div>
+
+::: {.arch-flow}
+
+::: {.arch-node}
+#### 📥 1. Context Input
+`"Artificial intelligence is"`
+:::
+
+::: {.arch-arrow}
+➔
+:::
+
+::: {.arch-node .core}
+#### 🧠 2. Parameter Dials ($\theta$)
+Calculates probabilities for the next token.
+:::
+
+::: {.arch-arrow}
+➔
+:::
+
+::: {.arch-node}
+#### 🔮 3. Prediction ($82\%$ changing)
+Compares to actual next word $\rightarrow$ **Loss**
+:::
+
+:::
+
+<div style="height: 1.5rem;"></div>
+
+```
+[◀◀◀◀◀◀◀◀ BACKPROPAGATION: Error Gradient updates all 100B parameters (θ) ◀◀◀◀◀◀◀◀]
+```
+
+## Group 2: Fine-tuning {auto-animate="true"}
 
 ::: badge-c
 The Alignment Phase
 :::
 
 ## Group 2: Fine-tuning — 1. Supervised SFT {auto-animate="true"}
+
+<div style="height: 2.5rem;"></div>
 
 ::: {.columns}
 
@@ -180,7 +355,47 @@ This shifts the model's output probability distribution to follow instructions i
 
 :::
 
+## Group 2: Fine-tuning — Visual Schema: Output Distribution Shift {auto-animate="true"}
+
+<div style="height: 2.5rem;"></div>
+
+::: {.columns}
+
+::: {.column width="50%"}
+::: {.formula-box}
+**Pre-trained Model (Generic Completion)**
+```
+Prompt: "I loved your product..."
+  ├── "so I decided to write a review."  [45%]
+  ├── "and here is a list of other products." [35%]
+  └── "but the shipping was delayed." [20%]
+```
+:::
+:::
+
+::: {.column width="50%"}
+::: {.formula-box}
+**SFT Aligned Model (Instruction-Following)**
+```
+Prompt: "Rewrite this review with positive sentiment."
+  ├── "Highly recommended! Excellent service." [92%]
+  ├── "Generic continuation..." [6%]
+  └── "Other..." [2%]
+```
+:::
+:::
+
+:::
+
+<div style="height: 1rem;"></div>
+
+::: highlight-band
+**SFT Funneling**: The prompt and output structure are strictly bound to narrow target responses, establishing conversational constraints.
+:::
+
 ## Group 2: Fine-tuning — 2. Nudging Weights {auto-animate="true"}
+
+<div style="height: 2.5rem;"></div>
 
 ::: {.columns}
 
@@ -200,13 +415,15 @@ $$W = W_0 + B \times A$$
 
 :::
 
-## Group 3: RLHF — 1. The Reward Model {auto-animate="true"}
+## Group 3: RLHF {auto-animate="true"}
 
 ::: badge-g
 Reinforcement Learning
 :::
 
 ## Group 3: RLHF — 1. The Reward Model {auto-animate="true"}
+
+<div style="height: 2.5rem;"></div>
 
 ::: {.columns}
 
@@ -229,7 +446,41 @@ $$\mathcal{L}_{\text{RM}} = -\mathbb{E}_{(x, y_w, y_l)} \left[ \log \sigma\left(
 
 :::
 
+## Group 3: RLHF — Visual Schema: Pairwise Tournament {auto-animate="true"}
+
+<div style="height: 2.5rem;"></div>
+
+::: {.grid-3}
+
+::: {.card}
+#### 📝 Prompt
+`"Explain AI simply."`
+:::
+
+::: {.card}
+#### 🆚 Pairwise Options
+- **Output A**: *"AI is artificial neural..."*
+- **Output B**: *"AI is like a digital brain..."*
+:::
+
+::: {.card-g}
+#### ⚖️ Reward Model Evaluation
+- Human prefers: **Output B**
+- RM Score (A): `-1.42` (Poor)
+- RM Score (B): `+2.65` (Great)
+:::
+
+:::
+
+<div style="height: 1.5rem;"></div>
+
+::: highlight-band
+**Bradley-Terry Preference Math**: The reward difference determines the loss slope. The neural network learns a scoring function representing human preferences.
+:::
+
 ## Group 3: RLHF — 2. PPO & Policy Tuning {auto-animate="true"}
+
+<div style="height: 2.5rem;"></div>
 
 ::: {.columns}
 
@@ -247,6 +498,32 @@ $$\text{Objective}(\theta) = \mathbb{E} \left[ r_\psi(x, y) - \beta D_{\text{KL}
 > If you reward a dog every time it sits, it might start acting erratic just to get treats. 
 > Without constraints, an AI will find "cheat" words to trick the Reward Model into giving it a perfect score.
 > We attach a mathematical **leash (KL-Divergence)** that penalizes the model if it drifts too far from its original, natural way of speaking.
+:::
+
+:::
+
+## Group 3: RLHF — Visual Schema: Dynamic Tension {auto-animate="true"}
+
+<div style="height: 2.5rem;"></div>
+
+::: {.columns}
+
+::: {.column width="50%"}
+::: {.formula-box}
+**Policy Equilibrium Force Vectors**
+```
+      ◀─── [KL-Divergence Leash] ─── (Active Policy) ─── [Reward Model Pull] ───►
+             (Stay Close to SFT)         [Model Core]        (Maximize Human Score)
+```
+:::
+:::
+
+::: {.column width="50%"}
+::: card-g
+**Why both are mathematically mandatory:**
+- **Reward model pull** maximizes utility, helpfulness, and safety.
+- **KL-divergence penalty** acts as an elastic spring. It stops the model from collapsing into nonsensical gibberish that statistically checks the RM boxes but loses all syntax.
+:::
 :::
 
 :::
