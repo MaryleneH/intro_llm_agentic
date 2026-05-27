@@ -1025,7 +1025,7 @@ while not done:
 
 - 🔍 **Recherche** — Web, Confluence, Email
 - 💻 **Code** — Python sandbox, SQL, R
-- 📝 **Écriture** — GitLab, Notion, Email, Teams
+- 📝 **Écriture** — GitLab, Notion, Email, Tchap
 - 📊 **Analyse** — CSV, BI dashboards, métriques
 - 🌐 **APIs** — REST, GraphQL, webhooks
 :::
