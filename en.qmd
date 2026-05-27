@@ -436,7 +436,7 @@ $$W = W_0 + B \times A$$
 
 :::
 
-## Group 3: RLHF {auto-animate="true"}
+## Group 3: RLHF {auto-animate="true" .center}
 
 ::: badge-g
 Reinforcement Learning
