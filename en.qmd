@@ -527,25 +527,36 @@ $$\text{Objective}(\theta) = \mathbb{E} \left[ r_\psi(x, y) - \beta D_{\text{KL}
 
 ## Group 3: RLHF — Visual Schema: Dynamic Tension {auto-animate="true"}
 
-<div style="height: 2.5rem;"></div>
+<div style="height: 2rem;"></div>
 
 ::: {.columns}
 
-::: {.column width="50%"}
-::: {.formula-box}
-**Policy Equilibrium Force Vectors**
-```
-      ◀─── [KL-Divergence Leash] ─── (Active Policy) ─── [Reward Model Pull] ───►
-             (Stay Close to SFT)         [Model Core]        (Maximize Human Score)
-```
-:::
+::: {.column width="58%"}
+<div style="background: rgba(255,255,255,0.02); border: 1px solid rgba(255,255,255,0.08); border-radius: 14px; padding: 1rem; text-align: center;">
+<p style="font-family: 'Outfit', sans-serif; font-size: 1.1rem; font-weight: 600; color: #A5B4FC; margin-bottom: 0.8rem; letter-spacing: 0.03em;">PPO Policy Dynamic Tension</p>
+
+![](assets/rlhf_forces_en.png){width="100%"}
+
+</div>
 :::
 
-::: {.column width="50%"}
+::: {.column width="42%"}
+<div style="height: 0.5rem;"></div>
+
 ::: card-g
-**Why both are mathematically mandatory:**
-- **Reward model pull** maximizes utility, helpfulness, and safety.
-- **KL-divergence penalty** acts as an elastic spring. It stops the model from collapsing into nonsensical gibberish that statistically checks the RM boxes but loses all syntax.
+**Reward Model Pull** — The RM pulls the policy towards more helpful, safe, and human-aligned responses.
+:::
+
+<div style="height: 0.6rem;"></div>
+
+::: highlight-band
+**KL Leash** — The KL-divergence penalty acts as an elastic spring: it prevents the model from drifting too far from the SFT baseline, preserving syntactic coherence.
+:::
+
+<div style="height: 0.6rem;"></div>
+
+::: card-v
+**Vital balance** — Without KL, the model collapses into gibberish that statistically pleases the judge but loses all syntax. Without RM, it stagnates at SFT level.
 :::
 :::
 

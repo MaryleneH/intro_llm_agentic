@@ -525,25 +525,36 @@ $$\text{Objectif}(\theta) = \mathbb{E} \left[ r_\psi(x, y) - \beta D_{\text{KL}}
 
 ## Groupe 3 : RLHF — Schéma Visuel : Équilibre des Forces {auto-animate="true"}
 
-<div style="height: 2.5rem;"></div>
+<div style="height: 2rem;"></div>
 
 ::: {.columns}
 
-::: {.column width="50%"}
-::: {.formula-box}
-**Vecteurs de Forces de la Politique**
-```
-      ◀─── [Laisse Divergence KL] ─── (Politique Active) ─── [Attraction Juge (RM)] ───►
-           (Rester proche du SFT)         [Modèle Core]       (Maximiser l'avis Humain)
-```
-:::
+::: {.column width="58%"}
+<div style="background: rgba(255,255,255,0.02); border: 1px solid rgba(255,255,255,0.08); border-radius: 14px; padding: 1rem; text-align: center;">
+<p style="font-family: 'Outfit', sans-serif; font-size: 1.1rem; font-weight: 600; color: #A5B4FC; margin-bottom: 0.8rem; letter-spacing: 0.03em;">Tension Dynamique de la Politique PPO</p>
+
+![](assets/rlhf_forces_fr.png){width="100%"}
+
+</div>
 :::
 
-::: {.column width="50%"}
+::: {.column width="42%"}
+<div style="height: 0.5rem;"></div>
+
 ::: card-g
-**Pourquoi cet équilibre est mathématiquement vital :**
-- **L'attraction du juge** maximise la pertinence et la sécurité.
-- **L'élastique de divergence KL** empêche le modèle de s'effondrer dans du jargon incompréhensible qui plairait statistiquement au juge mais perdrait toute syntaxe.
+**Attraction du Juge** — Le Reward Model tire la politique vers des réponses plus utiles, sûres et alignées avec les préférences humaines.
+:::
+
+<div style="height: 0.6rem;"></div>
+
+::: highlight-band
+**Laisse KL** — La pénalité de divergence KL agit comme un élastique : elle empêche le modèle de dériver trop loin du SFT de base, préservant sa cohérence syntaxique.
+:::
+
+<div style="height: 0.6rem;"></div>
+
+::: card-v
+**Équilibre vital** — Sans KL, le modèle s'effondre dans du jargon qui plaît au juge mais perd toute syntaxe. Sans RM, il stagne au niveau SFT.
 :::
 :::
 
