@@ -5,6 +5,250 @@ title-slide-attributes:
   data-background-color: "#0D0F1A"
 ---
 
+# LA CRÉATION D'UN LLM {.act-section .act-pre background-color="#0D0F1A"}
+
+::: badge-v
+Le Pipeline de Fabrication
+:::
+
+## Groupe 1 : Pré-entraînement — 1. Tokenisation {auto-animate="true"}
+
+::: {.columns}
+
+::: {.column width="50%"}
+### Le Concept Technique
+Un texte brut doit être traduit sous forme numérique.
+- **Tokens** : Les briques de texte élémentaires générées par l'algorithme **BPE (Byte-Pair Encoding)**.
+- **Vocabulaire $\mathcal{V}$** : La collection statique de tous les tokens uniques (typiquement $|\mathcal{V}| \approx 32k - 256k$).
+
+::: formula-box
+$$\text{Tokenizer}(S) = [t_1, t_2, \ldots, t_N] \quad \text{où } t_i \in \mathcal{V}$$
+:::
+:::
+
+::: {.column width="50%"}
+### L'Analogie Pédagogique
+> C'est l'équivalent de découper un texte en pièces de Lego. Si vous avez une brique pour chaque mot de la langue, votre boîte est immense. Si vous n'avez que des lettres, la construction est trop longue. Les tokens sont les briques intermédiaires idéales, où chaque pièce reçoit un **identifiant numérique (ID)** unique.
+
+::: card-v
+**Exemple de découpage :**
+`"Comprendre les LLM est fascinant !"`
+$\downarrow$
+`["Com", "prendre", " les", " LL", "M", " est", " fascin", "ant", " !"]`
+$\downarrow$
+`[8740, 1243, 104, 298, 1021, 310, 5420, 124, 103]`
+:::
+:::
+
+:::
+
+## Groupe 1 : Pré-entraînement — 2. Embeddings & Espace {auto-animate="true"}
+
+::: {.columns}
+
+::: {.column width="50%"}
+### Le Concept Technique
+Pour donner du sens aux nombres, nous projetons chaque token sous forme de **vecteur** dans un espace continu de haute dimension :
+
+::: formula-box
+$$\vec{e}_i = \mathbf{E}[t_i] \in \mathbb{R}^{d_{\text{model}}} \quad \text{où } d_{\text{model}} \approx 4096$$
+:::
+
+Nous mesurons la proximité sémantique à l'aide de la **similarité cosinus** :
+$$\cos(\theta) = \frac{\vec{A} \cdot \vec{B}}{\|\vec{A}\| \|\vec{B}\|}$$
+:::
+
+::: {.column width="50%"}
+### L'Analogie Pédagogique
+> Comment expliquer la notion de "genre" ou de "royauté" à une machine ? On place les mots sur une carte géographique géante à plusieurs dimensions. Les mots proches en sens s'y retrouvent physiquement voisins.
+
+::: card-v
+**La géométrie du sens :**
+$$\vec{v}_{\text{Roi}} - \vec{v}_{\text{Homme}} \approx \vec{v}_{\text{Reine}} - \vec{v}_{\text{Femme}}$$
+
+En se déplaçant dans une direction précise (ajouter le vecteur "genre"), on transforme les coordonnées géographiques de **Roi** en celles de **Reine**.
+:::
+:::
+
+:::
+
+## Groupe 1 : Pré-entraînement — 3. Codage Positionnel {auto-animate="true"}
+
+::: {.columns}
+
+::: {.column width="50%"}
+### Le Concept Technique
+Les Transformers traitent tous les mots en même temps (**invariance par permutation**). Pour retenir l'ordre de la phrase, nous ajoutons une onde trigonométrique unique à l'embedding du mot :
+
+::: formula-box
+$$PE_{(pos, 2i)} = \sin\left(\frac{pos}{10000^{2i/d_{\text{model}}}}\right)$$
+$$PE_{(pos, 2i+1)} = \cos\left(\frac{pos}{10000^{2i/d_{\text{model}}}}\right)$$
+$$\vec{x}_{\text{final}} = \vec{e}_{\text{token}} + \vec{PE}_{\text{position}}$$
+:::
+:::
+
+::: {.column width="50%"}
+### L'Analogie Pédagogique
+> Si vous mettez une phrase dans un mixeur, vous perdez l'ordre des mots. Pour éviter cela, on applique une signature ondulatoire (sinus/cosinus) aux coordonnées de chaque mot. Cette empreinte permet au modèle de connaître sa position exacte dans la phrase.
+:::
+
+:::
+
+## Groupe 1 : Pré-entraînement — 4. L'Auto-Attention {auto-animate="true"}
+
+::: {.columns}
+
+::: {.column width="50%"}
+### Le Concept Technique
+Les tokens ajustent dynamiquement leur représentation en fonction du contexte global de la phrase grâce au mécanisme d'attention :
+
+::: formula-box
+$$\text{Attention}(Q, K, V) = \text{softmax}\left(\frac{QK^T}{\sqrt{d_k}}\right)V$$
+:::
+
+- **Requêtes ($Q$)** : Ce qu'un mot cherche.
+- **Clés ($K$)** : Ce que les autres mots offrent.
+- **Valeurs ($V$)** : Le contenu extrait après mise en relation.
+:::
+
+::: {.column width="50%"}
+### L'Analogie Pédagogique
+> Prenez le mot **"vol"**. Dans *"le vol a été retardé"*, votre cerveau surligne *"retardé"* pour comprendre qu'il s'agit d'un avion.
+> Avec l'Auto-Attention, chaque token agit comme une **Requête** interrogeant tous les autres mots (**Clés**). Lorsqu'il trouve une relation sémantique, il fusionne sa **Valeur** pour s'ajuster.
+
+::: highlight-band
+**Adaptation sémantique :**
+- Vol $\dots$ Retardé = Avion (Transport)
+- Vol $\dots$ Banque = Cambriolage (Crime)
+:::
+:::
+
+:::
+
+## Groupe 1 : Pré-entraînement — 5. Boucle d'Entraînement {auto-animate="true"}
+
+::: {.columns}
+
+::: {.column width="50%"}
+### Le Concept Technique
+Le modèle apprend à maximiser la probabilité du token suivant de manière autorégressive.
+- **Perte (Cross-Entropy)** : Mesure l'erreur de prédiction.
+- **Rétropropagation & Descente de Gradient** :
+$$\theta \leftarrow \theta - \eta \nabla \mathcal{L}$$
+:::
+
+::: {.column width="50%"}
+### L'Analogie Pédagogique
+> Imaginez un instrument de musique doté de 100 milliards de boutons. Le modèle joue à un jeu de **"Devine le prochain mot"** des milliers de milliards de fois.
+> S'il se trompe, un chef d'orchestre calcule l'erreur (**Perte**) et renvoie une onde correctrice en arrière (**Rétropropagation**) pour tourner chaque bouton d'une fraction de millimètre.
+:::
+
+:::
+
+## Groupe 2 : Fine-tuning — 1. SFT Supervisé {auto-animate="true"}
+
+::: badge-c
+La Phase d'Alignement
+:::
+
+## Groupe 2 : Fine-tuning — 1. SFT Supervisé {auto-animate="true"}
+
+::: {.columns}
+
+::: {.column width="50%"}
+### Le Concept Technique
+Le modèle pré-entraîné brut ne sait que compléter du texte. Nous réalisons un **Fine-tuning Supervisé (SFT)** en utilisant des paires de consignes et de réponses attendues :
+
+::: formula-box
+$$\mathcal{L}_{\text{SFT}} = -\sum_{t \in \text{réponse}} \log P_\theta(w_t \mid w_{<t})$$
+:::
+
+Cela réoriente la distribution de probabilité du modèle pour qu'il réponde aux instructions.
+:::
+
+::: {.column width="50%"}
+### L'Analogie Pédagogique
+> Notre apprenti érudit connaît tous les livres du monde, mais si vous lui posez une question, il peut se mettre à réciter un poème au hasard.
+> Le Fine-tuning consiste à l'envoyer dans une **"école d'assistants"** pour lui apprendre le format du dialogue : quand on pose une question, il doit y répondre directement et poliment.
+
+::: card-c
+**Avant SFT** : *"Explique la gravité."* $\rightarrow$ *"...La gravité a été conceptualisée par Newton en 1687 lorsqu'une pomme est tombée de..."*
+**Après SFT** : *"Explique la gravité."* $\rightarrow$ *"La gravité est une force naturelle d'attraction entre deux masses..."*
+:::
+:::
+
+:::
+
+## Groupe 2 : Fine-tuning — 2. Ajuster les Poids {auto-animate="true"}
+
+::: {.columns}
+
+::: {.column width="50%"}
+### Le Concept Technique
+Nous ajustons les poids pré-entraînés $W_0$ sans détruire la base de connaissances (pour éviter **l'Oubli Catastrophique**).
+- **Taux d'Apprentissage Microscopique ($\eta$)** : Applique de minuscules corrections.
+- **PEFT / LoRA (Low-Rank Adaptation)** : On gèle les poids de base $W_0$ et on entraîne uniquement des matrices de bas rang :
+$$W = W_0 + B \times A$$
+:::
+
+::: {.column width="50%"}
+### L'Analogie Pédagogique
+> Pour qu'un pianiste classique apprenne le jazz, on ne lui efface pas la mémoire pour tout recommencer. On ajuste délicatement son rythme et ses enchaînements d'accords.
+> Avec un taux d'apprentissage minuscule ou des **adaptateurs (LoRA)**, on applique des corrections chirurgicales en gardant sa culture intacte.
+:::
+
+:::
+
+## Groupe 3 : RLHF — 1. Modèle de Récompense {auto-animate="true"}
+
+::: badge-g
+Apprentissage par Renforcement
+:::
+
+## Groupe 3 : RLHF — 1. Modèle de Récompense {auto-animate="true"}
+
+::: {.columns}
+
+::: {.column width="50%"}
+### Le Concept Technique
+Le goût humain est subjectif, impossible d'en faire une équation magique. On entraîne un **Modèle de Récompense (RM)** $r_\psi(x, y)$ qui renvoie un score scalaire de qualité, en s'appuyant sur des comparaisons par paires ($y_w \succ y_l$) :
+
+::: formula-box
+$$\mathcal{L}_{\text{RM}} = -\mathbb{E}_{(x, y_w, y_l)} \left[ \log \sigma\left(r_\psi(x, y_w) - r_\psi(x, y_l)\right) \right]$$
+:::
+:::
+
+::: {.column width="50%"}
+### L'Analogie Pédagogique
+> Le goût humain est subjectif, impossible d'en faire une équation magique.
+> En revanche, si on montre deux réponses à un humain, il sait facilement dire laquelle est la meilleure.
+> En analysant ces duels, on entraîne un **juge numérique** à attribuer une note de $-3,0$ (mauvais/dangereux) à $+3,0$ (excellent/sûr) à chaque réponse.
+:::
+
+:::
+
+## Groupe 3 : RLHF — 2. PPO & Alignement {auto-animate="true"}
+
+::: {.columns}
+
+::: {.column width="50%"}
+### Le Concept Technique
+Nous optimisons la politique du modèle $\pi_\theta$ avec l'algorithme **PPO (Proximal Policy Optimization)** pour maximiser le score du juge numérique, tout en ajoutant une **pénalité de divergence KL** pour empêcher le modèle de trop s'éloigner du modèle SFT initial :
+
+::: formula-box
+$$\text{Objectif}(\theta) = \mathbb{E} \left[ r_\psi(x, y) - \beta D_{\text{KL}}(\pi_\theta(y \mid x) \,\|\, \pi_{\text{ref}}(y \mid x)) \right]$$
+:::
+:::
+
+::: {.column width="50%"}
+### L'Analogie Pédagogique
+> Si vous donnez une friandise à votre chien à chaque fois qu'il s'assoit, il peut faire n'importe quoi juste pour réclamer à manger.
+> Sans contraintes, une IA va inventer des mots "tricheurs" qui plaisent au juge numérique mais ne veulent rien dire.
+> On lui attache une **laisse mathématique (la divergence KL)** qui la pénalise dès qu'elle s'éloigne de sa façon naturelle de parler.
+:::
+
+:::
+
 # ACT I {.act-section .act1 background-color="#0D0F1A"}
 
 ::: badge-v

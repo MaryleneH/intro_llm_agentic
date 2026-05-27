@@ -5,6 +5,252 @@ title-slide-attributes:
   data-background-color: "#0D0F1A"
 ---
 
+# THE MAKING OF AN LLM {.act-section .act-pre background-color="#0D0F1A"}
+
+::: badge-v
+The Construction Pipeline
+:::
+
+## Group 1: Pre-training — 1. Tokenization & Vocab {auto-animate="true"}
+
+::: {.columns}
+
+::: {.column width="50%"}
+### The Technical Concept
+A raw string of text must be converted into numerical inputs.
+- **Tokens**: The atomic subword units produced by algorithms like **BPE (Byte-Pair Encoding)**.
+- **Vocabulary $\mathcal{V}$**: The static collection of all unique tokens (typically $|\mathcal{V}| \approx 32k - 256k$).
+
+::: formula-box
+$$\text{Tokenizer}(S) = [t_1, t_2, \ldots, t_N] \quad \text{where } t_i \in \mathcal{V}$$
+:::
+:::
+
+::: {.column width="50%"}
+### The Intuitive Analogy
+> Think of this as cutting a massive text into standard-sized Lego bricks. If you have a brick for every single word, your box is too huge. If you only have letters, it takes too long to build. Tokens are the optimal medium-sized bricks, where each brick gets a unique **integer ID** (like a barcode).
+
+::: card-v
+**Example Mapping:**
+`"Understanding LLMs is fantastic!"`
+$\downarrow$
+`["Under", "standing", " LL", "Ms", " is", " fantastic", "!"]`
+$\downarrow$
+`[12405, 4321, 298, 1543, 310, 8912, 102]`
+:::
+:::
+
+:::
+
+## Group 1: Pre-training — 2. Embeddings & Space {auto-animate="true"}
+
+::: {.columns}
+
+::: {.column width="50%"}
+### The Technical Concept
+Words must represent meaning mathematically. We map each token ID to a dense continuous vector in a high-dimensional space:
+
+::: formula-box
+$$\vec{e}_i = \mathbf{E}[t_i] \in \mathbb{R}^{d_{\text{model}}} \quad \text{where } d_{\text{model}} \approx 4096$$
+:::
+
+We measure semantic similarity using **Cosine Similarity**:
+$$\cos(\theta) = \frac{\vec{A} \cdot \vec{B}}{\|\vec{A}\| \|\vec{B}\|}$$
+:::
+
+::: {.column width="50%"}
+### The Intuitive Analogy
+> How do you explain "royalty" or "gender" to a computer? You place them on a giant multi-dimensional map.
+> On this map, words with similar meanings are physical neighbors. 
+
+::: card-v
+**Vector Math in Action:**
+$$\vec{v}_{\text{King}} - \vec{v}_{\text{Man}} \approx \vec{v}_{\text{Queen}} - \vec{v}_{\text{Woman}}$$
+
+Moving in a specific direction (adding a "gender vector") transforms the coordinates of **King** into **Queen**.
+:::
+:::
+
+:::
+
+## Group 1: Pre-training — 3. Positional Encoding {auto-animate="true"}
+
+::: {.columns}
+
+::: {.column width="50%"}
+### The Technical Concept
+Transformer architectures process all tokens at once (**permutation invariant**). To retain word order, we add a unique mathematical signature vector to the token embedding using sine and cosine waves:
+
+::: formula-box
+$$PE_{(pos, 2i)} = \sin\left(\frac{pos}{10000^{2i/d_{\text{model}}}}\right)$$
+$$PE_{(pos, 2i+1)} = \cos\left(\frac{pos}{10000^{2i/d_{\text{model}}}}\right)$$
+$$\vec{x}_{\text{final}} = \vec{e}_{\text{token}} + \vec{PE}_{\text{position}}$$
+:::
+:::
+
+::: {.column width="50%"}
+### The Intuitive Analogy
+> If you put a sentence in a blender, the words get mixed up. To prevent this, we stamp a unique, mathematically patterned time-code on every word. By adding a subtle periodic wave signature to each word's coordinate, the model instantly knows its exact position in the sequence.
+:::
+
+:::
+
+## Group 1: Pre-training — 4. Self-Attention {auto-animate="true"}
+
+::: {.columns}
+
+::: {.column width="50%"}
+### The Technical Concept
+Tokens dynamically recalculate their representation based on their context using the Self-Attention formula:
+
+::: formula-box
+$$\text{Attention}(Q, K, V) = \text{softmax}\left(\frac{QK^T}{\sqrt{d_k}}\right)V$$
+:::
+
+- **Queries ($Q$)**: What a token is searching for.
+- **Keys ($K$)**: What other tokens offer.
+- **Values ($V$)**: The actual content extracted once matched.
+:::
+
+::: {.column width="50%"}
+### The Intuitive Analogy
+> Take the word **"bank"**. In *"the bank of the river"*, your brain highlights *"river"* to define bank.
+> In Self-Attention, every token acts as a **Query** searching all other tokens (**Keys**) for contextual clues. When it finds them, it pulls in their semantic **Value** to update its coordinate.
+
+::: highlight-band
+**Contextual Adaptation:**
+- Bank $\xrightarrow{Attention}$ River = Land bank (Nature)
+- Bank $\xrightarrow{Attention}$ Money = Financial bank (Finance)
+:::
+:::
+
+:::
+
+## Group 1: Pre-training — 5. Training Loop {auto-animate="true"}
+
+::: {.columns}
+
+::: {.column width="50%"}
+### The Technical Concept
+The model is trained autoregressively to predict the probability distribution of the next token $w_t$ given $w_{<t}$.
+- **Loss (Cross-Entropy)**: Compares prediction to the actual word.
+- **Backpropagation & Gradient Descent**:
+$$\theta \leftarrow \theta - \eta \nabla \mathcal{L}$$
+:::
+
+::: {.column width="50%"}
+### The Intuitive Analogy
+> Imagine an instrument with 100 billion dials. The model plays a game of **"Guess the Next Word"** trillions of times.
+> Every time it guesses wrong, a master conductor calculates how far off it was (**Loss**) and sends a correction wave backwards through the dials (**Backpropagation**), turning each dial a fraction of a millimeter to make it smarter.
+:::
+
+:::
+
+## Group 2: Fine-tuning — 1. Supervised SFT {auto-animate="true"}
+
+::: badge-c
+The Alignment Phase
+:::
+
+## Group 2: Fine-tuning — 1. Supervised SFT {auto-animate="true"}
+
+::: {.columns}
+
+::: {.column width="50%"}
+### The Technical Concept
+Raw pre-trained models only know how to complete text. We perform **Supervised Fine-Tuning (SFT)** using high-quality prompt-response pairs:
+
+::: formula-box
+$$\mathcal{L}_{\text{SFT}} = -\sum_{t \in \text{response}} \log P_\theta(w_t \mid w_{<t})$$
+:::
+
+This shifts the model's output probability distribution to follow instructions instead of generic web content.
+:::
+
+::: {.column width="50%"}
+### The Intuitive Analogy
+> An apprentice scholar knows every word ever written, but if you ask them a question, they might just start reciting a random poem.
+> Fine-tuning is sending them to **"Assistant School"** where they learn the format of human dialogue: when asked a question, provide a direct, helpful answer.
+
+::: card-c
+**Before SFT**: *"Explain gravity."* $\rightarrow$ *"...Gravity was discovered by Newton in 1687 when an apple fell..."*
+**After SFT**: *"Explain gravity."* $\rightarrow$ *"Gravity is a natural force that pulls objects toward each other..."*
+:::
+:::
+
+:::
+
+## Group 2: Fine-tuning — 2. Nudging Weights {auto-animate="true"}
+
+::: {.columns}
+
+::: {.column width="50%"}
+### The Technical Concept
+We gently shift the pre-trained weights $W_0$ without wiping out the core knowledge base (avoiding **Catastrophic Forgetting**).
+- **Microscopic Learning Rate ($\eta$)**: Gently nudges the weights.
+- **PEFT / LoRA (Low-Rank Adaptation)**: Freeze the base weights $W_0$ and only train small adapter matrices:
+$$W = W_0 + B \times A$$
+:::
+
+::: {.column width="50%"}
+### The Intuitive Analogy
+> If you want a classical pianist to play jazz, you don't rewire their entire brain or force them to forget how to read notes. You gently adjust their timing and chord patterns.
+> By training with a tiny learning rate or using small **adapters (LoRA)**, we tweak their style surgically while keeping the massive foundational library intact.
+:::
+
+:::
+
+## Group 3: RLHF — 1. The Reward Model {auto-animate="true"}
+
+::: badge-g
+Reinforcement Learning
+:::
+
+## Group 3: RLHF — 1. The Reward Model {auto-animate="true"}
+
+::: {.columns}
+
+::: {.column width="50%"}
+### The Technical Concept
+To capture subjective human preferences, we train a secondary **Reward Model (RM)** $r_\psi(x, y)$ that outputs a scalar value representing quality.
+Using pairwise comparisons ($y_w \succ y_l$), we optimize:
+
+::: formula-box
+$$\mathcal{L}_{\text{RM}} = -\mathbb{E}_{(x, y_w, y_l)} \left[ \log \sigma\left(r_\psi(x, y_w) - r_\psi(x, y_l)\right) \right]$$
+:::
+:::
+
+::: {.column width="50%"}
+### The Intuitive Analogy
+> Human taste is subjective. You can't write a mathematical formula for a "good response."
+> But if you show a human two answers, they can easily pick the better one.
+> We feed these human tournament matches to a secondary neural network to train a **digital judge** that scores responses from $-3.0$ (bad/toxic) to $+3.0$ (helpful/safe).
+:::
+
+:::
+
+## Group 3: RLHF — 2. PPO & Policy Tuning {auto-animate="true"}
+
+::: {.columns}
+
+::: {.column width="50%"}
+### The Technical Concept
+We update the model's policy $\pi_\theta$ using **PPO (Proximal Policy Optimization)** to maximize the reward model's score while applying a **KL-Divergence Penalty** to keep the model close to the original SFT reference model:
+
+::: formula-box
+$$\text{Objective}(\theta) = \mathbb{E} \left[ r_\psi(x, y) - \beta D_{\text{KL}}(\pi_\theta(y \mid x) \,\|\, \pi_{\text{ref}}(y \mid x)) \right]$$
+:::
+:::
+
+::: {.column width="50%"}
+### The Intuitive Analogy
+> If you reward a dog every time it sits, it might start acting erratic just to get treats. 
+> Without constraints, an AI will find "cheat" words to trick the Reward Model into giving it a perfect score.
+> We attach a mathematical **leash (KL-Divergence)** that penalizes the model if it drifts too far from its original, natural way of speaking.
+:::
+
+:::
+
 # ACT I {.act-section .act1 background-color="#0D0F1A"}
 
 ::: badge-v
