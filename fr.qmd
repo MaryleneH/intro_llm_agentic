@@ -1023,9 +1023,9 @@ while not done:
 ::: {.fragment .fade-up}
 **Outils typiques**
 
-- 🔍 **Recherche** — Web, Confluence, Email
+- 🔍 **Recherche** — Web, Intranet, Email
 - 💻 **Code** — Python sandbox, SQL, R
-- 📝 **Écriture** — GitLab, Notion, Email, Tchap
+- 📝 **Écriture** — GitLab, Wiki, Email, Tchap
 - 📊 **Analyse** — CSV, BI dashboards, métriques
 - 🌐 **APIs** — REST, GraphQL, webhooks
 :::
