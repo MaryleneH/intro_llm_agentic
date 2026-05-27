@@ -1025,9 +1025,9 @@ while not done:
 ::: {.fragment .fade-up}
 **Typical Tools**
 
-- 🔍 **Search** — Web, Confluence, Slack
+- 🔍 **Search** — Web, Confluence, Email
 - 💻 **Code** — Python sandbox, SQL, R
-- 📝 **Writing** — GitLab, Notion, email, Slack
+- 📝 **Writing** — GitLab, Notion, Email, Teams
 - 📊 **Analysis** — CSV, BI dashboards, metrics
 - 🌐 **APIs** — REST, GraphQL, webhooks
 :::
@@ -1069,7 +1069,7 @@ Advantage: the Planner reasons in **natural language**; the Executor operates in
 2. Calculate velocity (Python)
 3. Identify blockers (NLP)
 4. Write the summary (LLM)
-5. Send to Slack (webhook)
+5. Send via email (notification)
 :::
 :::
 
@@ -1259,7 +1259,7 @@ More time for **strategy, the user, and decision making**.
 - Feedback Agent (NLP/clustering)
 - Backlog Agent (GitLab)
 - Reporting Agent (analytics)
-- Communication Agent (Slack)
+- Communication Agent (Email)
 
 Each agent can be a different LLM, calibrated for its domain.
 :::
@@ -1279,7 +1279,7 @@ Each agent can be a different LLM, calibrated for its domain.
 
 **④ Review** — Human-in-the-loop: the PM validates, enriches, or rejects
 
-**⑤ Sync** — Ticket pushed to GitLab, Slack notification, roadmap updated
+**⑤ Sync** — Ticket pushed to GitLab, email notification, roadmap updated
 
 ::: {.fragment .fade-up}
 ::: highlight-band
