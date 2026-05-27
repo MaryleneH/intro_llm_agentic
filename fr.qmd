@@ -3,6 +3,7 @@ title: "LLMs & IA Agentique"
 subtitle: "Des Prompts aux Produits"
 title-slide-attributes:
   data-background-color: "#0D0F1A"
+include-after-body: assets/back-home-fr.html
 ---
 
 # LA CRÉATION D'UN LLM {.act-section .act-pre background-color="#0D0F1A"}

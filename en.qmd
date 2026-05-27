@@ -3,6 +3,7 @@ title: "LLMs & Agentic AI"
 subtitle: "From Prompts to Products"
 title-slide-attributes:
   data-background-color: "#0D0F1A"
+include-after-body: assets/back-home-en.html
 ---
 
 # THE MAKING OF AN LLM {.act-section .act-pre background-color="#0D0F1A"}

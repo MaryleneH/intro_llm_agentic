@@ -662,3 +662,49 @@ $border-radius: 12px;
 
 .k-assignee.c2 { background: var(--c); }
 .k-assignee.c3 { background: var(--g); }
+
+/* ─── Global Homepage Navigation Button ────────────────── */
+.global-home-nav {
+  position: fixed;
+  top: 1.5rem;
+  left: 2rem;
+  z-index: 99;
+  pointer-events: auto;
+}
+
+.global-home-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+  color: var(--muted);
+  text-decoration: none;
+  font-size: 0.8rem;
+  font-family: 'Inter', sans-serif;
+  font-weight: 600;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+  padding: 0.5em 1.2em;
+  border: 1px solid var(--glass-border);
+  border-radius: 20px;
+  background: var(--glass);
+  backdrop-filter: blur(5px);
+  transition: all 0.3s ease;
+  cursor: pointer;
+
+  &:hover {
+    color: var(--text);
+    border-color: rgba(255,255,255,0.3);
+    background: rgba(255,255,255,0.05);
+    transform: translateY(-1px);
+    box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+  }
+
+  &:active {
+    transform: translateY(0);
+  }
+
+  &:focus-visible {
+    outline: 2px solid var(--v);
+    outline-offset: 2px;
+  }
+}
