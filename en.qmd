@@ -34,12 +34,19 @@ $$\text{Tokenizer}(S) = [t_1, t_2, \ldots, t_N] \quad \text{where } t_i \in \mat
 > Think of this as cutting a massive text into standard-sized Lego bricks. If you have a brick for every single word, your box is too huge. If you only have letters, it takes too long to build. Tokens are the optimal medium-sized bricks, where each brick gets a unique **integer ID** (like a barcode).
 
 ::: card-v
-**Example Mapping:**
-`"Understanding LLMs is fantastic!"`
-$\downarrow$
-`["Under", "standing", " LL", "Ms", " is", " fantastic", "!"]`
-$\downarrow$
-`[12405, 4321, 298, 1543, 310, 8912, 102]`
+<div style="text-align: center;">
+<p style="font-weight: 700; margin-bottom: 0.8rem; font-size: 0.95rem;">Example Mapping</p>
+
+<div style="background: rgba(139,92,246,0.10); border: 1px solid rgba(139,92,246,0.25); border-radius: 8px; padding: 0.5rem 0.8rem; margin-bottom: 0.4rem; font-family: 'Fira Code', monospace; font-size: 0.72rem; color: #e2e8f0;">"Understanding LLMs is fantastic!"</div>
+
+<div style="font-size: 1.2rem; color: #8B5CF6; margin: 0.2rem 0;">⬇</div>
+
+<div style="background: rgba(99,102,241,0.10); border: 1px solid rgba(99,102,241,0.25); border-radius: 8px; padding: 0.5rem 0.8rem; margin-bottom: 0.4rem; font-family: 'Fira Code', monospace; font-size: 0.65rem; color: #c7d2fe;">"Under" · "standing" · " LL" · "Ms" · " is" · " fantastic" · "!"</div>
+
+<div style="font-size: 1.2rem; color: #06B6D4; margin: 0.2rem 0;">⬇</div>
+
+<div style="background: rgba(6,182,212,0.10); border: 1px solid rgba(6,182,212,0.25); border-radius: 8px; padding: 0.5rem 0.8rem; font-family: 'Fira Code', monospace; font-size: 0.72rem; color: #a5f3fc;">12405 · 4321 · 298 · 1543 · 310 · 8912 · 102</div>
+</div>
 :::
 :::
 

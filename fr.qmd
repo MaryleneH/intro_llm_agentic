@@ -34,12 +34,19 @@ $$\text{Tokenizer}(S) = [t_1, t_2, \ldots, t_N] \quad \text{où } t_i \in \mathc
 > C'est l'équivalent de découper un texte en pièces de Lego. Si vous avez une brique pour chaque mot de la langue, votre boîte est immense. Si vous n'avez que des lettres, la construction est trop longue. Les tokens sont les briques intermédiaires idéales, où chaque pièce reçoit un **identifiant numérique (ID)** unique.
 
 ::: card-v
-**Exemple de découpage :**
-`"Comprendre les LLM est fascinant !"`
-$\downarrow$
-`["Com", "prendre", " les", " LL", "M", " est", " fascin", "ant", " !"]`
-$\downarrow$
-`[8740, 1243, 104, 298, 1021, 310, 5420, 124, 103]`
+<div style="text-align: center;">
+<p style="font-weight: 700; margin-bottom: 0.8rem; font-size: 0.95rem;">Exemple de découpage</p>
+
+<div style="background: rgba(139,92,246,0.10); border: 1px solid rgba(139,92,246,0.25); border-radius: 8px; padding: 0.5rem 0.8rem; margin-bottom: 0.4rem; font-family: 'Fira Code', monospace; font-size: 0.72rem; color: #e2e8f0;">"Comprendre les LLM est fascinant !"</div>
+
+<div style="font-size: 1.2rem; color: #8B5CF6; margin: 0.2rem 0;">⬇</div>
+
+<div style="background: rgba(99,102,241,0.10); border: 1px solid rgba(99,102,241,0.25); border-radius: 8px; padding: 0.5rem 0.8rem; margin-bottom: 0.4rem; font-family: 'Fira Code', monospace; font-size: 0.62rem; color: #c7d2fe;">"Com" · "prendre" · " les" · " LL" · "M" · " est" · " fascin" · "ant" · " !"</div>
+
+<div style="font-size: 1.2rem; color: #06B6D4; margin: 0.2rem 0;">⬇</div>
+
+<div style="background: rgba(6,182,212,0.10); border: 1px solid rgba(6,182,212,0.25); border-radius: 8px; padding: 0.5rem 0.8rem; font-family: 'Fira Code', monospace; font-size: 0.72rem; color: #a5f3fc;">8740 · 1243 · 104 · 298 · 1021 · 310 · 5420 · 124 · 103</div>
+</div>
 :::
 :::
 
