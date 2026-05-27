@@ -303,40 +303,42 @@ $$\theta \leftarrow \theta - \eta \nabla \mathcal{L}$$
 
 ## Group 1: Pre-training — Visual Schema: Autoregressive Training Loop {auto-animate="true"}
 
-<div style="height: 2.5rem;"></div>
+<div style="height: 2rem;"></div>
 
-::: {.arch-flow}
+::: {.columns}
 
-::: {.arch-node}
-<h4>📥 1. Context Input</h4>
-`"Artificial intelligence is"`
+::: {.column width="58%"}
+<div style="background: rgba(255,255,255,0.02); border: 1px solid rgba(255,255,255,0.08); border-radius: 14px; padding: 1rem; text-align: center;">
+<p style="font-family: 'Outfit', sans-serif; font-size: 1.1rem; font-weight: 600; color: #A5B4FC; margin-bottom: 0.8rem; letter-spacing: 0.03em;">Prediction → Loss → Backpropagation Pipeline</p>
+
+![](assets/autoregressive_loop_en.png){width="100%"}
+
+</div>
 :::
 
-::: {.arch-arrow}
-➔
+::: {.column width="42%"}
+<div style="height: 0.5rem;"></div>
+
+::: card-v
+**The Learning Cycle**
+
+The model predicts the next token, measures its error (**Loss**), then backpropagates a corrective gradient through its $100$ billion parameters $\theta$.
 :::
 
-::: {.arch-node .core}
-<h4>🧠 2. Parameter Dials ($\theta$)</h4>
-Calculates probabilities for the next token.
+<div style="height: 0.6rem;"></div>
+
+::: highlight-band
+**Backpropagation** — The error wave travels backwards through every layer, nudging each parameter by a fraction: $\theta \leftarrow \theta - \eta \nabla \mathcal{L}$
 :::
 
-::: {.arch-arrow}
-➔
-:::
+<div style="height: 0.6rem;"></div>
 
-::: {.arch-node}
-<h4>🔮 3. Prediction ($82\%$ changing)</h4>
-Compares to actual next word $\rightarrow$ **Loss**
+::: card-g
+**Repeated trillions of times** — This cycle runs over the entire Internet corpus, compressing world knowledge into the model's weights.
+:::
 :::
 
 :::
-
-<div style="height: 1.5rem;"></div>
-
-```
-[◀◀◀◀◀◀◀◀ BACKPROPAGATION: Error Gradient updates all 100B parameters (θ) ◀◀◀◀◀◀◀◀]
-```
 
 ## Group 2: Fine-tuning {auto-animate="true"}
 
