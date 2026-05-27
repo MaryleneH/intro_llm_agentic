@@ -271,6 +271,7 @@ $$\text{Attention}(Q, K, V) = \text{softmax}\left(\frac{QK^T}{\sqrt{d_k}}\right)
 ::: {.column width="50%"}
 ::: card-v
 **Attention Weights Explained:**
+
 - The row **bank** actively "attends" to **river** with a high score of `0.82`.
 - This calculation dynamically shifts the semantic embedding coordinate of *bank* away from *financial* and towards *nature* during processing.
 - Multi-head attention runs this calculation in parallel across $h$ different context filters.

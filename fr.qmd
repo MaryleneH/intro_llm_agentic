@@ -270,6 +270,7 @@ $$\text{Attention}(Q, K, V) = \text{softmax}\left(\frac{QK^T}{\sqrt{d_k}}\right)
 ::: {.column width="50%"}
 ::: card-v
 **Décryptage des scores :**
+
 - Le mot **vol** lie son attention à **avion** avec un score de `0.82`.
 - Ce calcul modifie dynamiquement la coordonnée de *vol* vers le concept de *transport* lors du traitement de la phrase.
 - L'attention multi-têtes effectue ce calcul en parallèle sur $h$ filtres contextuels.
