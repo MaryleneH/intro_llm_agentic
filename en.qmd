@@ -340,7 +340,7 @@ The model predicts the next token, measures its error (**Loss**), then backpropa
 
 :::
 
-## Group 2: Fine-tuning {auto-animate="true"}
+## Group 2: Fine-tuning {auto-animate="true" .center}
 
 ::: badge-c
 The Alignment Phase

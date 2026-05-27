@@ -339,7 +339,7 @@ Le modèle prédit le mot suivant, mesure son erreur (**Perte**), puis rétropro
 
 :::
 
-## Groupe 2 : Fine-tuning {auto-animate="true"}
+## Groupe 2 : Fine-tuning {auto-animate="true" .center}
 
 ::: badge-c
 La Phase d'Alignement
